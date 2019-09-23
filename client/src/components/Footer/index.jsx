@@ -1,10 +1,10 @@
 import react from "react";
 import './index.css';
 
-const Navbar = () => {
+const Footer = () => {
     return (
 
     )
 };
 
-export default Navbar;
+export default Footer;

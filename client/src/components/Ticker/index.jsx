@@ -1,10 +1,10 @@
 import react from "react";
 import './index.css';
 
-const Navbar = () => {
+const Ticker = () => {
     return (
 
     )
 };
 
-export default Navbar;
+export default Ticker;
