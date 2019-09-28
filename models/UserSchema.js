@@ -6,7 +6,8 @@ var UserSchema = new Schema({
   first_name: {type: String, required: true, trim: true},
   last_name: {type: String, required: true, trim: true},
   email:{type: String, required: false, trim: true},
-  google_id:{type:String, unique: true}
+  google_id:{type:String, unique: true},
+  Order:  [{ type: Schema.Types.ObjectId, ref: "Order"}]
 
 });
 
