@@ -7,7 +7,7 @@ var OrderSchema = new Schema({
     perStockAmount : {type: Number,required: true},
     totalAmountInvest:{type: Number,required: true,default:0},
     totalAmountEarn:{type: Number,required: true,default:0},
-    User:{ type: Schema.Types.ObjectId, ref: "User"},
+    // User:{ type: Schema.Types.ObjectId, ref: "User"},
     // Order:  [{ type: Schema.Types.ObjectId, ref: "Order"}]
 });
 
