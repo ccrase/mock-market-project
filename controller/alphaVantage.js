@@ -76,4 +76,4 @@ module.exports = alphaVantage = {
     },
 }
 
-alphaVantage.search('apple');
+alphaVantage.now('.INX');
