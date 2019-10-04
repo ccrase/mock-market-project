@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-const path = require("path")
-const mongoose = require("mongoose")
+const apiRoutes = require('./routes');
+const path = require("path");
+const mongoose = require("mongoose");
 const port = process.env.PORT || 5000;
 
 // init DB
@@ -19,7 +20,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // -- API Routes 
-apiRoutes(db, app)
+apiRoutes(app)
 
 // -- Catch All Route
 app.get('/*', function (req, res) {
