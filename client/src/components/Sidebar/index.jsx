@@ -1,10 +1,10 @@
 import React from "react";
 import './index.css';
 
-const Search = () => {
+const Sidebar = () => {
     return (
-
+        <div></div>
     )
 };
 
-export default Search;
+export default Sidebar;

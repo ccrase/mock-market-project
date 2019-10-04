@@ -75,5 +75,3 @@ module.exports = alphaVantage = {
         .catch(err=>console.log(err))
     },
 }
-
-alphaVantage.now('.INX');
