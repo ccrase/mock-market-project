@@ -1,6 +1,6 @@
 //const db = require('../controller/db')
-const alpha = require('../controller/alphaVantage')
-const iex = require('../controller/iex')
+const alpha = require('../../controller/alphaVantage')
+const iex = require('../../controller/iex')
 
 module.exports = homeRoutes = (app) => {
     app.get('/api/graph', (req, res) => {
@@ -18,3 +18,8 @@ module.exports = homeRoutes = (app) => {
         });
     })
 }
+
+const symbolList = ['AAPL', 'MSFT', 'GOOG', 'AMZN', 'FB']
+iex.many(symbolList, data => {
+    console.log(data)
+});
