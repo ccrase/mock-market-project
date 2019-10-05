@@ -7,9 +7,7 @@ function App() {
   return(
 
     <div>
-      <Sidebar />
 
-      <Footer />
     </div>
 
   );
