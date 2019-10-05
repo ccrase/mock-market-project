@@ -1,4 +1,6 @@
 module.exports = {
-    Order: require("./Orderschema"),
-    User: require("./UserSchema")
+  Order: require("./OrderSchema"), 
+  User: require("./UserSchema")     
   };
+
+  
