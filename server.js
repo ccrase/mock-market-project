@@ -9,12 +9,13 @@ const port = process.env.PORT || 5000;
 
 
 const authRoutes = require('./routes/auth/auth');
-const portfolioRoutes = require('./routes/auth/portfolio');
+const portfolioRoutes = require('./routes/portfolio');
 const passportSetup = require('./config/passport-setup');
 
 //set up view engine
 app.set('view engine', 'ejs')
 
+//this encrypts the cookie
 app.use(cookieSession({
   //age is 1 day in milliseconds
   maxAge: 24*60*60*1000,
@@ -42,7 +43,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true ,useUnifiedTopology: true}
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.render('home');
+  res.render('home', {user: req.user});
 });
 
 // // Serve static files from the React app

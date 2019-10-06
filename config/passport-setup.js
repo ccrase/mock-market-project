@@ -3,6 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20');
 const keys = require('./keys')
 const User = require('../models/UserSchema')
 
+//we will attach the user id to a cookie
 passport.serializeUser((user, done) => {
     done(null, user.id)
 })
@@ -24,6 +25,7 @@ passport.use(
         //profile is bringing back the information in exchange for the code given to google
         //done is called when we are done with this callback function
     }, (accessToken, refreshToken, profile, done) => {
+        console.log(profile)
         //check if user already exists in our db
         User.findOne({ google_id: profile.id }).then((CurrentUser) => {
             if (CurrentUser) {
@@ -36,7 +38,8 @@ passport.use(
                     username: profile.displayName,
                     first_name: profile.name.givenName,
                     last_name: profile.name.familyName,
-                    google_id: profile.id
+                    google_id: profile.id,
+                    thumbnail:profile._json.picture
                 }).save().then((newUser) => {
                     console.log('new user created' + newUser);
                     done(null, newUser);
