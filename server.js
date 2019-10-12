@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require("cors");
 const app = express();
 const path = require("path")
 const mongoose = require("mongoose")
@@ -14,6 +15,14 @@ const passportSetup = require('./config/passport-setup');
 
 //set up view engine
 app.set('view engine', 'ejs')
+
+
+//DONT KNOW IF THIS IS RIGHT!!!!
+// app.use(cors({
+//   origin: "http://localhost:3000",
+//   methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+//   credentials: true
+// }));
 
 //this encrypts the cookie
 app.use(cookieSession({
