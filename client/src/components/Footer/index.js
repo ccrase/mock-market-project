@@ -3,7 +3,9 @@ import './index.css';
 
 const Footer = () => {
     return (
-    console.log()
+        <div>
+            copyright
+        </div>
     )
 };
 
