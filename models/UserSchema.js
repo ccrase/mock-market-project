@@ -7,6 +7,7 @@ var UserSchema = new Schema({
   last_name: {type: String, required: true, trim: true},
   email:{type: String, required: false, trim: true},
   google_id:{type:String, unique: true},
+  thumbnail: String,
   Order:  [{ type: Schema.Types.ObjectId, ref: "Order"}]
 });
 
@@ -16,3 +17,4 @@ console.log(User);
 
 module.exports = User;
 
+ 
