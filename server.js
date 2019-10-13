@@ -8,8 +8,6 @@ const cookieSession = require('cookie-session')
 const passport = require('passport');
 const port = process.env.PORT || 5000;
 const homeRoutes = require('./routes/api/home')
-
-
 const authRoutes = require('./routes/auth/auth');
 const portfolioRoutes = require('./routes/portfolio');
 const passportSetup = require('./config/passport-setup');
