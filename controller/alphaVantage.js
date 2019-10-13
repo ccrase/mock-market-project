@@ -39,20 +39,20 @@ module.exports = alphaVantage = {
         .catch(err=>console.log(err))
     },
 
-    hour: (ticker) => {
+    hour: (ticker, cb) => {
         axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=60min&apikey=`+ apikey)
         .then(json=>{
-            console.log(json.data);
-            return json.data
+            console.log(`Got ${ticker}`)
+            cb(json.data)
         })
         .catch(err=>console.log(err))
     },
 
-    day: (ticker) => {
+    day: (ticker, cb) => {
         axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=`+ apikey)
         .then(json=>{
             console.log(json.data);
-            return json.data
+            cb(json.data)
         })
         .catch(err=>console.log(err))
     },

@@ -1,0 +1,10 @@
+div.gains {
+    color: green;
+    opacity: 0.8;
+    font-weight: 600;
+}
+div.losers {
+    color: red;
+    opacity: 0.8;
+    font-weight: 400;
+}

@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-
+const homeRoutes = require('./routes/api/home')
 const mongoose = require("mongoose");
 const routes = require("./routes/index");
 const app = express();
@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === "production") {
 
 // Use apiRoutes
  app.use(routes);
+ homeRoutes(app)
 //app.use("/api", apiRoutes);
 
 // Send every request to the React app
