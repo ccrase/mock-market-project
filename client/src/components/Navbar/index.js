@@ -6,7 +6,7 @@ import './index.css';
 const Navbar = () => {
     return (
       <h1 className="greeting">
-      Hello, world!
+        Trader Trainer
      </h1>
     )
 };

@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "production") {
 
 // Use apiRoutes
  app.use(routes);
-//app.use("/api", apiRoutes);
+app.use("/api", apiRoutes);
 
 // Send every request to the React app
 // Define any API routes before this runs
