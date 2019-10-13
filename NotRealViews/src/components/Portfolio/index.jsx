@@ -1,11 +1,9 @@
-import React from "react";
+import react from "react";
 import './index.css';
 
 const Portfolio = () => {
     return (
-        <div>
-            PORTFOLIO
-        </div>
+
     )
 };
 
