@@ -7,8 +7,7 @@ const keys = require('./config/keys')
 const cookieSession = require('cookie-session')
 const passport = require('passport');
 const port = process.env.PORT || 5000;
-
-
+const homeRoutes = require('./routes/api/home')
 const authRoutes = require('./routes/auth/auth');
 const portfolioRoutes = require('./routes/portfolio');
 const passportSetup = require('./config/passport-setup');
@@ -76,7 +75,8 @@ if (process.env.NODE_ENV === "production") {
 
 // Use apiRoutes
  app.use(routes);
-app.use("/api", apiRoutes);
+ homeRoutes(app)
+//app.use("/api", apiRoutes);
 
 // Send every request to the React app
 // Define any API routes before this runs

@@ -1,9 +1,9 @@
 import React from "react";
 import './index.css';
 
-const Footer = () => {
-    return (
-
+const Footer = (props) => {
+    return (<div>
+        </div>
     )
 };
 

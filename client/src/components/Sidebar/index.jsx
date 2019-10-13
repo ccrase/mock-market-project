@@ -1,7 +1,7 @@
 import React from "react";
 import './index.css';
 
-const Footer = () => {
+const Sidebar = () => {
     return (
         <div>
             copyright
@@ -9,4 +9,4 @@ const Footer = () => {
     )
 };
 
-export default Footer;
+export default Sidebar;
