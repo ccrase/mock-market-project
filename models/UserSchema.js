@@ -9,12 +9,11 @@ var UserSchema = new Schema({
   google_id:{type:String, unique: true},
   thumbnail: String,
   Order:  [{ type: Schema.Types.ObjectId, ref: "Order"}]
-
 });
 
 
 var User = mongoose.model("User", UserSchema);
-
+console.log(User);
 
 module.exports = User;
 

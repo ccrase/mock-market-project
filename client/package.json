@@ -2,10 +2,16 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
   "proxy": "http://localhost:5000/",
+=======
+  "proxy": "http://localhost:3001/",
+>>>>>>> 19d1b946b8e37ae59de26c7c19a324385cb253ce
   "dependencies": {
+    "axios": "^0.19.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.1.2"
   },
   "scripts": {

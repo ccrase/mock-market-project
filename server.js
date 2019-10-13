@@ -46,9 +46,13 @@ require('dotenv').config()
 // var db = require("./models");
 var MONGODB_URI = keys.MONGODB_URI.URL;
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true ,useUnifiedTopology: true})
-.then(()=>console.log("DB connected"));
+const mongoose = require("mongoose");
+const routes = require("./routes/index");
+const app = express();
+const PORT = process.env.PORT || 3001;
 
+// Define middleware here
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -65,8 +69,29 @@ app.get('/', (req, res) => {
 // app.get('/*', function (req, res) {
 //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 // });
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
+// Use apiRoutes
+ app.use(routes);
+app.use("/api", apiRoutes);
 
-// console.log that server is up and running
-app.listen(port, () => console.log(`Listening on  http://localhost:${port}/`));
+// Send every request to the React app
+// Define any API routes before this runs
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
+// Connect to the Mongo DB
+mongoose.connect("mongodb://localhost/reactstocksmarket", { useNewUrlParser: true });
+
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/reactstocklist";
+// mongoose.connect(MONGODB_URI, {
+//     useNewUrlParser: true
+// });
+
+app.listen(PORT, function() {
+  console.log(`🌎 ==> API server now on port ${PORT}!`);
+});
