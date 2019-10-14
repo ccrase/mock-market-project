@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import StockSave from "./pages/stocks/index";
-import Homepage from './components/Homepage';
+import Homepage from './components/Homepage/index';
 import Research from "./pages/research/Research"
 
 
