@@ -14,7 +14,7 @@ const authCheck = (req, res, next) => {
 
 router.get('/', (req, res) =>{
     console.log(req);
-    res.render('/', { user: req.user })
+    res.render('home', { user: req.user })
 });
 
 module.exports = router;

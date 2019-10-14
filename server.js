@@ -1,12 +1,13 @@
 const express = require('express');
-const cors = require("cors");
+// const cors = require("cors");
 const app = express();
 const path = require("path")
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const passport = require('passport');
+const PORT = process.env.PORT || 3001;
 const keys = require('./config/keys')
 const cookieSession = require('cookie-session')
-const passport = require('passport');
-const port = process.env.PORT || 5000;
+const routes = require("./routes/index");
 const homeRoutes = require('./routes/api/home')
 const authRoutes = require('./routes/auth/auth');
 const portfolioRoutes = require('./routes/portfolio');
@@ -38,6 +39,10 @@ app.use(passport.session());
 //we want to use some routes/middleware
 app.use('/auth',authRoutes);
 app.use('/portfolio',portfolioRoutes);
+// Use apiRoutes
+app.use(routes);
+homeRoutes(app)
+//app.use("/api", apiRoutes);
 
 // init DB
 require('dotenv').config()
@@ -45,10 +50,6 @@ require('dotenv').config()
 // var db = require("./models");
 var MONGODB_URI = keys.MONGODB_URI.URL;
 
-const mongoose = require("mongoose");
-const routes = require("./routes/index");
-const app = express();
-const PORT = process.env.PORT || 3001;
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -61,8 +62,6 @@ app.get('/', (req, res) => {
 // // Serve static files from the React app
 // app.use(express.static(path.join(__dirname, 'client/build')));
 
-// // -- API Routes 
-// apiRoutes(db, app)
 
 // // -- Catch All Route
 // app.get('/*', function (req, res) {
@@ -73,10 +72,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Use apiRoutes
- app.use(routes);
- homeRoutes(app)
-//app.use("/api", apiRoutes);
 
 // Send every request to the React app
 // Define any API routes before this runs
