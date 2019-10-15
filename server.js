@@ -6,15 +6,21 @@ const mongoose = require("mongoose")
 const keys = require('./config/keys')
 const cookieSession = require('cookie-session')
 const passport = require('passport');
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
+const routes = require("./routes/index");
 const homeRoutes = require('./routes/api/home')
 const authRoutes = require('./routes/auth/auth');
 const portfolioRoutes = require('./routes/portfolio');
 const passportSetup = require('./config/passport-setup');
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mockmarket";
+
+mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true
+});
+
 //set up view engine
 app.set('view engine', 'ejs')
-
 
 //DONT KNOW IF THIS IS RIGHT!!!!
 // app.use(cors({
@@ -38,17 +44,13 @@ app.use(passport.session());
 //we want to use some routes/middleware
 app.use('/auth',authRoutes);
 app.use('/portfolio',portfolioRoutes);
+// Use apiRoutes
+app.use(routes);
+homeRoutes(app)
 
 // init DB
 require('dotenv').config()
 
-// var db = require("./models");
-var MONGODB_URI = keys.MONGODB_URI.URL;
-
-const mongoose = require("mongoose");
-const routes = require("./routes/index");
-const app = express();
-const PORT = process.env.PORT || 3001;
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -61,9 +63,6 @@ app.get('/', (req, res) => {
 // // Serve static files from the React app
 // app.use(express.static(path.join(__dirname, 'client/build')));
 
-// // -- API Routes 
-// apiRoutes(db, app)
-
 // // -- Catch All Route
 // app.get('/*', function (req, res) {
 //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
@@ -72,25 +71,11 @@ app.get('/', (req, res) => {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-
-// Use apiRoutes
- app.use(routes);
- homeRoutes(app)
-//app.use("/api", apiRoutes);
-
 // Send every request to the React app
 // Define any API routes before this runs
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
-
-// Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/reactstocksmarket", { useNewUrlParser: true });
-
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/reactstocklist";
-// mongoose.connect(MONGODB_URI, {
-//     useNewUrlParser: true
-// });
 
 app.listen(PORT, function() {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
