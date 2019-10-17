@@ -47,7 +47,7 @@ export default function Graph() {
                 ]
             }
         });
-    }, [stockData])
+    }, [chartRef, stockData])
 
 
 

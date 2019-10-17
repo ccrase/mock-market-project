@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../../components/Navbar/index";
 // import API from "../../utils/API";
 import Footer from "../../components/Footer/index";
 import axios from "axios";
@@ -103,7 +102,6 @@ export default class StockResearch extends React.Component {
 render() {
     return(
         <div>
-            <Navbar />
                     <div><a href={this.state.website}><img src={this.state.image} alt="company logo"></img></a></div>
                     <ul>
                         <li>{this.state.companyName}</li>

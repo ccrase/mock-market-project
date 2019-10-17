@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBCardGroup, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBContainer, MDBJumbotron } from "mdbreact";
+import { MDBCardGroup, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBJumbotron } from "mdbreact";
 
 const Howto = (props) => {
     const stuff = [1, 2, 3, 4]

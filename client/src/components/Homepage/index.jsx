@@ -10,15 +10,17 @@ function Homepage() {
   return(
 
     <div>
-    <div className="homepage-top-accent"> </div>
     <MDBContainer fluid>
       <MDBRow>
-        <MDBCol size={8}>
+        <MDBCol size={1}>
+          <MDBContainer />
+        </MDBCol>
+        <MDBCol md={8}>
             <Hero/>
             <Graph/>
             <Howto/>
         </MDBCol>
-        <MDBCol size={4}><ScrollingStocks /></MDBCol>
+        <MDBCol md={3}><ScrollingStocks /></MDBCol>
       </MDBRow>
     </MDBContainer>
       
