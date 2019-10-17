@@ -1,7 +1,13 @@
 // src/components/Profile.js
 
-import React, { Fragment } from "react";
+import React, { Component } from "react";
 import { useAuth0 } from '../../react-auth0-wrapper';
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+
+import SearchBar from '../SearchBar';
+import AccountSummary from '../AccountSummary';
+import Orders from '../UserOrders';
+import Watchlist from '../Watchlist';
 
 const Portfolio = () => {
   const { loading, user } = useAuth0();
@@ -13,13 +19,27 @@ const Portfolio = () => {
   }
 
   return (
-    <Fragment>
-      <img src={user.picture} alt="Profile" />
+    <MDBContainer fluid>
+      <MDBRow>
+        <MDBCol size="4">
+          <SearchBar/>
+        </MDBCol>
+        <MDBCol size="8">
+          <AccountSummary/>
+        </MDBCol>
+      </MDBRow>
 
-      <h2>{user.name}</h2>
-      <p>{user.email}</p>
+      <MDBRow>
+        <MDBCol size="4">
+          <Watchlist/>
+        </MDBCol>
+        <MDBCol size="8">
+          <Orders/>
+        </MDBCol>
+      </MDBRow>
+
       <code>{JSON.stringify(user, null, 2)}</code>
-    </Fragment>
+      </MDBContainer>
   );
 };
 

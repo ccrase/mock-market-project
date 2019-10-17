@@ -3,7 +3,7 @@ import './index.css';
 
 const Ticker = () => {
     return(
-        <div className="card" style={{"width": "450px"}}>
+        <div className="card">
             <div className="card-body">
                 <div className="row">
                     <div className="col">
