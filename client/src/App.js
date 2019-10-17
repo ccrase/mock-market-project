@@ -8,10 +8,12 @@ import Sidebar from './components/globalComponents/Sidebar'
 
 
 function App() {
+  let user = {username: "username", percent: 5, tickers: ["AAPL, GOOG, MSFT, AMZN"], }
+
   return (
     <Router>
       <div className="homepage-top-accent"> </div>
-      <Sidebar link={Link}/>
+      <Sidebar link={Link} user={user}/>
       <div>
         <Switch>
           <Route exact path="/trade" component={StockSave} />
