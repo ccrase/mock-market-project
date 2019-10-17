@@ -3,6 +3,7 @@
 //logged in. 
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
+import axios from "axios";
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
@@ -37,7 +38,17 @@ export const Auth0Provider = ({
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
         setUser(user);
-      }
+        console.log(user);
+
+        //Make DB call HERE I'm thinking. 
+        axios.post('/api/user', user)
+        .then(function(response){
+          console.log(response);
+        })
+        .catch(function(err){
+          console.log(err);
+        })
+      };
 
       setLoading(false);
     };
@@ -57,6 +68,17 @@ export const Auth0Provider = ({
     const user = await auth0Client.getUser();
     setUser(user);
     setIsAuthenticated(true);
+    //Make DB call HERE I'm thinking. 
+    axios.post('/api/user', {
+      user: user
+    })
+    .then(function(response){
+      console.log(response);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+  
   };
 
   const handleRedirectCallback = async () => {

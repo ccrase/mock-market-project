@@ -1,7 +1,7 @@
 // src/components/Profile.js
 
 import React, { Fragment } from "react";
-import { useAuth0 } from "../../react-auth0-wrapper";
+import { useAuth0 } from '../../react-auth0-wrapper';
 
 const Portfolio = () => {
   const { loading, user } = useAuth0();
