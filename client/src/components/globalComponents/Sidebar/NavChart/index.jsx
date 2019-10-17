@@ -9,13 +9,13 @@ const NavChart = (props) => {
   const navChartRef = React.createRef();
   useEffect(() => {
 
-    let getData = async () => {
-      let res = await fetch('/api/graph')
-      let data = await res.json()
-      setStockData(await data)
-      console.log(await data)
-    }
-    getData()
+    // let getData = async () => {
+    //   let res = await fetch('/api/graph')
+    //   let data = await res.json()
+    //   setStockData(await data)
+    //   console.log(await data)
+    // }
+    // getData()
 
     const myNavChartRef = navChartRef.current.getContext("2d");
 
