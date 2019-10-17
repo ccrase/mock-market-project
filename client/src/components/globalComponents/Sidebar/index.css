@@ -1,3 +1,8 @@
 body {
     overflow: hidden;
   }
+
+.dynamic-MDBBtn {
+    position: static;
+    border-radius: 1000px;
+}

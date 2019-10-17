@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Drawer from 'react-motion-drawer';
-import {MDBBtn} from 'mdbreact'
+import { MDBBtn } from 'mdbreact'
 import './index.css'
 
 const Sidebar = (props) => {
@@ -9,14 +9,14 @@ const Sidebar = (props) => {
 
 
   return (<div className="sidebar">
-    <MDBBtn></MDBBtn>
-    <Drawer open={isOpen}>
-    <ul>
-      <li><i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} /></li>
-      <li><i className="fas fa-exchange-alt" style={{ fontSize: '1.75em' }} /></li>
-      <li><i className="fas fa-chart-bar" style={{ fontSize: '1.75em' }} /></li>
-    </ul>
-  </Drawer>
+    {!isOpen ? <MDBBtn className="dynamic-MDBBtn" onClick={() => { setIsOpen(!isOpen) }}>Username 02%</MDBBtn> : null}
+    <Drawer open={isOpen} onChange={()=>{if(isOpen)setIsOpen(false);}}>
+      <ul>
+        <li><i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} /></li>
+        <li><i className="fas fa-exchange-alt" style={{ fontSize: '1.75em' }} /></li>
+        <li><i className="fas fa-chart-bar" style={{ fontSize: '1.75em' }} /></li>
+      </ul>
+    </Drawer>
   </div>)
 }
 
