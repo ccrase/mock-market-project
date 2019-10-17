@@ -37,8 +37,8 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
-        setUser(user);
-        console.log(user);
+        // setUser(user);
+        // console.log(user);
 
         //Make DB call HERE I'm thinking. 
         axios.post('/api/user', user)
@@ -67,14 +67,16 @@ export const Auth0Provider = ({
       setPopupOpen(false);
     }
     const user = await auth0Client.getUser();
-    setUser(user);
-    setIsAuthenticated(true);
+    // setUser(user);
+    // setIsAuthenticated(true);
     //Make DB call HERE I'm thinking. 
     axios.post('/api/user', {
       user: user
     })
     .then(function(response){
       console.log(response);
+      setUser(response.data);
+      setIsAuthenticated(true);
     })
     .catch(function(err){
       console.log(err);
@@ -86,9 +88,21 @@ export const Auth0Provider = ({
     setLoading(true);
     await auth0Client.handleRedirectCallback();
     const user = await auth0Client.getUser();
-    setLoading(false);
-    setIsAuthenticated(true);
-    setUser(user);
+    // setLoading(false);
+    // setIsAuthenticated(true);
+    // setUser(user);
+
+    axios.post('/api/user', user)
+    .then(function(response){
+      console.log(response);
+      setUser(response.data);
+      setLoading(false);
+      setIsAuthenticated(true);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+
   };
   return (
     <Auth0Context.Provider
