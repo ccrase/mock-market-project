@@ -1,10 +1,10 @@
 //this allows us to create an instace of a router which we can attach routes to in the file - then we export and use these in the server.js
-const router = require('express').Router();
-const userController = require("../../controller/userController");
+// const router = require('express').Router();
+// const userController = require("../../controller/userController");
 
 //Matches with "/auth/user"
-router.route("/user")
-  .post(userController.create);
+// router.route("/user")
+//   .post(userController.create);
 // const passport = require('passport');
 
 // //auth login
@@ -33,4 +33,4 @@ router.route("/user")
 //     res.redirect('/portfolio');
 // });
 
-module.exports = router;
+// module.exports = router;

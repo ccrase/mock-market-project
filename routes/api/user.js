@@ -4,7 +4,7 @@ const userController = require("../../controller/userController");
 
 //Matches with "/api/stocks"
 router.route("/user")
-  .post(userController.create);
+  .post(userController.findOrCreate);
   
 
 // router.route("/load")  

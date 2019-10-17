@@ -44,6 +44,7 @@ export const Auth0Provider = ({
         axios.post('/api/user', user)
         .then(function(response){
           console.log(response);
+          setUser(response.data);
         })
         .catch(function(err){
           console.log(err);

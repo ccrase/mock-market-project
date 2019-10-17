@@ -47,6 +47,10 @@ app.use(bodyParser.json());
 // app.use(passport.initialize());
 // app.use(passport.session());
 
+// Define middleware here
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //set up routes
 //we want to use some routes/middleware
 // app.use('/auth',authRoutes);
@@ -59,9 +63,7 @@ homeRoutes(app)
 
 
 
-// Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
 
 
 // // Serve static files from the React app
