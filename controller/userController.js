@@ -28,11 +28,11 @@ module.exports = {
     })
   },
   addFavorite: function(req, res){
-    console.log("inside userController, add favorite " + req.body.tickerName);
-    db.Favorites.create(req.body.tickerName)
+    console.log("inside userController, add favorite " + req.body.ticker_name);
+    db.Favorites.create({ticker_name: req.body.ticker_name})
     .then(dbFavorite =>{
       console.log(dbFavorite);
-      // return db.User.findOneAndUpdate({"_id" : req.body.user}, {$push: { Favorites: dbFavorite._id}}, {new: true}); 
+      return db.User.findOneAndUpdate({"_id" : req.body.user}, {$push: { Favorites: dbFavorite._id}}, {new: true}); 
     })
     .catch(err => console.log(err))
   }

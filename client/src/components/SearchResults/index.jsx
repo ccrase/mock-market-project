@@ -12,7 +12,7 @@ export default function SearchResults(props) {
 
         axios.post('api/user/addfavorite', {
                 user: user._id,
-                tickerName: searchOptions[i]['1. symbol']
+                ticker_name: searchOptions[i]['1. symbol']
         })
         .then(response => console.log(response.data))
         .catch(err => console.log(err));
