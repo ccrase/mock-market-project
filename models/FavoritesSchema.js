@@ -7,6 +7,5 @@ var FavoritesSchema = new Schema({
 
 
 var Favorites = mongoose.model("Favorites", FavoritesSchema);
-console.log(Order);
 
 module.exports = Favorites;

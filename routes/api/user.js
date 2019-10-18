@@ -6,7 +6,7 @@ const userController = require("../../controller/userController");
 router.route("/user")
   .post(userController.findOrCreate);
 
-//Matches with ""
+//Matches with "api/user/addfavorite"
 router.route("/user/addfavorite").post(userController.addFavorite);  
   
 module.exports = router;

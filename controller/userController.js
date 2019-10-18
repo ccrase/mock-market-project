@@ -25,11 +25,19 @@ module.exports = {
             })
             .catch(err => console.log(err));
         }
-    });
-
-
-
+    })
+  },
+  addFavorite: function(req, res){
+    console.log("inside userController, add favorite " + req.body.tickerName);
+    db.Favorites.create(req.body.tickerName)
+    .then(dbFavorite =>{
+      console.log(dbFavorite);
+      // return db.User.findOneAndUpdate({"_id" : req.body.user}, {$push: { Favorites: dbFavorite._id}}, {new: true}); 
+    })
+    .catch(err => console.log(err))
   }
+
+
 };
 
 // res.json(dbModel)
