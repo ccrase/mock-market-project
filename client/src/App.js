@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Portfolio from "./components/Portfolio";
 import News from './pages/News';
 import Homepage from "./components/Homepage";
+import Researchpage from "./pages/research";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Route exact path="/" component={Homepage}/>
           <Route exact path="/news" component={News}/>
           <Route exact path="/portfolio" component={Portfolio} />
-
+          <Route exact path="/research" component={Researchpage} />
         </Switch>
       </BrowserRouter>
     </div>
