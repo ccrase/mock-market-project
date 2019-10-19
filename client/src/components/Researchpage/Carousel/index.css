@@ -1,0 +1,25 @@
+.gainers {
+    color: green;
+}
+
+.losers {
+    color: red;
+}
+
+.gainerTable {
+    color: white;
+}
+
+.loserTable {
+    color: white;
+}
+
+.tableContainer {
+    margin-top: -28%;
+    
+}
+
+.carouselCont {
+    height: 380px;
+}
+
