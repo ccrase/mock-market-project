@@ -1,0 +1,12 @@
+
+.indexQuote {
+padding: 1rem;
+background-color: rgb(190,229,235);
+border: 2px solid #fff;
+color: black;
+text-align: center;
+}
+
+#search {
+    margin-left: 72%;
+}

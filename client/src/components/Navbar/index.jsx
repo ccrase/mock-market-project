@@ -9,6 +9,7 @@ const Navbar = () => {
     Nav
     <Login/>
     <Logout/>
+    
 </div>
     )
 };
