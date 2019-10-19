@@ -8,7 +8,6 @@ export default function SearchResults(props) {
 
     const handleClick = (i) => {
         const newFave = searchOptions[i]['1. symbol'];
-        console.log(newFave);
 
         axios.post('api/user/addfavorite', {
                 user: user._id,
@@ -20,7 +19,6 @@ export default function SearchResults(props) {
     };
 
     const searchOptions = props.results.bestMatches;
-    console.log(searchOptions);
     if(searchOptions){
        const results =  searchOptions.map((result, i) => (
 

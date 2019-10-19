@@ -54,17 +54,3 @@ export default class index extends Component {
         )
     };
 }
-
-
-// const Search = () => {
-//     return(
-//         <div className="input-group mb-3" style={{"width" : "450px"}}>
-//             <input type="text" className="form-control" placeholder="Search by Company or Symbol" aria-describedby="search-term" />
-//             <div className="input-group-append">
-//                 <span className="input-group-text" id="search-term">Search</span>
-//             </div>
-//         </div>
-//     )
-// };
-
-// export default Search;
