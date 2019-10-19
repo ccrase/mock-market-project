@@ -1,10 +1,14 @@
 const path = require("path");
 const router = require("express").Router();
-const apiRoutes = require("./api/index");
+const apiRoutes = require("./api");
+const portfolioRoutes = require('./portfolio');
 
 // API Routes
+router.use("/api", apiRoutes);
 
-router.use(apiRoutes);
+// API Routes
+router.use("/portfolio", portfolioRoutes);
+
 
 
 module.exports = router;
