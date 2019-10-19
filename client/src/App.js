@@ -4,6 +4,7 @@ import NavBar from '../src/components/Navbar';
 // New - import the React Router components, and the Profile page component
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Portfolio from "./components/Portfolio";
+import News from './pages/News';
 import Homepage from "./components/Homepage";
 
 function App() {
@@ -16,7 +17,9 @@ function App() {
         </header>
         <Switch>
           <Route exact path="/" component={Homepage}/>
+          <Route exact path="/news" component={News}/>
           <Route exact path="/portfolio" component={Portfolio} />
+
         </Switch>
       </BrowserRouter>
     </div>

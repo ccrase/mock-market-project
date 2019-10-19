@@ -12,6 +12,7 @@ const NavBar = () => {
   return (
     <div>
       <Link to="/">Home</Link>&nbsp;
+      <Link to="/news">News</Link>&nbsp;
       {/* Links that user has access to once they are authenticated */}
       {isAuthenticated && (
         <span>
