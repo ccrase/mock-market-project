@@ -4,8 +4,6 @@ import { MDBContainer, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle,
 export default function NewsResults(props) {
 
     const newsArticles = props.results.data;
-    console.log(newsArticles);
-
 
     if (newsArticles) {
         const results = newsArticles.map((result, i) => (
