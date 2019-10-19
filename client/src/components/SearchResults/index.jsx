@@ -25,10 +25,10 @@ export default function SearchResults(props) {
        const results =  searchOptions.map((result, i) => (
 
             <MDBListGroupItem href="#" key={result['1. symbol']} active>
-                        <b>{result['1. symbol']}</b>,  {result['2. name']}
-                        <MDBBtn size="sm" id={result['1. symbol']}>details</MDBBtn>
-                        <MDBBtn floating size="lg" gradient="purple"></MDBBtn>
-                        <MDBIcon icon="heart" id={result['1. symbol']} onClick={() => handleClick(i)} className="red-text pr-3"></MDBIcon>
+                <b>{result['1. symbol']}</b>,  {result['2. name']}
+                <MDBBtn size="sm" id={result['1. symbol']}>details</MDBBtn>
+                <MDBBtn floating size="lg" gradient="purple"></MDBBtn>
+                <MDBIcon icon="heart" id={result['1. symbol']} onClick={() => handleClick(i)} className="red-text pr-3"></MDBIcon>
             </MDBListGroupItem>
 
        ));

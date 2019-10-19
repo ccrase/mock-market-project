@@ -1,8 +1,23 @@
-import React from "react";
+import React, {useState, useEffect } from 'react';
+import { useAuth0 } from '../../react-auth0-wrapper';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+import axios from 'axios';
 import './index.css';
 
 const UserOrder = () => {
+  const { loading, user } = useAuth0();
+
+//   useEffect(() => {
+//     axios.get("portfolio/findorders/" + user._id)
+//     .then((response)=>{
+//         console.log("THESE ARE THE ORDERS");
+//         const result = response.data.Order; 
+//         console.log(result);
+//         //HOW DO I GET THIS RESULT OUT OF HERE??!!!???!!???
+//     })
+//     .catch(err => console.log(err));
+// });
+
     return (
         <MDBTable small responsive hover>
         <MDBTableHead>

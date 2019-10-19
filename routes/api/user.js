@@ -9,5 +9,6 @@ router.route("/user")
 //Matches with "api/user/addfavorite"
 router.route("/user/addfavorite")
 .post(userController.addFavorite);  
+
   
 module.exports = router;

@@ -10,7 +10,7 @@ var UserSchema = new Schema({
   picture: String,
   account_value: {type: Number, default: 25000},
   Order:  [{ type: Schema.Types.ObjectId, ref: "Order"}],
-  Favorites:  [{ type: Schema.Types.ObjectId, ref: "Favories"}]
+  Favorites:  [{ type: Schema.Types.ObjectId, ref: "Favorites"}]
 });
 
 

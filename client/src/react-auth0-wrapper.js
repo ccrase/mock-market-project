@@ -43,7 +43,6 @@ export const Auth0Provider = ({
         //Make DB call HERE I'm thinking. 
         axios.post('/api/user', user)
         .then(function(response){
-          console.log(response);
           setUser(response.data);
         })
         .catch(function(err){
@@ -74,7 +73,6 @@ export const Auth0Provider = ({
       user: user
     })
     .then(function(response){
-      console.log(response);
       setUser(response.data);
       setIsAuthenticated(true);
     })
@@ -94,7 +92,6 @@ export const Auth0Provider = ({
 
     axios.post('/api/user', user)
     .then(function(response){
-      console.log(response);
       setUser(response.data);
       setLoading(false);
       setIsAuthenticated(true);
