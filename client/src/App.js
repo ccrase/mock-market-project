@@ -4,6 +4,7 @@ import NavBar from '../src/components/Navbar';
 // New - import the React Router components, and the Profile page component
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Portfolio from "./components/Portfolio";
+import Homepage from "./components/Homepage";
 
 function App() {
   return (
@@ -14,8 +15,8 @@ function App() {
           <NavBar />
         </header>
         <Switch>
-          <Route path="/" exact />
-          <Route path="/portfolio" component={Portfolio} />
+          <Route exact path="/" component={Homepage}/>
+          <Route exact path="/portfolio" component={Portfolio} />
         </Switch>
       </BrowserRouter>
     </div>
