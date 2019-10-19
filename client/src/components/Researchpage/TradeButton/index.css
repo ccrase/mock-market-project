@@ -1,0 +1,30 @@
+.logo{
+    padding: 1.5rem;
+    margin-right: 4%;
+    margin-top: 4%;
+    background-color: white;
+    color: #fff;
+    text-align: center;
+}
+
+.tradeBtn {
+    margin-left: -20%;
+    margin-top: 8%;
+    height: 60px;
+    background-color: white;
+}
+
+.quoteData {
+    margin-top: 6%;
+    margin-left: -20%;
+}
+
+.quoteDetails {
+    margin-top: 6%;
+    margin-left: -35%;
+}
+
+.analystRating {
+    margin-top: 6%;
+    margin-left: -84%;
+}
