@@ -5,6 +5,7 @@ import NavBar from '../src/components/Navbar';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Portfolio from "./components/Portfolio";
 import Homepage from "./components/Homepage";
+import Researchpage from "./pages/research";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Homepage}/>
           <Route exact path="/portfolio" component={Portfolio} />
+          <Route exact path="/research" component={Researchpage} />
         </Switch>
       </BrowserRouter>
     </div>
