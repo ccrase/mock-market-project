@@ -34,7 +34,7 @@ export default class StockResearch extends React.Component {
             volume: '',
             previousclose: '',
             percentchange: '',
-            historicalInfo: '',
+            historicalInfo: [],
             dow: '',
             sandp: '',
             nasdaq: '',
@@ -83,7 +83,7 @@ export default class StockResearch extends React.Component {
                 .then(res => {
                     // console.log(res);
                     this.setState({
-                        historicalInfo: res.data.historical.close
+                        historicalInfo: res.data.historical
                     });
                 });
             //Major Indexes
@@ -191,7 +191,7 @@ export default class StockResearch extends React.Component {
                                     description={this.state.description}
                 />
                 <br></br>
-                    <Graph />
+                    <Graph historicalInfo={this.state.historicalInfo} />
                     <br></br>
                     <div><a href="https://financialmodelingprep.com/api/v3/historical-price-full/aapl?serietype=line" target="_blank">Historical Pricing</a></div>
                     <br></br>
