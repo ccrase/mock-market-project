@@ -1,7 +1,8 @@
 import React from "react";
 import './index.css';
 
-const Ticker = () => {
+const Ticker = (props) => {
+    console.log(props);
     return(
         <div className="card">
             <div className="card-body">
