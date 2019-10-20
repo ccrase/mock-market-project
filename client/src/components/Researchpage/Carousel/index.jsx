@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from
     "mdbreact";
@@ -68,7 +67,7 @@ const CarouselPage = (props) => {
                                 </MDBView>
 
                                 <MDBCarouselCaption>
-                                    <div class="tableContainer">
+                                    <div className="tableContainer">
                                         <h3 className="h3-responsive gainers">Today's Market Gainers</h3>
                                         <MDBTable scrollY className="gainerTable">
                                             <MDBTableHead columns={data.columns} />
@@ -87,7 +86,7 @@ const CarouselPage = (props) => {
                                     <MDBMask overlay="black-strong" />
                                 </MDBView>
                                 <MDBCarouselCaption>
-                                    <div class="tableContainer" flex layout="row">
+                                    <div className="tableContainer" layout="row">
                                         <h3 className="h3-responsive losers">Today's Market Losers</h3>
                                         <MDBTable scrollY className="loserTable">
                                             <MDBTableHead columns={data.columns} />
@@ -106,7 +105,7 @@ const CarouselPage = (props) => {
                                     <MDBMask overlay="black-slight" />
                                 </MDBView>
                                 <MDBCarouselCaption>
-                                    <div class="tableContainer" flex layout="row">
+                                    <div className="tableContainer" layout="row">
                                         <h3 className="h3-responsive">Sector Performance</h3>
                                         <MDBTable scrollY className="loserTable">
                                             <MDBTableHead columns={data.sectorColumns} />

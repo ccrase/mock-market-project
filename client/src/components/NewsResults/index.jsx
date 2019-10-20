@@ -1,6 +1,5 @@
 import React from 'react'
 // import { MDBListGroup, MDBListGroupItem, MDBContainer, MDBBtn, MDBIcon } from "mdbootstrap";
-import axios from 'axios';
 
 export default function NewsResults(props) {
 

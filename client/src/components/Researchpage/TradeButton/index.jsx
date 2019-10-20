@@ -2,6 +2,9 @@ import { MDBRow, MDBCol } from "mdbreact";
 import React, { Fragment } from "react";
 import { MDBBtn } from "mdbreact";
 import { MDBListGroup, MDBListGroupItem, MDBContainer } from "mdbreact";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import NewsSearch from "../../NewsSearch/index"
+
 
 
 import "./index.css";
@@ -56,7 +59,13 @@ const searchFunction = (props) => {
                     <MDBListGroupItem>Website: <a href={data.website} target="_blank">{data.website}</a></MDBListGroupItem>
                 </MDBListGroup>
             </MDBCol>
-            <MDBCol className="tradeBtn"><MDBBtn gradient="blue">Trade</MDBBtn></MDBCol>
+            <Router>
+                <MDBCol className="tradeBtn">
+                    <MDBBtn gradient="blue">Trade {data.symbol}</MDBBtn>
+                    <br></br>
+                    <MDBBtn gradient="blue"> {data.symbol} News </MDBBtn>
+                </MDBCol>
+            </Router>
         </MDBRow>
     );
 }

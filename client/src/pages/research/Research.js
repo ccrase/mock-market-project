@@ -5,7 +5,8 @@ import Carousel from "../../components/Researchpage/Carousel";
 import Footer from "../../components/Footer/index";
 // import Flipcard from "../../components/Researchpage/Flipcard/index";
 import Graph from "../../components/Researchpage/Graph";
-import Indexes from "../../components/Researchpage/Indexes"
+import Indexes from "../../components/Researchpage/Indexes";
+import Historical from "../../components/Researchpage/Historical";
 import axios from "axios";
 import CompanyDescription from "../../components/Researchpage/CompanyDesc";
 
@@ -51,7 +52,7 @@ export default class StockResearch extends React.Component {
         this.submit = async () => {
             let req = await fetch("https://financialmodelingprep.com/api/v3/company/rating/" + this.state.search)
             let res = await req.json()
-            console.log(res)
+            // console.log(res)
 
             const search = this.state.search
             //Ratings
@@ -81,9 +82,11 @@ export default class StockResearch extends React.Component {
             //Historical Pricing
             axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?serietype=line')
                 .then(res => {
-                    // console.log(res);
+                    console.log("historical Info", res.data);
+                    let historicalInfoSorted=res.data.historical.sort(function(a, b){return a-b})
+                    console.log("sorted array:", historicalInfoSorted);
                     this.setState({
-                        historicalInfo: res.data.historical
+                        historicalInfo: historicalInfoSorted
                     });
                 });
             //Major Indexes
@@ -105,7 +108,7 @@ export default class StockResearch extends React.Component {
             //Today's Gainers
             axios.get('https://financialmodelingprep.com/api/v3/stock/gainers')
                 .then(res => {
-                    console.log(res.data.mostGainerStock);
+                    // console.log(res.data.mostGainerStock);
                     this.setState({
                         gainers: res.data.mostGainerStock
                     });
@@ -113,7 +116,7 @@ export default class StockResearch extends React.Component {
             //Today's Losers
             axios.get('https://financialmodelingprep.com/api/v3/stock/losers')
                 .then(res => {
-                    console.log(res.data.mostLoserStock);
+                    // console.log(res.data.mostLoserStock);
                     this.setState({
                         losers: res.data.mostLoserStock
                     });
@@ -121,7 +124,7 @@ export default class StockResearch extends React.Component {
             //Sector Performance
             axios.get('https://financialmodelingprep.com/api/v3/stock/sectors-performance')
                 .then(res => {
-                    console.log(res.data.sectorPerformance);
+                    // console.log(res.data.sectorPerformance);
                     this.setState({
                         sectors: res.data.sectorPerformance
                     });
@@ -143,7 +146,7 @@ export default class StockResearch extends React.Component {
                     const lowReduced = parseFloat(low).toFixed(2);
                     const close = res.data['Global Quote']['08. previous close'];
                     const closeReduced = parseFloat(close).toFixed(2);
-                    console.log(res);
+                    // console.log(res);
                     this.setState({
                         price: priceReduced,
                         change: changeReduced,
@@ -160,42 +163,42 @@ export default class StockResearch extends React.Component {
     render() {
         return (
             <div>
-                <Carousel gainers={this.state.gainers} losers={this.state.losers} sectors={this.state.sectors}/>
-                <Indexes dow={this.state.dow} sandp={this.state.sandp} nasdaq={this.state.nasdaq}/>
+                <Carousel gainers={this.state.gainers} losers={this.state.losers} sectors={this.state.sectors} />
+                <Indexes dow={this.state.dow} sandp={this.state.sandp} nasdaq={this.state.nasdaq} />
                 <div>
-                <br></br>
-                <form id="search" onSubmit={e => e.preventDefault()}>
-                    Search: <input type="text" onChange={e => this.search(e)} name="Search" value={this.state.search} />
-                    <input type='submit' value='submit' onClick={e => this.submit(e)} />
-                </form>
+                    <br></br>
+                    <form id="search" onSubmit={e => e.preventDefault()}>
+                        Search: <input type="text" onChange={e => this.search(e)} name="Search" value={this.state.search} />
+                        <input type='submit' value='submit' onClick={e => this.submit(e)} />
+                    </form>
                 </div>
-                <TradeButton image={this.state.image} 
-                            website={this.state.website} 
-                            companyName={this.state.companyName} 
-                            symbol={this.state.symbol} 
-                            price={this.state.price} 
-                            change={this.state.change} 
-                            percentchange={this.state.percentchange}
-                            open={this.state.open}
-                            high={this.state.high}
-                            low={this.state.low}
-                            close={this.state.close}
-                            volume={this.state.volume}
-                            rating={this.state.rating}
-                            recommendation={this.state.recommendation}
-                            industry={this.state.industry}
-                            sector={this.state.sector}
+                <TradeButton image={this.state.image}
+                    website={this.state.website}
+                    companyName={this.state.companyName}
+                    symbol={this.state.symbol}
+                    price={this.state.price}
+                    change={this.state.change}
+                    percentchange={this.state.percentchange}
+                    open={this.state.open}
+                    high={this.state.high}
+                    low={this.state.low}
+                    close={this.state.close}
+                    volume={this.state.volume}
+                    rating={this.state.rating}
+                    recommendation={this.state.recommendation}
+                    industry={this.state.industry}
+                    sector={this.state.sector}
                 />
                 <br></br>
                 <CompanyDescription ceo={this.state.ceo}
-                                    description={this.state.description}
+                    description={this.state.description}
                 />
                 <br></br>
-                    <Graph historicalInfo={this.state.historicalInfo} />
-                    <br></br>
-                    <div><a href="https://financialmodelingprep.com/api/v3/historical-price-full/aapl?serietype=line" target="_blank">Historical Pricing</a></div>
-                    <br></br>
-                    <br></br>
+                <Graph historicalInfo={this.state.historicalInfo} />
+                <br></br>
+                <Historical historicalInfo={this.state.historicalInfo} companyName={this.state.companyName}/>
+                <br></br>
+                <br></br>
                 <Footer />
             </div>
         )
