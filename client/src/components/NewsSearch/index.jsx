@@ -11,7 +11,7 @@ export default class index extends Component {
     }
 
     getResults = () => {
-        const APIkey = 'qs62sf12mf82ff8go1fi1lz1n5qjcmufljlycm7u';
+        const APIkey = 'sdwwxaizjai3vrmbqrmdcubuybqqu4wcajtxv4i5';
         axios.get(`https://stocknewsapi.com/api/v1?tickers=${this.state.query}&items=50&token=${APIkey}`)
             .then(({ data }) => {
                 

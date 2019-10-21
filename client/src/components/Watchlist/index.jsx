@@ -1,49 +1,27 @@
 import React, {useState, useEffect } from 'react';
-import { useAuth0 } from '../../react-auth0-wrapper';
+import { MDBListGroupItem, MDBBtn, } from "mdbreact";
 import './index.css';
-import axios from 'axios';
-import Ticker from '../Ticker/index';
 
-const Watchlist = () => {
-    const { loading, user } = useAuth0();
-    const [favorites, setFavorites] = useState([]);
+const Watchlist = (props) => {
+    console.log(props.favorites);
 
-    // demo
-    const [input, setInput] = useState('');
+    const results =  props.favorites.map((fav, i) => (
 
-
-    console.log("trying to send this user ID " + user._id);
-
-    useEffect(() => {
-        axios.get("portfolio/findfavorites/" + user._id)
-        .then((response)=>{
-            console.log("THIS IS THE RESPONSE");
-            const result = response.data.Favorites; 
-            console.log(result);
-            setFavorites(result);
-            //HOW DO I GET THIS RESULT OUT OF HERE??!!!???!!???
-        })
-        .catch(err => console.log(err));
-    }, []);
-
-    useEffect(() => {
-        console.log('other use effect')
-    }, [input]);
-
-
-    return(
-        <div>
-            <h5>Your Watchlist</h5>
-            <Ticker
-            favorites={favorites}/>
-            <input 
-                type='text' 
-                onChange={event => setInput(event.target.value)}
-                value={input}
-            />
+        <div id={fav.ticker_name} key={i}>
+            <b>{fav.ticker_name}</b>
+            <MDBBtn size="sm" id={fav.ticker_name}>view</MDBBtn>
         </div>
-    )
+
+   ));
+   return (
+       <div>
+        <h1>Your Watchist</h1>   
+        {results}
+       </div>
+
+   )
 };
+
 
 export default Watchlist;
 

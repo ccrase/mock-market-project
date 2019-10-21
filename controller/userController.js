@@ -29,7 +29,6 @@ module.exports = {
   },
 
   addFavorite: function(req, res){
-    console.log("inside userController, add favorite " + req.body.ticker_name);
     db.Favorites.create({ticker_name: req.body.ticker_name})
     .then(dbFavorite =>{
       console.log(dbFavorite);
@@ -37,9 +36,12 @@ module.exports = {
     })
     .catch(err => console.log(err))
   },
+  
+  removeFavorite: function(req, res){
+    db.Favorites.remove({ "_id" : req.params.id })
+  },
   //find all of the users favorite companies/tickers
     findFavorites: function(req, res){
-      console.log("trying to find all users favorites ");
       console.log(req.params.id);
       db.User.findOne({ "_id" : req.params.id })
       .populate("Favorites")
@@ -47,12 +49,13 @@ module.exports = {
       .catch(err => res.json(err));
   }, 
 
-  // findOrders: function(req, res){
-  //   console.log("inside find ORDERS");
-  //   db.User.findOne({ "_id" : USER_ID}).populate("Order")
-  //   .then(results => res.json(results))
-  //   .catch(err => console.log(err));
-  // }
+  findOrders: function(req, res){
+    console.log("inside find ORDERS");
+    db.User.findOne({ "_id" : req.params.id})
+    .populate("Order")
+    .then(results => res.json(results))
+    .catch(err => console.log(err));
+  }
 
 
 };

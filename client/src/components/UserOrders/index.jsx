@@ -4,19 +4,7 @@ import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import axios from 'axios';
 import './index.css';
 
-const UserOrder = () => {
-  const { loading, user } = useAuth0();
-
-//   useEffect(() => {
-//     axios.get("portfolio/findorders/" + user._id)
-//     .then((response)=>{
-//         console.log("THESE ARE THE ORDERS");
-//         const result = response.data.Order; 
-//         console.log(result);
-//         //HOW DO I GET THIS RESULT OUT OF HERE??!!!???!!???
-//     })
-//     .catch(err => console.log(err));
-// });
+const UserOrder = (props) => {
 
     return (
         <MDBTable small responsive hover>
@@ -32,20 +20,20 @@ const UserOrder = () => {
         </MDBTableHead>
         <MDBTableBody>
           <tr>
-            <td>TRTC/ TerraTech</td>
-            <td>234</td>
-            <td>2343</td>
-            <td>2342335</td>
-            <td>34534</td>
-            <td>868</td>
+            <td>Ticker Name</td>
+            <td>Quantity</td>
+            <td>CURRENT STOCK PRICE</td>
+            <td>quantity * CURRENT STOCK PRICE</td>
+            <td>current s.p. - begining day s.p.</td>
+            <td>current market value - cost basis</td>
           </tr>
           <tr>
             <td><b>Equities Total</b></td>
             <td></td>
             <td></td>
-            <td><b>$XX,XXX</b></td>
-            <td><b>$XXX</b></td>
-            <td><b>$X,XXX</b></td>
+            <td><b>$total value of all stocks</b></td>
+            <td><b>$current act val - begining act val</b></td>
+            <td><b>$current act val - cost basis</b></td>
           </tr>
         </MDBTableBody>
       </MDBTable>

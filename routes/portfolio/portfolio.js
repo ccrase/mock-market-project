@@ -6,8 +6,8 @@ router.route("/findfavorites/:id")
 .get(userController.findFavorites); 
 
 //Matches with "/portfolio/findorders"
-// router.route("/findorders/:id")
-// .get(userController.findOrders); 
+router.route("/findorders/:id")
+.get(userController.findOrders); 
 
   
 module.exports = router;
