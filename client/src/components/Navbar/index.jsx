@@ -14,10 +14,12 @@ const NavBar = () => {
       <Link to="/">Home</Link>&nbsp;
       <Link to="/news">News</Link>&nbsp;
       <Link to="/research">Research</Link>&nbsp;
+      
       {/* Links that user has access to once they are authenticated */}
       {isAuthenticated && (
         <span>
           <Link to="/portfolio">Portfolio</Link>
+          <Link to="/stocksave">StockSave</Link>
         </span>
       )}
       {!isAuthenticated && (
