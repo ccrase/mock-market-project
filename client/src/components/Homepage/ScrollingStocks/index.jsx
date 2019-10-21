@@ -75,7 +75,7 @@ const ScrollingStocks = () => {
 
   return (
 
-    <MDBTable autoWidth>
+    <MDBTable autoWidth id="scrollingStocks">
       <MDBTableHead columns={stocks.columns}/>
       <MDBTableBody rows={stocks.rows} />
     </MDBTable>

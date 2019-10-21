@@ -1,11 +1,11 @@
 import React from "react";
-import { MDBCardGroup, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBJumbotron } from "mdbreact";
+import { MDBContainer, MDBCardGroup, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText } from "mdbreact";
 
 const Howto = (props) => {
     const stuff = [1, 2, 3, 4]
 
     return (
-        <MDBJumbotron style={{ padding: 0 }}>
+        <MDBContainer style={{ padding: 0 }}>
             <MDBCardTitle className="h1-responsive pt-3 m-5 font-bold">
                 Safely Learn To Invest
             </MDBCardTitle>
@@ -50,7 +50,7 @@ const Howto = (props) => {
             </MDBCardGroup>
 
 
-        </MDBJumbotron>
+        </MDBContainer>
     )
 }
 

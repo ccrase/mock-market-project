@@ -53,7 +53,7 @@ export default function Graph() {
 
 
     return (
-        <MDBJumbotron>
+        <MDBJumbotron id="graph">
             <canvas
                 id="myChart"
                 ref={chartRef}>

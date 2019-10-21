@@ -5,18 +5,20 @@ import ScrollingStocks from './ScrollingStocks'
 import Hero from './Hero'
 import Graph from './Graph'
 import Howto from './Howto'
+// import ParalaxLightbulb from './ParalaxLightbulb'
 
 function Homepage() {
   return(
 
     <div>
-    <MDBContainer fluid className="pt-5">
+    <MDBContainer fluid className="p-0 mx-0">
+    <Hero/>
+    {/* <ParalaxLightbulb /> */}
       <MDBRow>
         <MDBCol size={1}>
           <MDBContainer />
         </MDBCol>
         <MDBCol md={8}>
-            <Hero/>
             <Graph/>
             <Howto/>
         </MDBCol>
