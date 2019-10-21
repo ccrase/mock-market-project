@@ -17,7 +17,6 @@ function App() {
     <ParallaxProvider className="App">
       <Router>
         <div id='top-accent'></div>
-        <NavBar />
         <Sidebar link={Link} user={user} />
         <Switch>
           <Route exact path="/news" component={News}/>

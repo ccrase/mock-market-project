@@ -2,7 +2,7 @@
 //providing functions that allow the user to login, logout and info such as whether the user is 
 //logged in. 
 import React, { useState, useEffect, useContext } from "react";
-import createAuth0Client from "@auth0/auth0-spa-js";
+import createAuth0Client from '@auth0/auth0-spa-js';
 import axios from "axios";
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
