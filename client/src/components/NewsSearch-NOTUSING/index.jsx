@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { MDBCol, MDBFormInline, MDBIcon } from "mdbootstrap";
+// import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact";
 import NewsResults from '../NewsResults';
 import './index.css';
 import axios from 'axios';
@@ -31,8 +31,7 @@ export default class index extends Component {
 
     resultsExist = () => {
         if (this.state.results) {
-            return <NewsResults results={this.state.results}
-                                query={this.state.query} />
+            return <NewsResults results={this.state.results} />
         }
     }
 

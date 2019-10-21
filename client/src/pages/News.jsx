@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import NewsSearch from '../components/NewsSearch'
+import NewsSearchBar from '../components/NewsSearchBar';
+// import NewsSearch from '../components/NewsSearch'
 
 export default class Home extends Component {
     
     render() {
         return (
             <div>
-            <NewsSearch/>
+                <NewsSearchBar/>
+            {/* <NewsSearch/> */}
             </div>
         )
     }

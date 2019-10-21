@@ -8,6 +8,9 @@ import News from './pages/News';
 import Homepage from "./components/Homepage";
 import Researchpage from "./pages/research";
 
+// ReactGA.initialize('UA-000000-01');
+// ReactGA.pageview(window.location.pathname + window.location.search);
+
 function App() {
   return (
     <div className="App">
