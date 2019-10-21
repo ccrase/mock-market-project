@@ -23,7 +23,7 @@ function Homepage() {
         </MDBCol>
         <MDBCol md={8}>
               <Graph/>
-            <Parallax x={[20, -20]}>
+            <Parallax x={[-40, 20]}>
               <Howto/>
             </Parallax>
         </MDBCol>
