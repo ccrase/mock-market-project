@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { MDBListGroupItem } from "mdbreact";
 import axios from 'axios';
-import NewsResults from '../NewsResults';
 
 const SearchResults = (props) => {
 

@@ -10,7 +10,7 @@ export default class NewsSearchBar extends Component {
         this.state = {
             query: "",
             results: [],
-            newsArticles: [],
+            newsArticles: []
         };
 
         this.getResults = this.getResults.bind(this);
@@ -43,10 +43,7 @@ export default class NewsSearchBar extends Component {
 
     insertarticles=(data)=>{
         this.setState({ newsArticles : data });
-        console.log("THIS IS THE DATA RETURNED!!!!")
-        console.log(data);
     };
-
 
     render() {
         return (

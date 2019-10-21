@@ -1,9 +1,9 @@
 import React from 'react'
 import { MDBContainer, MDBBtn, MDBIcon, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText } from "mdbreact";
 
-export default function NewsArticles(props) {
-    console.log("INSIDE THE NEWS ARTICLES COMPONENT")
+const NewsArticles =(props) => {
     console.log(props.data);
+
     if(props.data){
         const results = props.data.map((result, i) => (
     
@@ -18,7 +18,8 @@ export default function NewsArticles(props) {
                                     
                                  
                                     
-                                    <p>Ticker(s): {result['tickers'].map((ticker) => <span>|<span style={{fontWeight: 'bold'}}> {ticker} </span> | </span>)}</p>
+                                { result['tickers'] ? <p>Ticker(s): {result['tickers'].map((ticker) => <span>|<span style={{fontWeight: 'bold'}}> {ticker} </span> | </span>)}</p> :
+                                <div></div> }      
                                 </MDBCardText>
                             <MDBContainer style={{textAlign:'center'}}>
                             <MDBBtn size="sm" href={result['news_url']}>Read Article <MDBIcon icon="glasses" className="ml-1" /></MDBBtn>
@@ -28,11 +29,9 @@ export default function NewsArticles(props) {
                 </MDBCol> 
             ))
         return results    
-    };
+    }else{
+        return <div>no results found</div>
+    }
 
-    return (
-        <div></div>
-    );
-}
-
-
+};
+export default NewsArticles;
