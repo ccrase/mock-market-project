@@ -3,7 +3,7 @@ import React, { useState, useEffect, Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import axios from 'axios';
 
-import Search from '../SearchBar';
+import Search from '../Search';
 // import AccountSummary from '../AccountSummary';
 import Orders from '../UserOrders';
 import Watchlist from '../Watchlist';
@@ -18,16 +18,14 @@ export default class Portfolio extends Component {
     };
 
     this.runCalls = this.runCalls.bind(this);
+    this.addtofavorites = this.addtofavorites.bind(this);
   };
 
 
   runCalls=(user)=>{
-    console.log(user)
     axios.get("portfolio/findfavorites/" + user._id)
     .then((response)=>{
         const result = response.data.Favorites;
-        console.log("RAN FAVORITES"); 
-        console.log(result);
         //sets the state of the component to the values coming from db
         this.setState({ favorites: result});
     })
@@ -36,8 +34,6 @@ export default class Portfolio extends Component {
     axios.get("portfolio/findorders/" + user._id)
       .then((response)=>{
           const result = response.data.Order; 
-          console.log("RAN ORDERS"); 
-          console.log(result);
           //sets the state of the component to the values coming from db
           this.setState({ orders: result});
       })
@@ -50,7 +46,13 @@ export default class Portfolio extends Component {
     this.setState({user: user});
     this.runCalls(user);
   }
-  
+  };
+
+  addtofavorites=(name)=>{
+    console.log("add to favorites")
+    this.setState({ 
+      favorites: this.state.favorites.concat([{ticker_name : name}])
+    })
   };
 
   render(){
@@ -63,7 +65,7 @@ export default class Portfolio extends Component {
             account_value={this.state.user.account_value}
             details={this.state.orders} />
 
-          <Search />  
+          <Search addtofavorites={this.addtofavorites}/>  
 
           <Watchlist
             favorites={this.state.favorites}/>

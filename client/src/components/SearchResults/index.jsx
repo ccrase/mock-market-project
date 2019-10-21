@@ -7,15 +7,17 @@ export default function SearchResults(props) {
     const { loading, user } = useAuth0();
 
     const handleClick = (i) => {
+        console.log("add to favorites on the back end");
         const newFave = searchOptions[i]['1. symbol'];
-
+        props.addtofavorites(newFave);    
         axios.post('api/user/addfavorite', {
                 user: user._id,
-                ticker_name: searchOptions[i]['1. symbol']
+                ticker_name: newFave
         })
         .then(response => console.log(response.data))
-        .catch(err => console.log(err));
-        
+        .catch(err => console.log(err)); 
+
+        props.clearResultsOnClick();
     };
 
     const searchOptions = props.results.bestMatches;
@@ -36,9 +38,7 @@ export default function SearchResults(props) {
     return (
         <div>
         <MDBContainer>
-            <MDBListGroup>
-                no results
-            </MDBListGroup>
+
         </MDBContainer>
         </div>    
     )
