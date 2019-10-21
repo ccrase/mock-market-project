@@ -10,6 +10,10 @@ MONGODB_URI:{
 },
 session:{
     cookieKey:"threatlevelmidnight"
+},
+jwtConfig:{
+    API_IDENTIFIER: "https://localhost:3000/api/user",
+    ISSUER: "https://localhost:3000"
 }
 
 };
