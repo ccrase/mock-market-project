@@ -10,6 +10,9 @@ import Researchpage from "./pages/research";
 import StockSave from "./pages/stocks/index";
 import { useAuth0 } from './react-auth0-wrapper';
 
+// ReactGA.initialize('UA-000000-01');
+// ReactGA.pageview(window.location.pathname + window.location.search);
+
 function App() {
   const { loading, user } = useAuth0();
   console.log(user);
