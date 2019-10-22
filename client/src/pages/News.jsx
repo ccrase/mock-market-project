@@ -9,6 +9,7 @@ export default class Home extends Component {
         this.state={
             articles: []
         };
+        this.removegeneralarticles = this.removegeneralarticles.bind(this);
     };
 
     componentDidMount=()=>{
@@ -21,11 +22,15 @@ export default class Home extends Component {
             })
             .catch(err => console.log(err));    
     };
+
+    removegeneralarticles=()=>{
+        this.setState({ articles : []});
+    };
     
     render() {
         return (
             <div>
-                <NewsSearchBar />
+                <NewsSearchBar removegeneralarticles={this.removegeneralarticles}/>
 
                 <NewsArticles data={this.state.articles}/>
             </div>

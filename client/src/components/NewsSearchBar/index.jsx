@@ -39,6 +39,8 @@ export default class NewsSearchBar extends Component {
 
     afterselection = () => {
         this.setState({ results : [] });
+        
+        console.log("AFTER SELECTION");
     };
 
     insertarticles=(data)=>{
