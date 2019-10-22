@@ -46,12 +46,12 @@ const Sidebar = (props) => {
           </MDBNavItem>
           <MDBNavItem className="col-6">
             {isAuthenticated? 
-            <MDBNavLink to="/profile" onClick={closeSidebar}>
+            <MDBNavLink to="/portfolio" onClick={closeSidebar}>
               <i className="nav-icon fas fa-user" />
               <p>Profile</p>
             </MDBNavLink>
             : 
-            <MDBNavLink to="/profile" onClick={() =>
+            <MDBNavLink to="/portfolio" onClick={() =>
               loginWithRedirect({})}>
               <i className="nav-icon fas fa-user" />
               <p>Log in</p>

@@ -14,15 +14,14 @@ function Homepage() {
     <div>
     <MDBContainer fluid className="p-0 mx-0">
     <Parallax y={[-50, 50]}>
-      <Hero/>
+      <Hero xs={12}/>
     </Parallax>
     {/* <ParalaxLightbulb /> */}
       <MDBRow>
-        <MDBCol size={1}>
-          <MDBContainer />
-        </MDBCol>
-        <MDBCol md={8}>
-              <Graph/>
+        <MDBCol md={9}>
+              <MDBContainer>
+                <Graph/>
+              </MDBContainer>
             <Parallax x={[-40, 20]}>
               <Howto/>
             </Parallax>
