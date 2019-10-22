@@ -7,14 +7,16 @@ import Portfolio from "./components/Portfolio";
 import News from './pages/News';
 import Homepage from "./components/Homepage";
 import Researchpage from "./pages/research";
-import { useAuth0} from './react-auth0-wrapper';
+import StockSave from "./pages/stocks/index";
+import { useAuth0 } from './react-auth0-wrapper';
 
 function App() {
-  const {loading, user} = useAuth0();
+  const { loading, user } = useAuth0();
   console.log(user);
-
+  
   return (
-    <div className="App">
+     <div className="App">
+      {/* New - use BrowserRouter to provide access to /profile */}
       <BrowserRouter>
         <header>
           <NavBar />
@@ -24,10 +26,12 @@ function App() {
           <Route exact path="/news" component={News}/>
           <Route path="/portfolio" component={() => <Portfolio user={user} />} />
           <Route exact path="/research" component={Researchpage} />
+          <Route path="/StockSave/:id?" component={() => <StockSave user={user} />} />
         </Switch>
       </BrowserRouter>
-    </div>
+     </div>
   );
+ 
 }
 
 export default App;
