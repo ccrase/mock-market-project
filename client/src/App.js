@@ -3,16 +3,23 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { ParallaxProvider } from 'react-scroll-parallax';
 import StockSave from "./pages/stocks/index";
 import Homepage from './components/Homepage';
-import Research from "./pages/research/Research";
+import Researchpage from "./pages/research/Research.js";
 import Sidebar from './components/globalComponents/Sidebar'
 import NavBar from '../src/components/Navbar';
 // New - import the React Router components, and the Profile page component
 import Portfolio from "./components/Portfolio";
 import News from './pages/News';
+import { useAuth0 } from './react-auth0-wrapper';
+
+// ReactGA.initialize('UA-000000-01');
+// ReactGA.pageview(window.location.pathname + window.location.search);
+
 
 function App() {
-  let user = { username: "username", percent: 5, tickers: ["AAPL, GOOG, MSFT, AMZN"], }
 
+  const { loading, user } = useAuth0();
+  console.log(user);
+  
   return (
     <ParallaxProvider className="App">
       <Router>
@@ -21,13 +28,19 @@ function App() {
         <Switch>
           <Route exact path="/news" component={News}/>
           <Route exact path="/portfolio" component={Portfolio} />
-          <Route exact path="/trade" component={StockSave} />
-          <Route exact path="/research" component={Research} />
+          {user? 
+            <Route path="/StockSave/:id?" 
+            component={(props) => <StockSave user={user} id={props.match.params.id} />}
+            />
+            : null}
+          <Route exact path="/research" component={Researchpage} />
           <Route path='/' component={Homepage} />
         </Switch>
       </Router>
     </ParallaxProvider>
+
   );
+ 
 }
 
 export default App;
