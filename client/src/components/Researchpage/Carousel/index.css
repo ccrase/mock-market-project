@@ -1,25 +1,33 @@
 .gainers {
     color: green;
+    font-weight: bold;
 }
 
 .losers {
-    color: red;
+    color: rgb(187, 3, 3);
+    font-weight: bold;
 }
 
 .gainerTable {
-    color: white;
+    color: black;
+    font-weight: bold;
 }
 
 .loserTable {
     color: white;
+    font-weight: bold;
 }
 
 .tableContainer {
-    margin-top: -28%;
+    margin-top: -32%;
     
 }
 
 .carouselCont {
-    height: 380px;
+    height: 400px;
 }
 
+.sectorTable {
+    color: black;
+    font-weight: bold;
+}

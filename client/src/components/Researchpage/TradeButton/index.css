@@ -9,7 +9,7 @@
 
 .tradeBtn {
     margin-left: -20%;
-    margin-top: 8%;
+    margin-top: 6%;
     height: 60px;
     background-color: white;
 }
@@ -27,4 +27,12 @@
 .analystRating {
     margin-top: 6%;
     margin-left: -84%;
+}
+
+.information {
+    background-color: white;
+}
+
+body {
+    background-color: rgb(236,236,236);
 }
