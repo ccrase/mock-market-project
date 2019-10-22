@@ -127,7 +127,7 @@ export default class StockResearch extends React.Component {
                     });
                 });
             //Pricing Data
-            axios.get('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + search + '&apikey=V095HJYQ4HICG0NL')
+            axios.get('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + search + '&apikey=6LQJ0J6L87EVYG6N')
                 .then(res => {
                     const price = res.data['Global Quote']['05. price'];
                     const priceReduced = parseFloat(price).toFixed(2);

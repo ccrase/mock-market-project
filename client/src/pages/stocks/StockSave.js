@@ -4,8 +4,8 @@ import {Container,Row,Col} from "../../components/Grid";
 import Input from "../../components/input";
 import Button from "../../components/Button"
 import API from "../../utils/API";
-import { useAuth0 } from '../../react-auth0-wrapper';
-import {MDBBtn,MDBInput, MDBJumbotron,MDBContainer,MDBInputGroup,MDBRow, MDBCol} from "mdbreact";
+import ModalPage from "../../components/ModalPage";
+import {MDBBtn,MDBInput, MDBJumbotron,MDBContainer,MDBInputGroup,MDBRow, MDBCol,Modal, ModalBody, ModalHeader, ModalFooter} from "mdbreact";
 import "./style.css";
 
 const axios = require("axios");
@@ -34,7 +34,8 @@ class SaveStock extends Component {
       volume:0,
       logo:"",
       account_value:0,
-      user:[]
+      user:[],
+      show:false
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleBuy = this.handleBuy.bind(this);
@@ -109,7 +110,7 @@ class SaveStock extends Component {
       }
     });
 
-    //console.log(buyStock);
+    console.log(buyStock);
 
     buyStock.map(newStock => {
       console.log("inside map");
@@ -136,18 +137,16 @@ class SaveStock extends Component {
     this.setState({
           user:userPass
         });
-    //this.saveStock();
-    //console.log(useAuth0());
-    // if (this.props.match.params.id) {
-    //   alert(this.props.match.params.id);
-    //   let input = this.props.match.params.id.toUpperCase();
-    //   this.setState({
-    //     ticker_name: input,
-    //     //user:useAuth0()
-    //   });
+   
+    
+    if (this.props.id) {
+      alert(this.props.id);
+      let input = this.props.id.toUpperCase();
+      this.setState({
+        ticker_name: input     
+      });
       
-    //   this.handleFormSubmit();
-    // }
+    }
   }
 
   //ticker change
@@ -163,6 +162,7 @@ class SaveStock extends Component {
   //quantity change
   handleInputChange = (event) => {
     event.preventDefault();
+    if(this.state.order_type){
     const {name,value} = event.target;
 
     this.setState({
@@ -197,6 +197,9 @@ class SaveStock extends Component {
         [name]: 0
       });
     }
+  }else{
+    alert("Before selecting quantity, please choose buy or sell");
+  }
     
   }
 
@@ -204,10 +207,23 @@ class SaveStock extends Component {
 
   //pressed search button 
   handleFormSubmit = () => {
+    axios
+    .get("https://financialmodelingprep.com/api/v3/company/profile/"+ this.state.ticker_name)
+    .then(({data}) =>{ 
+      //console.log(data.profile.image);
+      this.setState({logo:data.profile.image})
+      })
+    .catch(err => console.log(err));
+
     API.getStocks(this.state.ticker_name)
       .then(res => {
         this.setState({
-          stocks: res.data
+          stocks: res.data,
+          openPrice :res.data.result["1. open"],
+          closePrice :res.data.result["4. close"],
+          highPrice :res.data.result["2. high"],
+          lowPrice :res.data.result["3. low"],
+          volume:res.data.result["5. volume"]
         })
       })
       .catch(err => console.log("Please Press Search"));
@@ -255,37 +271,18 @@ class SaveStock extends Component {
 
   }
 
-  //2nd jumbotron functions
-
-  apiCallLogo=()=>{
-    axios
-    .get("https://financialmodelingprep.com/api/v3/company/profile/"+ this.state.ticker_name)
-    .then(({data}) =>{ 
-      //console.log(data.profile.image);
-      this.setState({logo:data.profile.image})
-      })
-    .catch(err => console.log(err));
-
-    axios
-    .get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=5min&apikey=V095HJYQ4HICG0NL&symbol="+ this.state.ticker_name)
-    .then(({data}) =>{ 
-      //console.log(data);
-      let time=Object.keys(data["Time Series (5min)"])[0]
-      let result= data["Time Series (5min)"][time]
-      console.log(result);
-      this.setState({
-        openPrice :result["1. open"],
-        closePrice :result["4. close"],
-        highPrice :result["2. high"],
-        lowPrice :result["3. low"],
-        volume:result["5. volume"]
-      });
-    })
-    .catch(err => console.log(err));
+  showModal = (event) =>{
+    this.setState({
+      show: true
+    });
+  }
+  toggle = nr => () => {
+    this.setState({
+      show: false
+    });
   }
 
-  
-
+   
   render() {
     return ( 
       <div id="mainDiv" className="clearfix">
@@ -293,8 +290,8 @@ class SaveStock extends Component {
 
       <Col size ="md-7">
       <MDBJumbotron className="clearfix">
-      <MDBContainer className="clearfix" >   
-                  
+      <MDBContainer className="clearfix" >
+       
       <MDBRow className="mb-4">
         <MDBCol md="4">
           <img src= {this.state.logo} className="img-fluid" alt="" />
@@ -337,6 +334,7 @@ class SaveStock extends Component {
       <Col size ="md-5">
         <MDBJumbotron>
          <MDBContainer>
+         <ModalPage show={this.state.show} toggle={this.toggle} /> 
           <Row size = "md-12">
           <Col size = "md-12" >
            <h2>Trade</h2>
@@ -354,9 +352,11 @@ class SaveStock extends Component {
       </Col> 
       <Col size = "sm-6 md-5" >
       < Button id="searchbtn"
-          onClick = {(event)=>{event.preventDefault();this.handleFormSubmit(event);this.checkTicker();this.apiCallLogo()}}
-          type = "success"
-          className = "btn btn-success" >
+          onClick = {(event)=>{event.preventDefault();this.handleFormSubmit(event);this.checkTicker()}}
+          type = "gradient= blue"
+          className = "btn" 
+         >
+          
       Search
       </Button> 
       </Col> 
@@ -392,14 +392,14 @@ class SaveStock extends Component {
 
       <Button 
       onClick = {this.handleBuy}
-      type = "success"
+      type = "gradient= blue"
       className = "btn" >
       BUY 
       </Button> 
       {/* <MDBBtn color="primary">MDBButton</MDBBtn> */}
       <Button 
       onClick = {this.handleSell}
-      type = "success"
+      type = "gradient= blue"
       className = "btn" >
       SELL 
       </Button>
@@ -443,8 +443,8 @@ class SaveStock extends Component {
       <Row size = "md-12" >
        <Col size = "md-12"> 
       <Button 
-      onClick = {this.handleSubmit}
-      type = "success"
+      onClick = {(event)=>{this.handleSubmit();this.showModal()}}
+      type = "gradient= blue"
       className = "btn" >
       Submit 
       </Button> 

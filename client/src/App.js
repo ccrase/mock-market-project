@@ -10,6 +10,9 @@ import Researchpage from "./pages/research";
 import StockSave from "./pages/stocks/index";
 import { useAuth0 } from './react-auth0-wrapper';
 
+// ReactGA.initialize('UA-000000-01');
+// ReactGA.pageview(window.location.pathname + window.location.search);
+
 function App() {
   const { loading, user } = useAuth0();
   console.log(user);
@@ -26,7 +29,9 @@ function App() {
           <Route exact path="/news" component={News}/>
           <Route path="/portfolio" component={() => <Portfolio user={user} />} />
           <Route exact path="/research" component={Researchpage} />
-          <Route path="/StockSave/:id?" component={() => <StockSave user={user} />} />
+          {user &&
+          <Route path="/StockSave/:id?" component={(props) => <StockSave user={user} id={props.match.params.id} />} />
+          }
         </Switch>
       </BrowserRouter>
      </div>
