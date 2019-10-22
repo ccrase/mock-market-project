@@ -392,14 +392,14 @@ class SaveStock extends Component {
 
       <Button 
       onClick = {this.handleBuy}
-      type = "success"
+      type = "gradient= blue"
       className = "btn" >
       BUY 
       </Button> 
       {/* <MDBBtn color="primary">MDBButton</MDBBtn> */}
       <Button 
       onClick = {this.handleSell}
-      type = "success"
+      type = "gradient= blue"
       className = "btn" >
       SELL 
       </Button>
@@ -444,7 +444,7 @@ class SaveStock extends Component {
        <Col size = "md-12"> 
       <Button 
       onClick = {(event)=>{this.handleSubmit();this.showModal()}}
-      type = "success"
+      type = "gradient= blue"
       className = "btn" >
       Submit 
       </Button> 
