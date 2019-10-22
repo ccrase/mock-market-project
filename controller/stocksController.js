@@ -134,7 +134,7 @@ module.exports = {
     }
 
     axios
-    .get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=5min&apikey=V095HJYQ4HICG0NL",{ params:{symbol: req.body.ticker_name}})
+    .get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=5min&apikey=4H5CGJD3YP7ZTU0V",{ params:{symbol: req.body.ticker_name}})
     .then(({data}) =>{ 
       let time=Object.keys(data["Time Series (5min)"])[0]
       let result= data["Time Series (5min)"][time]
