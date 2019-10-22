@@ -17,7 +17,7 @@ render() {
             {this.props.children}
           </MDBModalBody>
           <MDBModalFooter>
-            <MDBBtn color="secondary" onClick={this.props.toggle(14)}>Close</MDBBtn>
+            <MDBBtn color="gradient= blue" onClick={this.props.toggle(14)}>Close</MDBBtn>
           </MDBModalFooter>
         </MDBModal>
       </MDBContainer>
