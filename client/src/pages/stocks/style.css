@@ -1,0 +1,21 @@
+/* .container{
+    width: 50%;
+   
+} */
+
+/* #mainDiv{
+    text-align: center;
+} */
+
+#ticker1{
+    display:inline;
+}
+
+#searchbtn{
+    padding: 0 0;
+    margin: 0 0;
+}
+
+#searchInput{
+    margin-top: 3.5%;
+}
