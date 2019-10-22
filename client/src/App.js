@@ -29,7 +29,9 @@ function App() {
           <Route exact path="/news" component={News}/>
           <Route exact path="/portfolio" component={Portfolio} />
           <Route exact path="/research" component={Researchpage} />
-          <Route path="/StockSave/:id?" component={() => <StockSave user={user} />} />
+          {user &&
+          <Route path="/StockSave/:id?" component={(props) => <StockSave user={user} id={props.match.params.id} />} />
+          }
         </Switch>
       </BrowserRouter>
      </div>

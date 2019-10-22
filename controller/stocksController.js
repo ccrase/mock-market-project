@@ -161,8 +161,15 @@ module.exports = {
           available_quantity:0,
           temp_available_quantity:0
           }
+      }else{
+        var stock={}
       }
       //console.log(stock)
+      if(stock === {}){
+        throw(err);
+      }else {
+        if(stock.quantity !== 0 && (stock.total_amount_earn!==0 || stock.total_amount_invest !== 0)){
+          
       db.Order
       .create(stock)
       .then(dbModel => {
@@ -190,8 +197,14 @@ module.exports = {
         console.log(err);
         setTempQuantity("fail",stock.ticker_name);
         res.status(422).json(err)});
+      }else{
+        throw (err);
+      }
+      }
       })
+      
       .catch(err => console.log(err)); 
+    
   },
 
   findAll:function(req, res) {
