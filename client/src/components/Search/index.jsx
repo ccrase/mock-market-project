@@ -42,6 +42,8 @@ export default class Search extends Component {
 
     clearResultsOnClick=()=>{
         this.setState({results: []});
+        //HOW DO I SET THE VALUE OF THE SEARCH BAR TO NOTHING!!??
+        document.getElementById("search-term").setAttribute("placeholder", "");
     };  
 
     render() {
@@ -50,7 +52,7 @@ export default class Search extends Component {
             <MDBCol>
                 <MDBFormInline className="md-form">
                     <MDBIcon icon="search" />
-                    <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Company or Symbol" aria-label="search-term" 
+                    <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Company or Symbol" aria-label="search-term" id="search-term"
                         ref={event => this.search = event}
                         onChange={this.handleInputChange}/>
                 </MDBFormInline>

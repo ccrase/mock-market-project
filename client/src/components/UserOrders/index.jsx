@@ -43,7 +43,7 @@ const UserOrder = (props) => {
             </tr>
           ))
 
-          : <div style={{textAlign: "center"}}>You have not purchased any stock </div> }
+          : <div>You have not purchased any stock </div> }
           <tr>
             <td><b>Equities Total</b></td>
             <td></td>

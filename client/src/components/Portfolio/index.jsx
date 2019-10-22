@@ -4,7 +4,7 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import axios from 'axios';
 
 import Search from '../Search';
-// import AccountSummary from '../AccountSummary';
+import AccountSummary from '../AccountSummary';
 import Orders from '../UserOrders';
 import Watchlist from '../Watchlist';
 
@@ -57,22 +57,28 @@ export default class Portfolio extends Component {
 
   render(){
     return (
-      <div>
-          <h1>Portfolio</h1>
-          <img src={this.state.user.picture}></img>
-          <h3>${this.state.user.account_value}</h3>
-          <Orders 
-            account_value={this.state.user.account_value}
-            details={this.state.orders} />
-
-          <Search addtofavorites={this.addtofavorites}/>  
-
-          <Watchlist
-            favorites={this.state.favorites}/>
-
-          <code>{JSON.stringify(this.state.user, null, 2)}</code>
-          <button onClick={this.runCalls}>click</button>
-      </div>
+      <MDBContainer fluid>
+        <MDBRow>
+          <MDBCol size="4">
+            <Search addtofavorites={this.addtofavorites}/>
+          </MDBCol>
+          <MDBCol siz="8">
+            <AccountSummary user={this.state.user}/>
+          </MDBCol>
+        </MDBRow>
+        <MDBRow>
+          <MDBCol siz="4">
+            <Watchlist
+              favorites={this.state.favorites}/>
+          </MDBCol>
+          <MDBCol size="8">
+            <Orders 
+              account_value={this.state.user.account_value}
+              details={this.state.orders} />
+          </MDBCol>
+        </MDBRow>
+        <code>{JSON.stringify(this.state.user, null, 2)}</code>
+      </MDBContainer>
     )
   }
 };
