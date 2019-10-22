@@ -13,6 +13,7 @@ export default class Portfolio extends Component {
     super(props)
     this.state = {
       user: [],
+      account_value: null,
       favorites: [],
       orders: [],
     };
@@ -27,6 +28,7 @@ export default class Portfolio extends Component {
     .then((response)=>{
         const result = response.data.Favorites;
         //sets the state of the component to the values coming from db
+        this.setState({ account_value: response.data.account_value});
         this.setState({ favorites: result});
     })
     .catch(err => console.log(err));
@@ -63,7 +65,8 @@ export default class Portfolio extends Component {
             <Search addtofavorites={this.addtofavorites}/>
           </MDBCol>
           <MDBCol siz="8">
-            <AccountSummary user={this.state.user}/>
+            <AccountSummary user={this.state.user}
+                            account_value={this.state.account_value}/>
           </MDBCol>
         </MDBRow>
         <MDBRow>
