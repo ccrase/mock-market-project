@@ -16,7 +16,7 @@ const Sidebar = (props) => {
   return (<div className="sidebar">
     {!isOpen ?
 
-      <MDBBtn className="dynamic-MDBBtn peach-gradient" onClick={() => setIsOpen(true)}>
+      <MDBBtn className="dynamic-MDBBtn blue-gradient" onClick={() => setIsOpen(true)}>
           <i className="fas fa-bars 2x p-1"></i> {props.user.username} {props.user.percent}%
       </MDBBtn> 
       

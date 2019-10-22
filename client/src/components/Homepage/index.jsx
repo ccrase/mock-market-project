@@ -22,11 +22,15 @@ function Homepage() {
               <MDBContainer>
                 <Graph/>
               </MDBContainer>
-            <Parallax x={[-40, 20]}>
+            <Parallax x={[-20, 10]}>
               <Howto/>
             </Parallax>
         </MDBCol>
-        <MDBCol md={3}><ScrollingStocks /></MDBCol>
+        <MDBCol md={3}>
+          <Parallax y={[0,-20]}>
+            <ScrollingStocks />
+          </Parallax>
+        </MDBCol>
       </MDBRow>
     </MDBContainer>
       

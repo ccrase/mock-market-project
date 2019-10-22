@@ -1,4 +1,3 @@
-const router = require("express").Router();
 const alpha = require('../../../controller/alphaVantage')
 const iex = require('../../../controller/iex')
 
