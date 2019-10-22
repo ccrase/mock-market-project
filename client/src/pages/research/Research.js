@@ -8,11 +8,10 @@ import Indexes from "../../components/Researchpage/Indexes";
 import Historical from "../../components/Researchpage/Historical";
 import axios from "axios";
 import CompanyDescription from "../../components/Researchpage/CompanyDesc";
-import SearchBar from "../../components/SearchBar";
+import ResearchSearch from "../../components/Researchpage/ResearchSearch";
 import { MDBContainer } from "mdbreact";
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 import { JwksClient } from "jwks-rsa";
-
 
 export default class StockResearch extends React.Component {
 
@@ -51,15 +50,22 @@ export default class StockResearch extends React.Component {
         };
 
         this.search = (e) => {
-            this.setState({ search: e.currentTarget.value })
-            console.log(this.state.search)
-        };
-        this.submit = async () => {
-            let req = await fetch("https://financialmodelingprep.com/api/v3/company/rating/" + this.state.search)
-            let res = await req.json()
-            // console.log(res)
+            // this.setState({ search: e })
+            console.log("inside research", e)
+            const search = e;
+            this.setState({ search: search })
+            console.log("ticker", search);
+        
+        console.log("state set",  search);
+        
+        this.handleSubmit=()=>{
+            console.log("tradebutton")
+            this.props.history.push ({
+                pathname: '/StockSave/'+this.state.symbol
+              })
+        }
+        
 
-            const search = this.state.search
             //Ratings
             axios.get('https://financialmodelingprep.com/api/v3/company/rating/' + search)
                 .then(res => {
@@ -93,7 +99,7 @@ export default class StockResearch extends React.Component {
                     });
                 });
             //Percent Change
-            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?timeseries=13')
+            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?timeseries=30')
                 .then(res => {
                     // console.log("percent change:", res.data.historical);
                     let dailyPercentArray = []
@@ -145,7 +151,7 @@ export default class StockResearch extends React.Component {
                     });
                 });
             //Pricing Data
-            axios.get('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + search + '&apikey=V095HJYQ4HICG0NL')
+            axios.get('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + search + '&apikey=4H5CGJD3YP7ZTU0V')
                 .then(res => {
                     const price = res.data['Global Quote']['05. price'];
                     const priceReduced = parseFloat(price).toFixed(2);
@@ -173,22 +179,15 @@ export default class StockResearch extends React.Component {
                         volume: res.data['Global Quote']['06. volume'],
                     });
                 });
-        }
+        };
     }
     render() {
         return (
             <div>
                 <Carousel gainers={this.state.gainers} losers={this.state.losers} sectors={this.state.sectors} />
                 <Indexes dow={this.state.dow} sandp={this.state.sandp} nasdaq={this.state.nasdaq} />
-                <div>
-                    <br></br>
-                    <form id="search" onSubmit={e => e.preventDefault()}>
-                        Search: <input type="text" onChange={e => this.search(e)} name="Search" value={this.state.search} />
-                        <input type='submit' value='submit' onClick={e => this.submit(e)} />
-                    </form>
-                </div>
                 <br></br>
-                <SearchBar />
+                <ResearchSearch search={this.search}/>
                 <div className="information">
                 <TradeButton image={this.state.image}
                     website={this.state.website}
@@ -206,19 +205,17 @@ export default class StockResearch extends React.Component {
                     recommendation={this.state.recommendation}
                     industry={this.state.industry}
                     sector={this.state.sector}
+                    tradeButton={this.handleSubmit}
                 />
                 <br></br>
                 <CompanyDescription ceo={this.state.ceo}
                     description={this.state.description}
                 />
+                <br></br>
                 </div>
                 <br></br>
                 <br></br>
-                <Graph image={this.state.image} historicalInfo={this.state.historicalInfo} symbol={this.state.symbol} dailyPercentChg={this.state.dailyPercentChg}/>
-                {/* <MDBContainer style={{ backgroundImage: "url(" + this.state.image + ")", backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "200px 200px" }}>
-                    <h3 className="mt-5">{this.state.companyName}Pricing Chart</h3>
-                    <Line data={this.state.dataLine} options={{ responsive: true }} />
-                </MDBContainer> */}
+                <Graph companyName={this.state.companyName} image={this.state.image} historicalInfo={this.state.historicalInfo} symbol={this.state.symbol} dailyPercentChg={this.state.dailyPercentChg}/>
                 <br></br>
                 <Historical historicalInfo={this.state.historicalInfo} companyName={this.state.companyName} />
                 <br></br>

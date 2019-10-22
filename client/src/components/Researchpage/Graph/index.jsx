@@ -6,7 +6,7 @@ import { MDBContainer } from "mdbreact";
   const info = {
     image: props.image,
     stockPricing: props.historicalInfo,
-    companyName: props.symbol,
+    companyName: props.companyName,
     dailyPercentChg: props.dailyPercentChg
   }
   console.log("props is working:", info.dailyPercentChg);
@@ -29,7 +29,7 @@ import { MDBContainer } from "mdbreact";
       type: "line",
       data: {
         //Bring in data
-        labels: [1,2,3,4,5,6,7,8,9,10,11,12,13],
+        labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
         datasets: [
           // {
           //   label: "S&P 500",
@@ -56,7 +56,7 @@ import { MDBContainer } from "mdbreact";
             label: info.companyName,
             data: info.dailyPercentChg,
             pointStyle: "line",
-            borderColor: "blue",
+            borderColor: "rgba(51, 181, 229, 0.6)",
             backgroundColor: "rgba(0,0,0,0)"
           }
         ]
@@ -67,7 +67,7 @@ import { MDBContainer } from "mdbreact";
 
   return (
     <MDBContainer style={{ backgroundColor: "white", backgroundImage: "url(" + info.image + ")", backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "200px 200px" }}>
-      <h3></h3>
+      <h3>{info.companyName+" "} % Change Chart</h3>
       <canvas
         id="myChart"
         ref={chartRef}>
