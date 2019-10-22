@@ -3,12 +3,16 @@ import React from "react";
 import TradeButton from "../../components/Researchpage/TradeButton";
 import Carousel from "../../components/Researchpage/Carousel";
 import Footer from "../../components/Footer/index";
-// import Flipcard from "../../components/Researchpage/Flipcard/index";
 import Graph from "../../components/Researchpage/Graph";
 import Indexes from "../../components/Researchpage/Indexes";
 import Historical from "../../components/Researchpage/Historical";
 import axios from "axios";
 import CompanyDescription from "../../components/Researchpage/CompanyDesc";
+import SearchBar from "../../components/SearchBar";
+import { MDBContainer } from "mdbreact";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
+import { JwksClient } from "jwks-rsa";
+
 
 export default class StockResearch extends React.Component {
 
@@ -42,7 +46,8 @@ export default class StockResearch extends React.Component {
             gainers: [],
             losers: [],
             sectors: [],
-            search: ''
+            search: '',
+            dailyPercentChg: []
         };
 
         this.search = (e) => {
@@ -82,12 +87,22 @@ export default class StockResearch extends React.Component {
             //Historical Pricing
             axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?serietype=line')
                 .then(res => {
-                    console.log("historical Info", res.data);
-                    let historicalInfoSorted=res.data.historical.sort(function(a, b){return a-b})
-                    console.log("sorted array:", historicalInfoSorted);
+                    console.log("historical Info", res.data.historical);
                     this.setState({
-                        historicalInfo: historicalInfoSorted
+                        historicalInfo: res.data.historical
                     });
+                });
+            //Percent Change
+            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?timeseries=13')
+                .then(res => {
+                    // console.log("percent change:", res.data.historical);
+                    let dailyPercentArray = []
+                        res.data.historical.map(function(value, index){
+                            dailyPercentArray.push(value['changePercent'])
+                        }) 
+                    this.setState({
+                        dailyPercentChg: dailyPercentArray
+                    });console.log("percent change:", dailyPercentArray);
                 });
             //Major Indexes
             axios.get('https://financialmodelingprep.com/api/v3/majors-indexes')
@@ -172,6 +187,9 @@ export default class StockResearch extends React.Component {
                         <input type='submit' value='submit' onClick={e => this.submit(e)} />
                     </form>
                 </div>
+                <br></br>
+                <SearchBar />
+                <div className="information">
                 <TradeButton image={this.state.image}
                     website={this.state.website}
                     companyName={this.state.companyName}
@@ -193,10 +211,16 @@ export default class StockResearch extends React.Component {
                 <CompanyDescription ceo={this.state.ceo}
                     description={this.state.description}
                 />
+                </div>
                 <br></br>
-                <Graph historicalInfo={this.state.historicalInfo} />
                 <br></br>
-                <Historical historicalInfo={this.state.historicalInfo} companyName={this.state.companyName}/>
+                <Graph image={this.state.image} historicalInfo={this.state.historicalInfo} symbol={this.state.symbol} dailyPercentChg={this.state.dailyPercentChg}/>
+                {/* <MDBContainer style={{ backgroundImage: "url(" + this.state.image + ")", backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "200px 200px" }}>
+                    <h3 className="mt-5">{this.state.companyName}Pricing Chart</h3>
+                    <Line data={this.state.dataLine} options={{ responsive: true }} />
+                </MDBContainer> */}
+                <br></br>
+                <Historical historicalInfo={this.state.historicalInfo} companyName={this.state.companyName} />
                 <br></br>
                 <br></br>
                 <Footer />

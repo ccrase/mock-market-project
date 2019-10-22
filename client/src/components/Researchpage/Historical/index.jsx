@@ -16,11 +16,12 @@ const BasicTable = (props) => {
             companyName: props.companyName
     }
   return (
-    <MDBContainer>
+    <MDBContainer style={{backgroundColor: 'white'}}>
+        <br></br>
         <h4>{data.companyName} Historical Pricing</h4>
     <MDBTable striped scrollY>
       <MDBTableHead columns={data.columns} />
-      <MDBTableBody rows={data.historicalInfo}/>
+      <MDBTableBody rows={data.historicalInfo} />
     </MDBTable>
     </MDBContainer>
   );
