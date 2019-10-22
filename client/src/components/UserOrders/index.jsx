@@ -15,9 +15,9 @@ const UserOrder = (props) => {
       //run AXIOS call
       var symbol = props.details[i].ticker_name;
       axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=V095HJYQ4HICG0NL`)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-    }
+      .then(res => console.log(res.data["Time Series (5min)"]))
+      .catch(err => console.log(err))
+    };
     
   };
 
