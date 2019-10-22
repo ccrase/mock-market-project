@@ -1,46 +1,88 @@
-// src/components/Profile.js
-
-import React, { Component } from "react";
-import { useAuth0 } from '../../react-auth0-wrapper';
+import React, { useState, useEffect, Component } from "react";
+// import { useAuth0 } from '../../react-auth0-wrapper';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import axios from 'axios';
 
-import SearchBar from '../SearchBar';
+import Search from '../Search';
 import AccountSummary from '../AccountSummary';
 import Orders from '../UserOrders';
 import Watchlist from '../Watchlist';
 
-const Portfolio = () => {
-  const { loading, user } = useAuth0();
+export default class Portfolio extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      user: [],
+      account_value: null,
+      favorites: [],
+      orders: [],
+    };
 
-  if (loading || !user) {
-    return (
-      <div>Loading...</div>
-    );
+    this.runCalls = this.runCalls.bind(this);
+    this.addtofavorites = this.addtofavorites.bind(this);
+  };
+
+
+  runCalls=(user)=>{
+    axios.get("portfolio/findfavorites/" + user._id)
+    .then((response)=>{
+        const result = response.data.Favorites;
+        //sets the state of the component to the values coming from db
+        this.setState({ account_value: response.data.account_value});
+        this.setState({ favorites: result});
+    })
+    .catch(err => console.log(err));
+
+    axios.get("portfolio/findorders/" + user._id)
+      .then((response)=>{
+          const result = response.data.Order; 
+          //sets the state of the component to the values coming from db
+          this.setState({ orders: result});
+      })
+      .catch(err => console.log(err));
+  };
+
+  componentDidMount=()=>{
+    let user = this.props.user;
+    console.log(user);
+  if(user){
+    this.setState({user: user});
+    this.runCalls(user);
   }
+  };
 
-  return (
-    <MDBContainer fluid>
-      <MDBRow>
-        <MDBCol size="4">
-          <SearchBar/>
-        </MDBCol>
-        <MDBCol size="8">
-          <AccountSummary/>
-        </MDBCol>
-      </MDBRow>
+  addtofavorites=(name)=>{
+    console.log("add to favorites")
+    this.setState({ 
+      favorites: this.state.favorites.concat([{ticker_name : name}])
+    })
+  };
 
-      <MDBRow>
-        <MDBCol size="4">
-          <Watchlist/>
-        </MDBCol>
-        <MDBCol size="8">
-          <Orders/>
-        </MDBCol>
-      </MDBRow>
-
-      <code>{JSON.stringify(user, null, 2)}</code>
+  render(){
+    return (
+      <MDBContainer fluid>
+        <MDBRow>
+          <MDBCol size="4">
+            <Search addtofavorites={this.addtofavorites}/>
+          </MDBCol>
+          <MDBCol siz="8">
+            <AccountSummary user={this.state.user}
+                            account_value={this.state.account_value}/>
+          </MDBCol>
+        </MDBRow>
+        <MDBRow>
+          <MDBCol siz="4">
+            <Watchlist
+              favorites={this.state.favorites}/>
+          </MDBCol>
+          <MDBCol size="8">
+            <Orders 
+              account_value={this.state.user.account_value}
+              details={this.state.orders} />
+          </MDBCol>
+        </MDBRow>
+        <code>{JSON.stringify(this.state.user, null, 2)}</code>
       </MDBContainer>
-  );
+    )
+  }
 };
-
-export default Portfolio;
