@@ -42,8 +42,9 @@ export default class Portfolio extends Component {
       .catch(err => console.log(err));
   };
 
-  componentWillMount=()=>{
+  componentDidMount=()=>{
     let user = this.props.user;
+    console.log(user);
   if(user){
     this.setState({user: user});
     this.runCalls(user);
