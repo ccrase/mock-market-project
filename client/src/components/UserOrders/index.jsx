@@ -5,37 +5,38 @@ import { PromiseProvider } from 'mongoose';
 import axios from 'axios';
 
 const UserOrder = (props) => {
-  console.log(props);
-  //put all the ticker_names into an array 
-  // var orderTickers = [];
-  // for(var i = 0; i < props.details.length; i++){
-  //   orderTickers.push(props.details.ticker_name);
-  // };
   const [ ticker, setTicker ] = useState({})
+  // console.log(props);
+
+  for(var i = 0; i < props.details.length; i++){
+    //if order type = BUY 
+    if(props.details[i].order_type === "buy"){
+      console.log(props.details[i].ticker_name);
+      //run AXIOS call
+      var symbol = props.details[i].ticker_name;
+      axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=V095HJYQ4HICG0NL`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+    }
+    
+  };
 
 
   //similar to componentDidMount and componentDidUpdate
   useEffect(() => {
-    //for each order in props.details -> 
-    const APIKey = `V095HJYQ4HICG0NL`;
-    const ticker= "AAPL"
-    axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${APIKey}`)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    console.log("INSIDE USE EFFECt")
+
     
     return () => {
+      // cleanup
     };
+  }, []);
 
-  }, );
-
-  //make an ajax call to API to get information for each of the tickers in array 
-  //here we will calculate the current stock price, day change and gain/loss
     return (
         <MDBTable small responsive hover>
         <MDBTableHead>
           <tr>
-            <th>Symbol</th>
-            <th>Type</th>
+            <th>Symbol / Name</th>
             <th>Quantity</th>
             <th>Price</th>
             <th>Market Value</th>
@@ -47,7 +48,6 @@ const UserOrder = (props) => {
           { props.details.length > 0  ? props.details.map((order, i) => (
             <tr key={i}>
               <td>{order.ticker_name}</td>
-              <td>{order.order_type}</td>
               <td>{order.quantity}</td>
               <td>CURRENT STOCK PRICE</td>
               <td>{order.quantity} * CURRENT STOCK PRICE</td>
@@ -59,7 +59,6 @@ const UserOrder = (props) => {
           : <div>You have not purchased any stock </div> }
           <tr>
             <td><b>Equities Total</b></td>
-            <td></td>
             <td></td>
             <td></td>
             <td><b>{props.account_value}</b></td>
@@ -77,7 +76,6 @@ export default UserOrder;
 
 
   // <tr>
-  //   <td></td>
   //   <td></td>
   //   <td></td>
   //   <td></td>
