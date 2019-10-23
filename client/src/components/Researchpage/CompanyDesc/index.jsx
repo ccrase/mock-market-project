@@ -8,13 +8,15 @@ const CompanyDescription = (props) => {
         ceo: props.ceo
     }
     return (
-        <MDBContainer>
+        <MDBContainer className="companyDesc">
+            <br></br>
             <MDBRow>
                 <MDBCol>CEO: {data.ceo}</MDBCol>
             </MDBRow>
             <MDBRow>
-                <MDBCol className="indexQuote">{data.description}</MDBCol>
+                <MDBCol>{data.description}</MDBCol>
             </MDBRow>
+            <br></br>
         </MDBContainer>
     );
 }

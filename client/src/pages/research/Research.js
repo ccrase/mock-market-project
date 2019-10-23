@@ -9,6 +9,7 @@ import Historical from "../../components/Researchpage/Historical";
 import axios from "axios";
 import CompanyDescription from "../../components/Researchpage/CompanyDesc";
 import ResearchSearch from "../../components/Researchpage/ResearchSearch";
+import NewsButton from "../../components/Researchpage/NewsButton";
 import { MDBContainer } from "mdbreact";
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 import { JwksClient } from "jwks-rsa";
@@ -108,6 +109,13 @@ export default class StockResearch extends React.Component {
                 })
             }
 
+            this.newsSearch = () => {
+                console.log("researchbutton")
+                this.props.history.push({
+                    pathname: '/news/'
+                })
+            }
+
 
             //Ratings
             axios.get('https://financialmodelingprep.com/api/v3/company/rating/' + search)
@@ -142,7 +150,7 @@ export default class StockResearch extends React.Component {
                     });
                 });
             //Percent Change
-            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?timeseries=30')
+            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?timeseries=60')
                 .then(res => {
                     // console.log("percent change:", res.data.historical);
                     let dailyPercentArray = []
@@ -190,8 +198,8 @@ export default class StockResearch extends React.Component {
                 <Carousel gainers={this.state.gainers} losers={this.state.losers} sectors={this.state.sectors} />
                 <Indexes dow={this.state.dow} sandp={this.state.sandp} nasdaq={this.state.nasdaq} />
                 <br></br>
-                <ResearchSearch search={this.search} />
-                <div className="information">
+                <ResearchSearch search={this.search}/>
+                <div className="information" className="shadow-box-example z-depth-4" style={{backgroundColor: 'white'}} >
                     <TradeButton image={this.state.image}
                         website={this.state.website}
                         companyName={this.state.companyName}
@@ -209,12 +217,14 @@ export default class StockResearch extends React.Component {
                         industry={this.state.industry}
                         sector={this.state.sector}
                         tradeButton={this.handleSubmit}
+                        newsButton={this.newsSearch}
                     />
                     <br></br>
                     <CompanyDescription ceo={this.state.ceo}
                         description={this.state.description}
                     />
                     <br></br>
+                    <NewsButton companyName={this.state.companyName} newsButton={this.newsSearch} />
                 </div>
                 <br></br>
                 <br></br>
