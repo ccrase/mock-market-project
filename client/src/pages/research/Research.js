@@ -3,11 +3,15 @@ import React from "react";
 import TradeButton from "../../components/Researchpage/TradeButton";
 import Carousel from "../../components/Researchpage/Carousel";
 import Footer from "../../components/Footer/index";
-// import Flipcard from "../../components/Researchpage/Flipcard/index";
 import Graph from "../../components/Researchpage/Graph";
-import Indexes from "../../components/Researchpage/Indexes"
+import Indexes from "../../components/Researchpage/Indexes";
+import Historical from "../../components/Researchpage/Historical";
 import axios from "axios";
 import CompanyDescription from "../../components/Researchpage/CompanyDesc";
+import ResearchSearch from "../../components/Researchpage/ResearchSearch";
+import { MDBContainer } from "mdbreact";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
+import { JwksClient } from "jwks-rsa";
 
 export default class StockResearch extends React.Component {
 
@@ -41,19 +45,27 @@ export default class StockResearch extends React.Component {
             gainers: [],
             losers: [],
             sectors: [],
-            search: ''
+            search: '',
+            dailyPercentChg: []
         };
 
         this.search = (e) => {
-            this.setState({ search: e.currentTarget.value })
-            console.log(this.state.search)
-        };
-        this.submit = async () => {
-            let req = await fetch("https://financialmodelingprep.com/api/v3/company/rating/" + this.state.search)
-            let res = await req.json()
-            console.log(res)
+            // this.setState({ search: e })
+            console.log("inside research", e)
+            const search = e;
+            this.setState({ search: search })
+            console.log("ticker", search);
+        
+        console.log("state set",  search);
+        
+        this.handleSubmit=()=>{
+            console.log("tradebutton")
+            this.props.history.push ({
+                pathname: '/StockSave/'+this.state.symbol
+              })
+        }
+        
 
-            const search = this.state.search
             //Ratings
             axios.get('https://financialmodelingprep.com/api/v3/company/rating/' + search)
                 .then(res => {
@@ -81,10 +93,22 @@ export default class StockResearch extends React.Component {
             //Historical Pricing
             axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?serietype=line')
                 .then(res => {
-                    // console.log(res);
+                    console.log("historical Info", res.data.historical);
                     this.setState({
                         historicalInfo: res.data.historical
                     });
+                });
+            //Percent Change
+            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?timeseries=30')
+                .then(res => {
+                    // console.log("percent change:", res.data.historical);
+                    let dailyPercentArray = []
+                        res.data.historical.map(function(value, index){
+                            dailyPercentArray.push(value['changePercent'])
+                        }) 
+                    this.setState({
+                        dailyPercentChg: dailyPercentArray
+                    });console.log("percent change:", dailyPercentArray);
                 });
             //Major Indexes
             axios.get('https://financialmodelingprep.com/api/v3/majors-indexes')
@@ -105,7 +129,7 @@ export default class StockResearch extends React.Component {
             //Today's Gainers
             axios.get('https://financialmodelingprep.com/api/v3/stock/gainers')
                 .then(res => {
-                    console.log(res.data.mostGainerStock);
+                    // console.log(res.data.mostGainerStock);
                     this.setState({
                         gainers: res.data.mostGainerStock
                     });
@@ -113,7 +137,7 @@ export default class StockResearch extends React.Component {
             //Today's Losers
             axios.get('https://financialmodelingprep.com/api/v3/stock/losers')
                 .then(res => {
-                    console.log(res.data.mostLoserStock);
+                    // console.log(res.data.mostLoserStock);
                     this.setState({
                         losers: res.data.mostLoserStock
                     });
@@ -121,13 +145,13 @@ export default class StockResearch extends React.Component {
             //Sector Performance
             axios.get('https://financialmodelingprep.com/api/v3/stock/sectors-performance')
                 .then(res => {
-                    console.log(res.data.sectorPerformance);
+                    // console.log(res.data.sectorPerformance);
                     this.setState({
                         sectors: res.data.sectorPerformance
                     });
                 });
             //Pricing Data
-            axios.get('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + search + '&apikey=6LQJ0J6L87EVYG6N')
+            axios.get('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + search + '&apikey=4H5CGJD3YP7ZTU0V')
                 .then(res => {
                     const price = res.data['Global Quote']['05. price'];
                     const priceReduced = parseFloat(price).toFixed(2);
@@ -143,7 +167,7 @@ export default class StockResearch extends React.Component {
                     const lowReduced = parseFloat(low).toFixed(2);
                     const close = res.data['Global Quote']['08. previous close'];
                     const closeReduced = parseFloat(close).toFixed(2);
-                    console.log(res);
+                    // console.log(res);
                     this.setState({
                         price: priceReduced,
                         change: changeReduced,
@@ -155,47 +179,47 @@ export default class StockResearch extends React.Component {
                         volume: res.data['Global Quote']['06. volume'],
                     });
                 });
-        }
+        };
     }
     render() {
         return (
             <div>
-                <Carousel gainers={this.state.gainers} losers={this.state.losers} sectors={this.state.sectors}/>
-                <Indexes dow={this.state.dow} sandp={this.state.sandp} nasdaq={this.state.nasdaq}/>
-                <div>
+                <Carousel gainers={this.state.gainers} losers={this.state.losers} sectors={this.state.sectors} />
+                <Indexes dow={this.state.dow} sandp={this.state.sandp} nasdaq={this.state.nasdaq} />
                 <br></br>
-                <form id="search" onSubmit={e => e.preventDefault()}>
-                    Search: <input type="text" onChange={e => this.search(e)} name="Search" value={this.state.search} />
-                    <input type='submit' value='submit' onClick={e => this.submit(e)} />
-                </form>
-                </div>
-                <TradeButton image={this.state.image} 
-                            website={this.state.website} 
-                            companyName={this.state.companyName} 
-                            symbol={this.state.symbol} 
-                            price={this.state.price} 
-                            change={this.state.change} 
-                            percentchange={this.state.percentchange}
-                            open={this.state.open}
-                            high={this.state.high}
-                            low={this.state.low}
-                            close={this.state.close}
-                            volume={this.state.volume}
-                            rating={this.state.rating}
-                            recommendation={this.state.recommendation}
-                            industry={this.state.industry}
-                            sector={this.state.sector}
+                <ResearchSearch search={this.search}/>
+                <div className="information">
+                <TradeButton image={this.state.image}
+                    website={this.state.website}
+                    companyName={this.state.companyName}
+                    symbol={this.state.symbol}
+                    price={this.state.price}
+                    change={this.state.change}
+                    percentchange={this.state.percentchange}
+                    open={this.state.open}
+                    high={this.state.high}
+                    low={this.state.low}
+                    close={this.state.close}
+                    volume={this.state.volume}
+                    rating={this.state.rating}
+                    recommendation={this.state.recommendation}
+                    industry={this.state.industry}
+                    sector={this.state.sector}
+                    tradeButton={this.handleSubmit}
                 />
                 <br></br>
                 <CompanyDescription ceo={this.state.ceo}
-                                    description={this.state.description}
+                    description={this.state.description}
                 />
                 <br></br>
-                    <Graph historicalInfo={this.state.historicalInfo} />
-                    <br></br>
-                    <div><a href="https://financialmodelingprep.com/api/v3/historical-price-full/aapl?serietype=line" target="_blank">Historical Pricing</a></div>
-                    <br></br>
-                    <br></br>
+                </div>
+                <br></br>
+                <br></br>
+                <Graph companyName={this.state.companyName} image={this.state.image} historicalInfo={this.state.historicalInfo} symbol={this.state.symbol} dailyPercentChg={this.state.dailyPercentChg}/>
+                <br></br>
+                <Historical historicalInfo={this.state.historicalInfo} companyName={this.state.companyName} />
+                <br></br>
+                <br></br>
                 <Footer />
             </div>
         )

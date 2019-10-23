@@ -1,42 +1,80 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
+import React, { useEffect, useState } from 'react';
+import Chart from "chart.js";
 import { MDBContainer } from "mdbreact";
 
-const Chartprops = (props) => {
-  const data = {historicalInfo: props.historicalInfo.close,
-                dataLine: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
-                datasets: [{
-                            label: "My First dataset",
-                            fill: true,
-                            lineTension: 0.3,
-                            backgroundColor: "rgba(225, 204,230, .3)",
-                            borderColor: "rgb(205, 130, 158)",
-                            borderCapStyle: "butt",
-                            borderDash: [],
-                            borderDashOffset: 0.0,
-                            borderJoinStyle: "miter",
-                            pointBorderColor: "rgb(205, 130,1 58)",
-                            pointBackgroundColor: "rgb(255, 255, 255)",
-                            pointBorderWidth: 10,
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: "rgb(0, 0, 0)",
-                            pointHoverBorderColor: "rgba(220, 220, 220,1)",
-                            pointHoverBorderWidth: 2,
-                            pointRadius: 1,
-                            pointHitRadius: 10,
-                            data: props.historicalInfo.close
-                          },]
-                        }
-                      }
-                    
-    return (
-      <MDBContainer>
-        <h3 className="mt-5 float-right">Line chart</h3>
-        <Line data={data.historicalInfo} options={{ responsive: true }} />
-      </MDBContainer>
-    );
+ const Graph = (props) => {
+  const info = {
+    image: props.image,
+    stockPricing: props.historicalInfo,
+    companyName: props.companyName,
+    dailyPercentChg: props.dailyPercentChg
   }
+  console.log("props is working:", info.dailyPercentChg);
+
+  const [stockData, setStockData] = useState([])
+  const chartRef = React.createRef();
+  useEffect(() => {
+
+    let getData = async () => {
+      let res = await fetch('/api/graph')
+      let data = await res.json()
+      setStockData(await data)
+      console.log(await data)
+    }
+    getData()
+
+    const myChartRef = chartRef.current.getContext("2d");
+
+    new Chart(myChartRef, {
+      type: "line",
+      data: {
+        //Bring in data
+        labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+        datasets: [
+          // {
+          //   label: "S&P 500",
+          //   data: stockData.sp500,
+          //   pointStyle: "line",
+          //   borderColor: 'rgba(255, 187, 51, 0.6)',
+          //   backgroundColor: "rgba(0,0,0,0)",
+          // },
+          // {
+          //   label: "DOW",
+          //   data: stockData.dow,
+          //   pointStyle: "line",
+          //   borderColor: "rgba(0, 200, 81, 0.6)",
+          //   backgroundColor: "rgba(0,0,0,0)"
+          // },
+          // {
+          //   label: "NASDAQ",
+          //   data: stockData.nasdaq,
+          //   pointStyle: "line",
+          //   borderColor: "rgba(51, 181, 229, 0.6)",
+          //   backgroundColor: "rgba(0,0,0,0)"
+          // },
+          {
+            label: info.companyName,
+            data: info.dailyPercentChg,
+            pointStyle: "line",
+            borderColor: "rgba(51, 181, 229, 0.6)",
+            backgroundColor: "rgba(0,0,0,0)"
+          }
+        ]
+      }
+    });
+  }, [stockData, info])
 
 
-export default Chartprops;
+  return (
+    <MDBContainer style={{ backgroundColor: "white", backgroundImage: "url(" + info.image + ")", backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "200px 200px" }}>
+      <h3>{info.companyName+" "} % Change Chart</h3>
+      <canvas
+        id="myChart"
+        ref={chartRef}>
+      </canvas>      
+    </MDBContainer>
+  );
+}
+
+export default Graph;
+

@@ -1,31 +1,26 @@
 import React, {useState, useEffect } from 'react';
-import { useAuth0 } from '../../react-auth0-wrapper';
+import { MDBContainer, MDBBtnGroup, MDBBtn, } from "mdbreact";
 import './index.css';
-import axios from 'axios';
-import Ticker from '../Ticker/index';
 
-const Watchlist = () => {
-    const { loading, user } = useAuth0();
-    console.log("trying to send this user ID " + user._id);
+const Watchlist = (props) => {
+    console.log(props.favorites);
 
-    useEffect(() => {
-        axios.get("portfolio/findfavorites/" + user._id)
-        .then((response)=>{
-            console.log("THIS IS THE RESPONSE");
-            const result = response.data.Favorites; 
-            console.log(result);
-            //HOW DO I GET THIS RESULT OUT OF HERE??!!!???!!???
-        })
-        .catch(err => console.log(err));
-    });
+    const results =  props.favorites.map((fav, i) => (
+        <MDBBtnGroup>
+        <MDBBtn style={{float : "left"}} size="sm" id={fav.ticker_name} key={i} href="#">{fav.ticker_name}</MDBBtn>
+        </MDBBtnGroup>
+    ));
 
-
-    return(
-        <div>
-            <h5>Your Watchlist</h5>
-            <Ticker/>
-        </div>
-    )
+   return (
+       <MDBContainer>
+           
+           <h4>Your Watchlist</h4>
+                {results} 
+       </MDBContainer>
+   )
 };
 
+
 export default Watchlist;
+
+

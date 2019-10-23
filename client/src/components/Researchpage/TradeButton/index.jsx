@@ -2,6 +2,9 @@ import { MDBRow, MDBCol } from "mdbreact";
 import React, { Fragment } from "react";
 import { MDBBtn } from "mdbreact";
 import { MDBListGroup, MDBListGroupItem, MDBContainer } from "mdbreact";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+// import NewsSearch from "../../NewsSearch/index"
+
 
 
 import "./index.css";
@@ -27,11 +30,12 @@ const searchFunction = (props) => {
     }
 
     return (
+        
         <MDBRow>
             <MDBCol className="logo"><a href={data.website} target="_blank" alt="company logo"><img src={data.image}></img></a></MDBCol>
             <MDBCol>
                 <MDBListGroup className="quoteData" style={{ width: "22rem" }}>
-                    <MDBListGroupItem href={data.website} target="_blank" color="info">Company: {data.companyName}</MDBListGroupItem>
+                    <MDBListGroupItem href={data.website} target="_blank" style={{backgroundColor: 'rgb(63,143,213)', color: "white"}}>Company: {data.companyName}</MDBListGroupItem>
                     <MDBListGroupItem>Symbol: {data.symbol}</MDBListGroupItem>
                     <MDBListGroupItem>Current Price: {data.price}</MDBListGroupItem>
                     <MDBListGroupItem>Day Change: {data.change}</MDBListGroupItem>
@@ -56,7 +60,13 @@ const searchFunction = (props) => {
                     <MDBListGroupItem>Website: <a href={data.website} target="_blank">{data.website}</a></MDBListGroupItem>
                 </MDBListGroup>
             </MDBCol>
-            <MDBCol className="tradeBtn"><MDBBtn gradient="blue">Trade</MDBBtn></MDBCol>
+            <Router>
+                <MDBCol className="tradeBtn">
+                    <MDBBtn onClick={props.tradeButton} gradient="blue">Trade {data.symbol}</MDBBtn>
+                    <br></br>
+                    <MDBBtn gradient="blue"> {data.symbol} News </MDBBtn>
+                </MDBCol>
+            </Router>
         </MDBRow>
     );
 }

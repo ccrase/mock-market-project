@@ -1,23 +1,36 @@
 import React, {useState, useEffect } from 'react';
-import { useAuth0 } from '../../react-auth0-wrapper';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
-import axios from 'axios';
 import './index.css';
+import { PromiseProvider } from 'mongoose';
 
-const UserOrder = () => {
-  const { loading, user } = useAuth0();
+const UserOrder = (props) => {
+  //put all the ticker_names into an array 
+  // var orderTickers = [];
+  // for(var i = 0; i < props.details.length; i++){
+  //   orderTickers.push(props.details.ticker_name);
+  // };
+  const [ ticker, setTicker ] = useState({});
 
-//   useEffect(() => {
-//     axios.get("portfolio/findorders/" + user._id)
-//     .then((response)=>{
-//         console.log("THESE ARE THE ORDERS");
-//         const result = response.data.Order; 
-//         console.log(result);
-//         //HOW DO I GET THIS RESULT OUT OF HERE??!!!???!!???
-//     })
-//     .catch(err => console.log(err));
-// });
 
+  //similar to componentDidMount and componentDidUpdate
+  useEffect(() => {
+    //for each order in props.details -> 
+    for(var i = 0; i < props.details.length; i++){
+      console.log(props.details[i]);
+    };
+
+    return () => {
+      
+    };
+  }, []);
+
+  //make an ajax call to API to get information for each of the tickers in array 
+  //here we will calculate the current stock price, day change and gain/loss
+
+
+
+
+  console.log(props);
     return (
         <MDBTable small responsive hover>
         <MDBTableHead>
@@ -31,21 +44,25 @@ const UserOrder = () => {
           </tr>
         </MDBTableHead>
         <MDBTableBody>
-          <tr>
-            <td>TRTC/ TerraTech</td>
-            <td>234</td>
-            <td>2343</td>
-            <td>2342335</td>
-            <td>34534</td>
-            <td>868</td>
-          </tr>
+          { props.details.length > 0  ? props.details.map((order, i) => (
+            <tr key={i}>
+              <td>{order.ticker_name}</td>
+              <td>{order.quantity}</td>
+              <td>CURRENT STOCK PRICE</td>
+              <td>{order.quantity} * CURRENT STOCK PRICE</td>
+              <td>current s.p. - begining day s.p.</td>
+              <td>current market value - ({order.quantity * order.per_stock_amount})</td>
+            </tr>
+          ))
+
+          : <div>You have not purchased any stock </div> }
           <tr>
             <td><b>Equities Total</b></td>
             <td></td>
             <td></td>
-            <td><b>$XX,XXX</b></td>
-            <td><b>$XXX</b></td>
-            <td><b>$X,XXX</b></td>
+            <td><b>{props.account_value}</b></td>
+            <td><b>$current act val - begining act val</b></td>
+            <td><b>$current act val - cost basis</b></td>
           </tr>
         </MDBTableBody>
       </MDBTable>
@@ -54,3 +71,14 @@ const UserOrder = () => {
 };
 
 export default UserOrder;
+
+
+
+  // <tr>
+  //   <td></td>
+  //   <td></td>
+  //   <td></td>
+  //   <td></td>
+  //   <td></td>
+  //   <td></td>
+  // </tr>

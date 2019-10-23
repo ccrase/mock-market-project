@@ -48,7 +48,11 @@ class SaveStock extends Component {
 
   handleBuy = () => {
     console.log("Inside Buy");
-    if(this.state.stocks.result.length !== 0){
+    
+    let length=this.state.stocks.length;
+    console.log(length);
+    if(this.state.ticker_name ){
+    if(length != 0){
     this.setState({
       order_type: "buy",
       perstockprice: this.state.stocks.result["1. open"]
@@ -58,17 +62,19 @@ class SaveStock extends Component {
    }
     // this.handleFormSubmit();
 
+  }else{
+    alert("Please search the ticker");
   }
+}
 
 
   //for stocks selling functions
 
   handleSell = () => {
         
-    // if(this.state.stocks && this.state.stocks.length){
-    //   console.log("Inside Sell");
-    //   alert("Please press search button");
-    // }else{
+    let length=this.state.stocks.length;
+    if(this.state.ticker_name ){
+      if(length != 0){
     this.setState({
       order_type: "sell",
       perstockprice: this.state.stocks.result["1. open"]
@@ -81,8 +87,15 @@ class SaveStock extends Component {
     } else {
       alert("you don't have stocks for this ticker" + this.state.ticker_name);
     }
+  }else{
     
+      alert("Please press search button ");
+     
   }
+  }else{
+    alert("Please search the ticker");
+  }
+}
 
   checkTicker = () => {
     console.log("Inside checkTicker");

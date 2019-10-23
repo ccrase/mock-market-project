@@ -8,7 +8,7 @@ import './index.css'
 const Sidebar = (props) => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [isOpen, setIsOpen] = useState(false)
-  const [user, setUser] = useState({nickname: 'username', percent: 5})
+  const [user, setUser] = useState({nickname: 'Log In', percent: 0})
   const Link = props.link
   const closeSidebar = () => {
     if (isOpen) setIsOpen(false);
@@ -50,31 +50,37 @@ const Sidebar = (props) => {
               <p>Home</p>
             </MDBNavLink>
           </MDBNavItem>
+          {isAuthenticated && user!==undefined? 
           <MDBNavItem className="col-6">
-            <MDBNavLink to="/trade" onClick={closeSidebar}>
+            <MDBNavLink to={"/StockSave"} onClick={closeSidebar}>
               <i className="nav-icon fas fa-exchange-alt" />
               <p>Trade</p>
             </MDBNavLink>
           </MDBNavItem>
+          :null}
           <MDBNavItem className="col-6">
             <MDBNavLink to="/research" onClick={closeSidebar}>
               <i className="nav-icon fas fa-chart-bar" />
               <p>Research</p>
             </MDBNavLink>
           </MDBNavItem>
-          <MDBNavItem className="col-6">
-            {isAuthenticated? 
+          
+            {isAuthenticated && user!==undefined? 
+            <MDBNavItem className="col-6">
             <MDBNavLink to="/portfolio" onClick={closeSidebar}>
               <i className="nav-icon fas fa-user" />
               <p>Profile</p>
             </MDBNavLink>
+            </MDBNavItem>
             : 
+            <MDBNavItem className="col-12">
             <MDBNavLink to="/portfolio" onClick={() =>
               loginWithRedirect({})}>
               <i className="nav-icon fas fa-user" />
               <p>Log in</p>
-            </MDBNavLink>}
-          </MDBNavItem>
+            </MDBNavLink>
+            </MDBNavItem>}
+          
         </MDBNav>
 
         <NavChart />
