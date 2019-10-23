@@ -13,10 +13,20 @@ const Sidebar = (props) => {
   const closeSidebar = () => {
     if (isOpen) setIsOpen(false);
   };
-  
+
+  const fetchIt = async (user) => {
+    const req = await fetch('/api/sidebar/'+user['_id']);
+    let res = await req.json();
+    return res;
+  }
+
   useEffect(() => {
-    if (props.user)
-    {setUser(props.user)}
+    if (props.user && props.user!==undefined){
+      setUser(props.user);
+      // let data = fetchIt(props.user);
+      // console.log(data);
+    }
+
   }, [props.user])
 
   let percent = 5;
