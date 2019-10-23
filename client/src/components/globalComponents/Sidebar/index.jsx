@@ -50,6 +50,7 @@ const Sidebar = (props) => {
               <p>Home</p>
             </MDBNavLink>
           </MDBNavItem>
+          
           {isAuthenticated && user!==undefined? 
           <MDBNavItem className="col-6">
             <MDBNavLink to={"/StockSave"} onClick={closeSidebar}>
@@ -58,6 +59,7 @@ const Sidebar = (props) => {
             </MDBNavLink>
           </MDBNavItem>
           :null}
+
           <MDBNavItem className="col-6">
             <MDBNavLink to="/research" onClick={closeSidebar}>
               <i className="nav-icon fas fa-chart-bar" />
