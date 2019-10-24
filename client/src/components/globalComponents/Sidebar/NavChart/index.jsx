@@ -36,6 +36,9 @@ const NavChart = (props) => {
             '#CDA0FF',
           ]}],
           labels: labels
+        },
+        options: {
+          aspectRatio: 1
         }
       });
     }
@@ -43,7 +46,7 @@ const NavChart = (props) => {
 
 
   return (
-      <MDBCard id="navChartHolder"className="my-3 py-5">
+      <MDBCard id="navChartHolder"className="my-3 p-2">
         <canvas
       id="navChart"
       ref={navChartRef}>
