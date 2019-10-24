@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBTable, MDBTableBody, MDBTableHead, MDBContainer } from 'mdbreact';
+import { MDBListGroupItem, MDBTable, MDBTableBody, MDBTableHead, MDBContainer } from 'mdbreact';
 import './index.css';
 
 const BasicTable = (props) => {
@@ -18,12 +18,14 @@ const BasicTable = (props) => {
     }
   return (
     <MDBContainer>
+        <MDBListGroupItem className='heading'>
         <br></br>
-        <h4 className='heading'>{data.companyName} Historical Pricing</h4>
+        <h4 className='heading'>Historical Pricing</h4>
     <MDBTable striped scrollY className='heading'>
       <MDBTableHead columns={data.columns} />
       <MDBTableBody rows={data.historicalInfo} />
     </MDBTable>
+        </MDBListGroupItem>
     </MDBContainer>
   );
 }
