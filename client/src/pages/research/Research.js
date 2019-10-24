@@ -9,6 +9,7 @@ import Historical from "../../components/Researchpage/Historical";
 import axios from "axios";
 import CompanyDescription from "../../components/Researchpage/CompanyDesc";
 import ResearchSearch from "../../components/Researchpage/ResearchSearch";
+import NewsButton from "../../components/Researchpage/NewsButton";
 import { MDBContainer } from "mdbreact";
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 import { JwksClient } from "jwks-rsa";
@@ -49,67 +50,7 @@ export default class StockResearch extends React.Component {
             dailyPercentChg: []
         };
 
-        this.search = (e) => {
-            // this.setState({ search: e })
-            console.log("inside research", e)
-            const search = e;
-            this.setState({ search: search })
-            console.log("ticker", search);
-        
-        console.log("state set",  search);
-        
-        this.handleSubmit=()=>{
-            console.log("tradebutton")
-            this.props.history.push ({
-                pathname: '/StockSave/'+this.state.symbol
-              })
-        }
-        
-
-            //Ratings
-            axios.get('https://financialmodelingprep.com/api/v3/company/rating/' + search)
-                .then(res => {
-                    // console.log(res);
-                    this.setState({
-                        symbol: res.data.symbol,
-                        rating: res.data.rating.score,
-                        recommendation: res.data.rating.recommendation
-                    });
-                });
-            //Company Information
-            axios.get('https://financialmodelingprep.com/api/v3/company/profile/' + search)
-                .then(res => {
-                    // console.log(res);
-                    this.setState({
-                        companyName: res.data.profile.companyName,
-                        industry: res.data.profile.industry,
-                        website: res.data.profile.website,
-                        description: res.data.profile.description,
-                        ceo: res.data.profile.ceo,
-                        sector: res.data.profile.sector,
-                        image: res.data.profile.image
-                    });
-                });
-            //Historical Pricing
-            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?serietype=line')
-                .then(res => {
-                    console.log("historical Info", res.data.historical);
-                    this.setState({
-                        historicalInfo: res.data.historical
-                    });
-                });
-            //Percent Change
-            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?timeseries=30')
-                .then(res => {
-                    // console.log("percent change:", res.data.historical);
-                    let dailyPercentArray = []
-                        res.data.historical.map(function(value, index){
-                            dailyPercentArray.push(value['changePercent'])
-                        }) 
-                    this.setState({
-                        dailyPercentChg: dailyPercentArray
-                    });console.log("percent change:", dailyPercentArray);
-                });
+        this.componentDidMount = () => {
             //Major Indexes
             axios.get('https://financialmodelingprep.com/api/v3/majors-indexes')
                 .then(res => {
@@ -150,6 +91,76 @@ export default class StockResearch extends React.Component {
                         sectors: res.data.sectorPerformance
                     });
                 });
+        }
+
+        this.search = (e) => {
+            // this.setState({ search: e })
+            console.log("inside research", e)
+            const search = e;
+            this.setState({ search: search })
+            console.log("ticker", search);
+
+            console.log("state set", search);
+
+            this.handleSubmit = () => {
+                console.log("tradebutton")
+                this.props.history.push({
+                    pathname: '/StockSave/' + this.state.symbol
+                })
+            }
+
+            this.newsSearch = () => {
+                console.log("researchbutton")
+                this.props.history.push({
+                    pathname: '/news/'
+                })
+            }
+
+
+            //Ratings
+            axios.get('https://financialmodelingprep.com/api/v3/company/rating/' + search)
+                .then(res => {
+                    // console.log(res);
+                    this.setState({
+                        symbol: res.data.symbol,
+                        rating: res.data.rating.score,
+                        recommendation: res.data.rating.recommendation
+                    });
+                });
+            //Company Information
+            axios.get('https://financialmodelingprep.com/api/v3/company/profile/' + search)
+                .then(res => {
+                    // console.log(res);
+                    this.setState({
+                        companyName: res.data.profile.companyName,
+                        industry: res.data.profile.industry,
+                        website: res.data.profile.website,
+                        description: res.data.profile.description,
+                        ceo: res.data.profile.ceo,
+                        sector: res.data.profile.sector,
+                        image: res.data.profile.image
+                    });
+                });
+            //Historical Pricing
+            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?serietype=line')
+                .then(res => {
+                    console.log("historical Info", res.data.historical);
+                    this.setState({
+                        historicalInfo: res.data.historical
+                    });
+                });
+            //Percent Change
+            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?timeseries=60')
+                .then(res => {
+                    // console.log("percent change:", res.data.historical);
+                    let dailyPercentArray = []
+                    res.data.historical.map(function (value, index) {
+                        dailyPercentArray.push(value['changePercent'])
+                    })
+                    this.setState({
+                        dailyPercentChg: dailyPercentArray
+                    }); console.log("percent change:", dailyPercentArray);
+                });
             //Pricing Data
             axios.get('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + search + '&apikey=4H5CGJD3YP7ZTU0V')
                 .then(res => {
@@ -188,34 +199,36 @@ export default class StockResearch extends React.Component {
                 <Indexes dow={this.state.dow} sandp={this.state.sandp} nasdaq={this.state.nasdaq} />
                 <br></br>
                 <ResearchSearch search={this.search}/>
-                <div className="information">
-                <TradeButton image={this.state.image}
-                    website={this.state.website}
-                    companyName={this.state.companyName}
-                    symbol={this.state.symbol}
-                    price={this.state.price}
-                    change={this.state.change}
-                    percentchange={this.state.percentchange}
-                    open={this.state.open}
-                    high={this.state.high}
-                    low={this.state.low}
-                    close={this.state.close}
-                    volume={this.state.volume}
-                    rating={this.state.rating}
-                    recommendation={this.state.recommendation}
-                    industry={this.state.industry}
-                    sector={this.state.sector}
-                    tradeButton={this.handleSubmit}
-                />
-                <br></br>
-                <CompanyDescription ceo={this.state.ceo}
-                    description={this.state.description}
-                />
-                <br></br>
+                <div className="information" className="shadow-box-example z-depth-4" style={{backgroundColor: 'white'}} >
+                    <TradeButton image={this.state.image}
+                        website={this.state.website}
+                        companyName={this.state.companyName}
+                        symbol={this.state.symbol}
+                        price={this.state.price}
+                        change={this.state.change}
+                        percentchange={this.state.percentchange}
+                        open={this.state.open}
+                        high={this.state.high}
+                        low={this.state.low}
+                        close={this.state.close}
+                        volume={this.state.volume}
+                        rating={this.state.rating}
+                        recommendation={this.state.recommendation}
+                        industry={this.state.industry}
+                        sector={this.state.sector}
+                        tradeButton={this.handleSubmit}
+                        newsButton={this.newsSearch}
+                    />
+                    <br></br>
+                    <CompanyDescription ceo={this.state.ceo}
+                        description={this.state.description}
+                    />
+                    <br></br>
+                    <NewsButton companyName={this.state.companyName} newsButton={this.newsSearch} />
                 </div>
                 <br></br>
                 <br></br>
-                <Graph companyName={this.state.companyName} image={this.state.image} historicalInfo={this.state.historicalInfo} symbol={this.state.symbol} dailyPercentChg={this.state.dailyPercentChg}/>
+                <Graph companyName={this.state.companyName} image={this.state.image} historicalInfo={this.state.historicalInfo} symbol={this.state.symbol} dailyPercentChg={this.state.dailyPercentChg} />
                 <br></br>
                 <Historical historicalInfo={this.state.historicalInfo} companyName={this.state.companyName} />
                 <br></br>

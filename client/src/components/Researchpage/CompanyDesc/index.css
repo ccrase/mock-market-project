@@ -1,0 +1,7 @@
+.companyDesc {
+    color: white;
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, rgb(72, 198, 248) , rgb(24, 56, 160));
+    opacity: 0.9;
+    filter: alpha(opacity=50);
+}

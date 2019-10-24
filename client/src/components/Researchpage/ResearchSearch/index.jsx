@@ -51,6 +51,8 @@ export default class NewsSearchBar extends Component {
     render() {
         return (
             <MDBContainer className='researchSearch'>
+            <div className="shadow-box-example z-depth-4">
+
                 <MDBCol>
                     <MDBFormInline className="md-form">
                         <MDBIcon icon="search" />
@@ -63,6 +65,7 @@ export default class NewsSearchBar extends Component {
                     <ResearchResults results={this.state.results} 
                                        afterselection={this.afterselection} 
                                        middlesearch={this.middlesearch}/>
+                </div>
                 </div>
             </MDBContainer>
             )
