@@ -167,11 +167,11 @@ module.exports = {
         throw(err);
       }else {
         if(stock.quantity !== 0 && (stock.total_amount_earn!==0 || stock.total_amount_invest !== 0)){
-          
+        var order={};  
       db.Order
       .create(stock)
       .then(dbModel => {
-        
+        order=dbModel;
         console.log(dbModel);
 
         if(dbModel.order_type === "sell"){
@@ -188,7 +188,7 @@ module.exports = {
       }) 
       .then(function(dbUser) {
         // If we were able to successfully update an User, send it back to the client
-        res.send(dbUser);
+        res.send(order);
       }) 
       .catch(err => {
         console.log(stock.ticker_name);

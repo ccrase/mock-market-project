@@ -12,9 +12,9 @@ const gridExamplesPage = (props) => {
     }
   return (
       <MDBRow>
-        <MDBCol className="indexQuote">{data.dow}</MDBCol>
-        <MDBCol className="indexQuote">{data.sandp}</MDBCol>
-        <MDBCol className="indexQuote">{data.nasdaq}</MDBCol>
+        <MDBCol className="indexQuote dow">{data.dow}</MDBCol>
+        <MDBCol className="indexQuote sandp">{data.sandp}</MDBCol>
+        <MDBCol className="indexQuote nasdaq">{data.nasdaq}</MDBCol>
       </MDBRow>
   );
 }

@@ -10,3 +10,23 @@ text-align: center;
 #search {
     margin-left: 72%;
 }
+
+.dow {
+    padding: 1%;
+    color: white;
+    font-weight: bold;
+    background-image: linear-gradient(to left, rgb(72, 198, 248) , rgb(24, 56, 160));
+}
+
+.sandp {
+    padding: 1%;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(72, 198, 248);}
+
+.nasdaq {
+    padding: 1%;
+    color: white;
+    font-weight: bold;
+    background-image: linear-gradient(to right, rgb(72, 198, 248) , rgb(24, 56, 160));
+}
