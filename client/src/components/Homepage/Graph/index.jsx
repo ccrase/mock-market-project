@@ -3,18 +3,20 @@ import Chart from "chart.js";
 import {MDBJumbotron} from 'mdbreact'
 
 export default function Graph() {
-    const [stockData, setStockData] = useState([])
+    const [stockData, setStockData] = useState(false)
     const chartRef = React.createRef();
     useEffect(() => {
-
         let getData = async () => {
             let res = await fetch('/api/graph')
             let data = await res.json()
             setStockData(await data)
-            console.log(await data)
+            console.log('made graph call')
         }
         getData()
+    }, [])
 
+    useEffect(() => {
+        if (stockData){
         const myChartRef = chartRef.current.getContext("2d");
         
         new Chart(myChartRef, {
@@ -46,14 +48,14 @@ export default function Graph() {
                     }
                 ]
             }
-        });
+        });}
     }, [stockData])
 
 
 
 
     return (
-        <MDBJumbotron>
+        <MDBJumbotron id="graph">
             <canvas
                 id="myChart"
                 ref={chartRef}>

@@ -12,11 +12,11 @@ module.exports = alphaVantage = {
         .catch(err=>console.log(err))
     },
 
-    now: (ticker) => {
+    now: (ticker, cb) => {
         axios.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=`+ apikey)
         .then(json=>{
             console.log(json.data);
-            return json.data
+            cb(json.data);
         })
         .catch(err=>console.log(err))
     },
