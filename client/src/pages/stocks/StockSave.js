@@ -302,7 +302,6 @@ class SaveStock extends Component {
 
   //final form submit   
   handleSubmit = () => {
-    this.setState({disableSubmit:true})
     console.log("Inside submit");
     console.log(this.state.order_type);
     if (this.state.order_type === "buy") {
@@ -352,6 +351,7 @@ class SaveStock extends Component {
 
   saveStock = () => {
     console.log("I MADE IT TO SAVEstock!");
+    this.setState({disableSubmit:true})
     //console.log(this.state.ticker_name,this.state.order_type,this.state.quantity);
       API.saveStock({
           ticker_name: this.state.ticker_name,
