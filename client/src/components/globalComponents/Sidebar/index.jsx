@@ -78,7 +78,7 @@ const Sidebar = (props) => {
             <MDBNavItem className="col-6">
               <MDBNavLink to="/portfolio" onClick={closeSidebar}>
                 <i className="nav-icon fas fa-user" />
-                <p>Profile</p>
+                <p>Portfolio</p>
               </MDBNavLink>
             </MDBNavItem>
             :
