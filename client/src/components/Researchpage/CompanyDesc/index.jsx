@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBListGroupItem } from "mdbreact";
 import './index.css';
 
 const CompanyDescription = (props) => {
@@ -8,12 +8,13 @@ const CompanyDescription = (props) => {
         ceo: props.ceo
     }
     return (
-        <MDBContainer>
+        <MDBContainer className="companyDesc">
             <MDBRow>
                 <MDBCol>CEO: {data.ceo}</MDBCol>
             </MDBRow>
+            <br></br>
             <MDBRow>
-                <MDBCol className="indexQuote">{data.description}</MDBCol>
+                <MDBListGroupItem className="companyDesc"><MDBCol>{data.description}</MDBCol></MDBListGroupItem>
             </MDBRow>
         </MDBContainer>
     );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Chart from "chart.js";
 import { MDBContainer } from "mdbreact";
+import './index.css';
 
  const Graph = (props) => {
   const info = {
@@ -13,15 +14,8 @@ import { MDBContainer } from "mdbreact";
 
   const [stockData, setStockData] = useState([])
   const chartRef = React.createRef();
+  
   useEffect(() => {
-
-    let getData = async () => {
-      let res = await fetch('/api/graph')
-      let data = await res.json()
-      setStockData(await data)
-      console.log(await data)
-    }
-    getData()
 
     const myChartRef = chartRef.current.getContext("2d");
 
@@ -29,34 +23,13 @@ import { MDBContainer } from "mdbreact";
       type: "line",
       data: {
         //Bring in data
-        labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+        labels: ["Today",2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60],
         datasets: [
-          // {
-          //   label: "S&P 500",
-          //   data: stockData.sp500,
-          //   pointStyle: "line",
-          //   borderColor: 'rgba(255, 187, 51, 0.6)',
-          //   backgroundColor: "rgba(0,0,0,0)",
-          // },
-          // {
-          //   label: "DOW",
-          //   data: stockData.dow,
-          //   pointStyle: "line",
-          //   borderColor: "rgba(0, 200, 81, 0.6)",
-          //   backgroundColor: "rgba(0,0,0,0)"
-          // },
-          // {
-          //   label: "NASDAQ",
-          //   data: stockData.nasdaq,
-          //   pointStyle: "line",
-          //   borderColor: "rgba(51, 181, 229, 0.6)",
-          //   backgroundColor: "rgba(0,0,0,0)"
-          // },
           {
             label: info.companyName,
             data: info.dailyPercentChg,
             pointStyle: "line",
-            borderColor: "rgba(51, 181, 229, 0.6)",
+            borderColor: 'rgb(10,86,143)',
             backgroundColor: "rgba(0,0,0,0)"
           }
         ]
@@ -66,12 +39,13 @@ import { MDBContainer } from "mdbreact";
 
 
   return (
-    <MDBContainer style={{ backgroundColor: "white", backgroundImage: "url(" + info.image + ")", backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "200px 200px" }}>
-      <h3>{info.companyName+" "} % Change Chart</h3>
-      <canvas
+    <MDBContainer className='graphBackground'>
+      <h3 className='chartTitle'>{info.companyName+" "} % Change Chart</h3>
+      <canvas style={{ color: 'white', backgroundColor: "white", backgroundImage: "url(" + info.image + ")", backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "200px 200px" }}
         id="myChart"
         ref={chartRef}>
-      </canvas>      
+      </canvas>
+      <br></br>     
     </MDBContainer>
   );
 }

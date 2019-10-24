@@ -62,7 +62,7 @@ const CarouselPage = (props) => {
                                         src="https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/k-s3-ging-5537-lyj1839-3-e.jpg?auto=format&bg=transparent&con=3&cs=srgb&dpr=1&fm=jpg&ixlib=php-3.1.0&mark=rawpixel-watermark.png&markalpha=90&markpad=13&markscale=10&markx=25&q=75&usm=15&vib=3&w=1800&s=c6b4d252fabfcb7fa0cb3a0266e7518d"
                                         alt="First slide"
                                     />
-                                    <MDBMask overlay="black-slight" />
+                                    <MDBMask overlay="black-light" />
 
                                 </MDBView>
 
@@ -104,12 +104,12 @@ const CarouselPage = (props) => {
                                     />
                                     <MDBMask overlay="black-slight" />
                                 </MDBView>
-                                <MDBCarouselCaption className='sectorTable'>
-                                    <div className="tableContainer sectorTable" layout="row">
-                                        <h3 className="h3-responsive sectorTable">Sector Performance</h3>
-                                        <MDBTable scrollY className="sectorTable">
-                                            <MDBTableHead className="sectorTable" columns={data.sectorColumns} />
-                                            <MDBTableBody className="sectorTable" rows={data.sectorRows} />
+                                <MDBCarouselCaption>
+                                    <div className="tableContainer" layout="row">
+                                        <h3 className="h3-responsive sectorTitle">Sector Performance</h3>
+                                        <MDBTable scrollY>
+                                            <MDBTableHead columns={data.sectorColumns} />
+                                            <MDBTableBody rows={data.sectorRows} />
                                         </MDBTable>
                                     </div>
                                 </MDBCarouselCaption>
