@@ -1,9 +1,9 @@
-div.gains {
+div.homepage-gains {
     color: green;
     opacity: 0.8;
     font-weight: 600;
 }
-div.losers {
+div.homepage-losers {
     color: red;
     opacity: 0.8;
     font-weight: 400;

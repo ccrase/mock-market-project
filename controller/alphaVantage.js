@@ -49,7 +49,6 @@ module.exports = alphaVantage = {
     day: (ticker, cb) => {
         axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=`+ apikey)
         .then(json=>{
-            console.log(json.data);
             cb(json.data)
         })
         .catch(err=>console.log(err))

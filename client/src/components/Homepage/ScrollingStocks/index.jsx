@@ -35,14 +35,14 @@ const ScrollingStocks = () => {
       for (let i in gains){
         for(let j in gains[i]){
           if(j==='companyName'){delete gains[i][j]; continue}
-          gains[i][j] = <div className="gains">{gains[i][j]}</div>
+          gains[i][j] = <div className="homepage-gains">{gains[i][j]}</div>
         }
         total.push(gains[i])
       }
       for (let i in losers){
         for(let j in losers[i]){
           if(j==='companyName'){delete losers[i][j]; continue}
-          losers[i][j] = <div className="losers">{losers[i][j]}</div>
+          losers[i][j] = <div className="homepage-losers">{losers[i][j]}</div>
         }
         total.push(losers[i])
       }

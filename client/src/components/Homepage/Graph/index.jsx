@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Chart from "chart.js";
 import {MDBJumbotron} from 'mdbreact'
+import { inherits } from 'util';
 
 export default function Graph() {
     const [stockData, setStockData] = useState(false)
@@ -46,7 +47,17 @@ export default function Graph() {
                         backgroundColor: "rgba(0,0,0,0)"
                     }
                 ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Two week market changes by percent',
+                    fontSize: 24,
+                    fontFamily: "'source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New','monospace'",
+                    
+                }
             }
+
         });}
     }, [stockData])
 
