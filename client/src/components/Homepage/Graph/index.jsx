@@ -10,7 +10,6 @@ export default function Graph() {
             let res = await fetch('/api/graph')
             let data = await res.json()
             setStockData(await data)
-            console.log('made graph call')
         }
         getData()
     }, [])
@@ -50,9 +49,6 @@ export default function Graph() {
             }
         });}
     }, [stockData])
-
-
-
 
     return (
         <MDBJumbotron id="graph">

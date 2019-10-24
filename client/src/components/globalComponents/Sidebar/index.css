@@ -23,7 +23,7 @@
   color: red !important;
 }
 
-.chart-holder{
+ #navChartHolder{
 width:100%;
 height: 40%;
-}
+} 

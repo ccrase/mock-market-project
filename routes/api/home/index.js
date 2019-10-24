@@ -36,7 +36,6 @@ module.exports = homeRoutes = (app) => {
                         prev = three[prop][i]['4. close']
                     }
                     response[prop] = response[prop].slice(1,14)
-                    console.log(`found pricing of "${prop}"`)
                 }
                 res.json(response);
                 todaysPrices.date = getDate();

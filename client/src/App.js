@@ -18,7 +18,6 @@ import { useAuth0 } from './react-auth0-wrapper';
 function App() {
 
   const { loading, user } = useAuth0();
-  console.log(user);
   
   return (
     <ParallaxProvider className="App">

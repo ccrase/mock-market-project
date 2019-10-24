@@ -2,8 +2,6 @@ const db = require("../models");
 const axios = require("axios");
 
 
-
-console.log("inside stockscontroller");
 // Defining methods for the booksController
 module.exports = {
   findAllAPI :function(req, res){
