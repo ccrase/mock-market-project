@@ -5,31 +5,23 @@ import ScrollingStocks from './ScrollingStocks';
 import Hero from './Hero';
 import Graph from './Graph';
 import Howto from './Howto';
-import { Parallax } from 'react-scroll-parallax';
-// import ParalaxLightbulb from './ParalaxLightbulb'
 
 function Homepage() {
   return(
 
     <div>
     <MDBContainer fluid className="p-0 mx-0">
-    <Parallax y={[-50, 50]}>
       <Hero xs={12}/>
-    </Parallax>
     {/* <ParalaxLightbulb /> */}
       <MDBRow>
         <MDBCol md={9}>
               <MDBContainer>
                 <Graph/>
               </MDBContainer>
-            <Parallax x={[-20, 10]}>
               <Howto/>
-            </Parallax>
         </MDBCol>
-        <MDBCol md={3}>
-          <Parallax y={[0,-20]}>
-            <ScrollingStocks />
-          </Parallax>
+        <MDBCol  md={3} xs={12} id="scrollingStocks">
+              <ScrollingStocks />
         </MDBCol>
       </MDBRow>
     </MDBContainer>

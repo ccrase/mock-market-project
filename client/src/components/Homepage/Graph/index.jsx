@@ -62,7 +62,7 @@ export default function Graph() {
     }, [stockData])
 
     return (
-        <MDBJumbotron id="graph">
+        <MDBJumbotron id="graph" className="py-3">
             <canvas
                 id="myChart"
                 ref={chartRef}>

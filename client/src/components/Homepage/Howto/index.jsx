@@ -9,9 +9,9 @@ const Howto = (props) => {
         subtitle: 'Whether you’re in the market for an online broker or just planning your retirement, we’ll help create a clear path toward your financial goals.'
     }, {
         url: 'https://jlcollinsnh.com/stock-series/',
-        img: 'https://jlcollinsnh.com/wp-content/uploads/2019/08/plants.png',
+        img: 'https://i2.cdn.turner.com/money/dam/assets/180516153902-start-investing-640x360.jpg',
         title: 'JL Collins’ “Stock Series”',
-        subtitle: `JL’s writing is sincere and without the conflicts of interest seen in so much of the financial literature. It recognizes that most people simply don’t care about investing and personal finance, so he lays out 9 steps for a simple path to wealth.`  
+        subtitle: `JL’s writing is sincere and without the conflicts of interest seen in so much of the financial literature. It recognizes that most people simply don’t care about investing and personal finance, so he lays out 9 steps for a simple path to wealth.`
     }, {
         url: 'https://thecollegeinvestor.com/',
         img: 'https://cdn.thecollegeinvestor.com/wp-content/uploads/2018/06/TWFB-BLOG.jpg',
@@ -25,22 +25,24 @@ const Howto = (props) => {
                 Learn Powerful Strategies
             </MDBCardTitle>
 
-            <MDBCardGroup>
-                {stuff.map((val, idx) => {
-                    return (
+            <div data-aos="fade-right">
+                <MDBCardGroup>
+                    {stuff.map((val, idx) => {
+                        return (
 
-                        <MDBCard className="m-3">
-                            <MDBCardImage src={val.img} alt="MDBCard image cap" top hover
-                                overlay="white-slight" />
-                            <MDBCardBody>
-                                <MDBCardTitle tag="h5">{val.title}</MDBCardTitle>
-                                <MDBCardText>{val.subtitle} <a href={val.url}>Link <i className="fas fa-link" /></a></MDBCardText>
-                            </MDBCardBody>
-                        </MDBCard>
+                            <MDBCard className="m-3" key={idx}>
+                                <MDBCardImage src={val.img} alt="MDBCard image cap" top hover
+                                    overlay="white-slight" />
+                                <MDBCardBody>
+                                    <MDBCardTitle tag="h5">{val.title}</MDBCardTitle>
+                                    <MDBCardText>{val.subtitle} <a href={val.url}>Link <i className="fas fa-link" /></a></MDBCardText>
+                                </MDBCardBody>
+                            </MDBCard>
 
-                    )
-                })}
-            </MDBCardGroup>
+                        )
+                    })}
+                </MDBCardGroup>
+            </div>
 
 
         </MDBContainer>

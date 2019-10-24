@@ -25,7 +25,6 @@ const Sidebar = (props) => {
     if (props.user && props.user !== undefined) {
       setUser(props.user);
       fetchIt(props.user,(data)=>{
-        console.log(data);
         setSidebarData(data)
       });
     }
@@ -36,7 +35,9 @@ const Sidebar = (props) => {
     {!isOpen ?
 
       <MDBBtn className="dynamic-MDBBtn blue-gradient" onClick={() => setIsOpen(true)}>
-           <i className="fas fa-bars 2x p-1"></i> {user['nickname']} ${user['account_value']} 
+           <i className="fas fa-bars 2x p-1"></i> {user['nickname']} &nbsp;
+           {isAuthenticated && user !== undefined ?
+           '$'+user['account_value']:null} 
       </MDBBtn> 
       
       : null}
