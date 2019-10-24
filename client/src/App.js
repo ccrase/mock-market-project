@@ -1,6 +1,5 @@
 import React from "react";
 import NavBar from '../src/components/Navbar';
-
 // New - import the React Router components, and the Profile page component
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Portfolio from "./components/Portfolio";
