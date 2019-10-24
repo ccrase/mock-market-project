@@ -5,6 +5,9 @@ import Input from "../../components/input";
 import Button from "../../components/Button"
 import API from "../../utils/API";
 import ModalPage from "../../components/ModalPage";
+import CarouselTrade from "../../components/CarouselTrade";
+import Indexes from "../../components/Researchpage/Indexes";
+import ResearchSearch from "../../components/Researchpage/ResearchSearch";
 import {MDBBtn,MDBInput, MDBJumbotron,MDBContainer,MDBInputGroup,MDBRow, MDBCol,Modal, ModalBody, ModalHeader, ModalFooter} from "mdbreact";
 import "./style.css";
 
@@ -23,8 +26,6 @@ class SaveStock extends Component {
       perstockprice: 0,
       available_quantity: 0,
       temp_quantity: 0,
-      total_amount_invest: 0,
-      total_amount_earn: 0,
       stock: [],
       stocks: [],
       openPrice :0,
@@ -33,9 +34,15 @@ class SaveStock extends Component {
       lowPrice :0,
       volume:0,
       logo:"",
-      account_value:0,
       user:[],
-      show:false
+      show:false,
+      message:"",
+      dow: '',
+      sandp: '',
+      nasdaq: '',
+      disableBuy:false,
+      disableSell:false,
+      disableSubmit:false
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleBuy = this.handleBuy.bind(this);
@@ -47,38 +54,47 @@ class SaveStock extends Component {
   //for stocks buying functions
 
   handleBuy = () => {
+    console.log(this.state.disableBuy);
     console.log("Inside Buy");
-    
-    let length=this.state.stocks.length;
-    console.log(length);
-    if(this.state.ticker_name ){
-    if(length != 0){
-    this.setState({
-      order_type: "buy",
-      perstockprice: this.state.stocks.result["1. open"]
-    });
-   }else{
-    alert("Please press search button ");
-   }
-    // this.handleFormSubmit();
+      let length=this.state.stocks.length;
+      console.log(length);
+      if(this.state.ticker_name ){
+        if(length != 0){
+          if(this.state.disableBuy === false){
+          this.setState({
+          order_type: "buy",
+          perstockprice: this.state.stocks.result["1. open"],
+          disableSell:true
+          })
+          }else{
+          alert("You already select to Sell");
+          }
+        }else{
+         alert("Please press search button ");
+        }
+        // this.handleFormSubmit();
 
-  }else{
-    alert("Please search the ticker");
+      }else{
+      alert("Please search the ticker");
+     }
+    
+
   }
-}
 
 
   //for stocks selling functions
 
   handleSell = () => {
-        
+    if(this.state.disableSell === false){ 
     let length=this.state.stocks.length;
     if(this.state.ticker_name ){
       if(length != 0){
     this.setState({
       order_type: "sell",
-      perstockprice: this.state.stocks.result["1. open"]
+      perstockprice: this.state.stocks.result["1. open"],
+      disableBuy:true
     });
+  
     //this.handleFormSubmit();
     // this.checkTicker();
     console.log(this.state.stock.length);
@@ -95,6 +111,10 @@ class SaveStock extends Component {
   }else{
     alert("Please search the ticker");
   }
+  }else{
+    alert("You already select to Buy");
+  }
+
 }
 
   checkTicker = () => {
@@ -153,23 +173,55 @@ class SaveStock extends Component {
    
     
     if (this.props.id) {
-      alert(this.props.id);
+      //alert(this.props.id);
       let input = this.props.id.toUpperCase();
       this.setState({
         ticker_name: input     
       });
       
     }
+
+    axios.get('https://financialmodelingprep.com/api/v3/majors-indexes')
+      .then(res => {
+          // console.log(res);
+          const dowChange = ((res.data.majorIndexesList[0].changes - res.data.majorIndexesList[0].price) / res.data.majorIndexesList[0].price);
+          const sandpChange = ((res.data.majorIndexesList[2].changes - res.data.majorIndexesList[2].price) / res.data.majorIndexesList[2].price);
+          const nasdaqChange = ((res.data.majorIndexesList[1].changes - res.data.majorIndexesList[1].price) / res.data.majorIndexesList[1].price);
+          const dowreduced = dowChange.toFixed(4);
+          const sandpreduced = sandpChange.toFixed(4);
+          const nasdaqreduced = nasdaqChange.toFixed(4);
+          this.setState({
+              dow: res.data.majorIndexesList[0].indexName + " " + res.data.majorIndexesList[0].price + " " + "|" + " " + res.data.majorIndexesList[0].changes + " " + "Pts" + " " + "|" + " " + dowreduced + "%",
+              sandp: res.data.majorIndexesList[2].indexName + " " + res.data.majorIndexesList[2].price + " " + "|" + " " + res.data.majorIndexesList[2].changes + " " + "Pts" + " " + "|" + " " + sandpreduced + "%",
+              nasdaq: res.data.majorIndexesList[1].indexName + " " + res.data.majorIndexesList[1].price + " " + "|" + " " + res.data.majorIndexesList[1].changes + " " + "Pts" + " " + "|" + " " + nasdaqreduced + "%"
+          });
+      })
+      .catch(err => console.log(err));
+    
   }
 
   //ticker change
   handleTickerChange = (event) => {
-    
-    const {name,value} = event.target;
+    const input=event;
     this.setState({
-      [name]: value.toUpperCase()
+      ticker_name: input,
+      openPrice :0,
+      closePrice :0,
+      highPrice :0,
+      lowPrice :0,
+      volume:0,
+      logo: "" ,
+      quantity: 0,
+      temp_quantity: 0,
+      perstockprice:0,
+      order_type:"",
+      stock: [],
+      stocks: [],
+      available_quantity: 0 ,
+      disableBuy:false,
+      disableSell:false,
+      disableSubmit:false  
     });
-
   }
 
   //quantity change
@@ -220,14 +272,7 @@ class SaveStock extends Component {
 
   //pressed search button 
   handleFormSubmit = () => {
-    axios
-    .get("https://financialmodelingprep.com/api/v3/company/profile/"+ this.state.ticker_name)
-    .then(({data}) =>{ 
-      //console.log(data.profile.image);
-      this.setState({logo:data.profile.image})
-      })
-    .catch(err => console.log(err));
-
+    if(this.state.ticker_name){
     API.getStocks(this.state.ticker_name)
       .then(res => {
         this.setState({
@@ -241,6 +286,18 @@ class SaveStock extends Component {
       })
       .catch(err => console.log("Please Press Search"));
 
+    axios
+    .get("https://financialmodelingprep.com/api/v3/company/profile/"+ this.state.ticker_name)
+    .then(({data}) =>{ 
+      console.log(data.profile.image);
+      if(data.profile.image){
+      this.setState({logo:data.profile.image})
+      }
+      })
+    .catch(err => console.log(err));
+    }else{
+      alert("Please select the ticker");
+    }
   };
 
   //final form submit   
@@ -268,10 +325,33 @@ class SaveStock extends Component {
     }
   }
 
+  //cancle 
+  handleCancel = () =>{
+    this.setState({
+      openPrice :0,
+      closePrice :0,
+      highPrice :0,
+      lowPrice :0,
+      volume:0,
+      logo: "" ,
+      quantity: 0,
+      temp_quantity: 0,
+      perstockprice:0,
+      order_type:"",
+      stock: [],
+      stocks: [],
+      available_quantity: 0 ,
+      disableBuy:false,
+      disableSell:false,
+      disableSubmit:false  
+    });
+  }
+
   //post route for stocks
 
   saveStock = () => {
     console.log("I MADE IT TO SAVEstock!");
+    this.setState({disableSubmit:true})
     //console.log(this.state.ticker_name,this.state.order_type,this.state.quantity);
       API.saveStock({
           ticker_name: this.state.ticker_name,
@@ -279,15 +359,25 @@ class SaveStock extends Component {
           quantity: this.state.quantity,
           id:this.state.user._id
         })
-        .then(res => alert("This stock has been added to database"))
+        .then(res => {this.showModal(res.data)})
         .catch(err => console.log(err));
 
   }
 
-  showModal = (event) =>{
+  showModal = (details) =>{
+    console.log(details);
+    let messageDisplay=details.ticker_name+" "+details.order_type+" "+details.per_stock_amount+" "+details.total_amount_invest+" "+details.total_amount_earn+" "+details.quantity    
     this.setState({
-      show: true
+      show: true,
+      message:messageDisplay,
+      quantity: 0,
+      temp_quantity: 0,
+      perstockprice:0,
+      disableBuy:false,
+      disableSell:false,
+      disableSubmit:false
     });
+    this.checkTicker();
   }
   toggle = nr => () => {
     this.setState({
@@ -299,8 +389,11 @@ class SaveStock extends Component {
   render() {
     return ( 
       <div id="mainDiv" className="clearfix">
+      <CarouselTrade />
+      <Indexes dow={this.state.dow} sandp={this.state.sandp} nasdaq={this.state.nasdaq} />
+      <br></br>
+      <ResearchSearch search={this.handleTickerChange}/>
       <Row>
-
       <Col size ="md-7">
       <MDBJumbotron className="clearfix">
       <MDBContainer className="clearfix" >
@@ -347,7 +440,7 @@ class SaveStock extends Component {
       <Col size ="md-5">
         <MDBJumbotron>
          <MDBContainer>
-         <ModalPage show={this.state.show} toggle={this.toggle} /> 
+         <ModalPage show={this.state.show} toggle={this.toggle} message={this.state.message} /> 
           <Row size = "md-12">
           <Col size = "md-12" >
            <h2>Trade</h2>
@@ -356,10 +449,10 @@ class SaveStock extends Component {
           <h5> Search Ticker </h5> 
       <Row >
       <Col size = "sm-6 md-5" >
-      <Input  id="searchInput"
+      <Input  id="searchInput" readOnly
            className="input-group-text" name = "ticker_name" 
             value = {this.state.ticker_name}
-            onChange = {this.handleTickerChange}
+            //onChange = {this.handleTickerChange}
             placeholder = "Search For a Ticker" /
       >
       </Col> 
@@ -379,38 +472,18 @@ class SaveStock extends Component {
       <h4 > Market order </h4> 
       </Col> 
       </Row> 
-           <h5 > Ticker Name: </h5>
-          <Row id="ticker1">
-          <Col size = "md-5" >
-          <Input  className="input-group-text"  readOnly 
-           name = "ticker_name"
-           value = {this.state.ticker_name}
-           //onChange={this.handleInputPrice}
-           placeholder = "ticker_name"
-          />
-          </Col>
-          {/* <Col size = "md-4" >
-          <Button onClick = {(event) => {this.handleFormSubmit(event);this.checkTicker()}}
-           type = "success"
-           className = "btn" >
-          Search
-         </Button> 
-         </Col>  */}
-         </Row>
-
-      
       <Row size = "md-12" >
       <Col size = "md-12">
       <h5> Side: </h5> 
 
-      <Button 
+      <Button disabled={this.state.disableBuy}
       onClick = {this.handleBuy}
       type = "gradient= blue"
       className = "btn" >
       BUY 
       </Button> 
       {/* <MDBBtn color="primary">MDBButton</MDBBtn> */}
-      <Button 
+      <Button disabled={this.state.disableSell}
       onClick = {this.handleSell}
       type = "gradient= blue"
       className = "btn" >
@@ -455,18 +528,23 @@ class SaveStock extends Component {
       </Row> 
       <Row size = "md-12" >
        <Col size = "md-12"> 
-      <Button 
-      onClick = {(event)=>{this.handleSubmit();this.showModal()}}
+      <Button disabled={this.state.disableSubmit}
+      onClick = {(event)=>{this.handleSubmit()}}
       type = "gradient= blue"
       className = "btn" >
       Submit 
+      </Button> 
+      <Button 
+      onClick = {(event)=>{this.handleCancel()}}
+      type = "gradient= blue"
+      className = "btn" >
+      Cancel 
       </Button> 
       </Col>
       </Row>
       </MDBContainer>
       </MDBJumbotron>
       </Col>
-     
       </Row>
       </div>
     )
