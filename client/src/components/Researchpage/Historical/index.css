@@ -1,8 +1,10 @@
 .heading {
-    padding: 1%;
-    color: white;
+    padding: 4%;
+    color: black;
     font-weight: bold;
-    background-image: linear-gradient(to top, rgb(72, 198, 248) , rgb(24, 56, 160));
+    background-color: white;
+    border-color: rgb(31,79,115);
+    /* background-image: linear-gradient(to top, rgb(72, 198, 248) , rgb(24, 56, 160)); */
     opacity: 0.9;
     filter: alpha(opacity=50);
 }

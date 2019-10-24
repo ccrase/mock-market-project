@@ -33,13 +33,13 @@ body {
 }
 
 .companyName {
-    color: white;
+    color: black;
     font-weight: bold;
     font-size: 200%;
     padding-top: 6%;
     padding-bottom: 6%;
     line-height: 20%;
-    background-image: linear-gradient(to top, rgb(72, 198, 248) , rgb(24, 56, 160));
+    border-color: rgb(31,79,115);
     opacity: 0.9;
     filter: alpha(opacity=50); 
 }

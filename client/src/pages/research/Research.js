@@ -10,9 +10,10 @@ import axios from "axios";
 import CompanyDescription from "../../components/Researchpage/CompanyDesc";
 import ResearchSearch from "../../components/Researchpage/ResearchSearch";
 import NewsButton from "../../components/Researchpage/NewsButton";
-import { MDBContainer } from "mdbreact";
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 import { JwksClient } from "jwks-rsa";
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+
 
 export default class StockResearch extends React.Component {
 
@@ -115,32 +116,6 @@ export default class StockResearch extends React.Component {
                     pathname: '/news/'
                 })
             }
-
-
-            //Ratings
-            axios.get('https://financialmodelingprep.com/api/v3/company/rating/' + search)
-                .then(res => {
-                    // console.log(res);
-                    this.setState({
-                        symbol: res.data.symbol,
-                        rating: res.data.rating.score,
-                        recommendation: res.data.rating.recommendation
-                    });
-                });
-            //Company Information
-            axios.get('https://financialmodelingprep.com/api/v3/company/profile/' + search)
-                .then(res => {
-                    // console.log(res);
-                    this.setState({
-                        companyName: res.data.profile.companyName,
-                        industry: res.data.profile.industry,
-                        website: res.data.profile.website,
-                        description: res.data.profile.description,
-                        ceo: res.data.profile.ceo,
-                        sector: res.data.profile.sector,
-                        image: res.data.profile.image
-                    });
-                });
             //Historical Pricing
             axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + search + '?serietype=line')
                 .then(res => {
@@ -190,6 +165,30 @@ export default class StockResearch extends React.Component {
                         volume: res.data['Global Quote']['06. volume'],
                     });
                 });
+            //Ratings
+            axios.get('https://financialmodelingprep.com/api/v3/company/rating/' + search)
+                .then(res => {
+                    // console.log(res);
+                    this.setState({
+                        symbol: res.data.symbol,
+                        rating: res.data.rating.score,
+                        recommendation: res.data.rating.recommendation
+                    });
+                });
+            //Company Information
+            axios.get('https://financialmodelingprep.com/api/v3/company/profile/' + search)
+                .then(res => {
+                    // console.log(res);
+                    this.setState({
+                        companyName: res.data.profile.companyName,
+                        industry: res.data.profile.industry,
+                        website: res.data.profile.website,
+                        description: res.data.profile.description,
+                        ceo: res.data.profile.ceo,
+                        sector: res.data.profile.sector,
+                        image: res.data.profile.image
+                    });
+                });
         };
     }
     render() {
@@ -198,8 +197,8 @@ export default class StockResearch extends React.Component {
                 <Carousel gainers={this.state.gainers} losers={this.state.losers} sectors={this.state.sectors} />
                 <Indexes dow={this.state.dow} sandp={this.state.sandp} nasdaq={this.state.nasdaq} />
                 <br></br>
-                <ResearchSearch search={this.search}/>
-                <div className="information" className="shadow-box-example z-depth-4" style={{backgroundColor: 'white'}} >
+                <ResearchSearch search={this.search} />
+                <div className="information" className="shadow-box-example z-depth-4" style={{ backgroundColor: 'white' }} >
                     <TradeButton image={this.state.image}
                         website={this.state.website}
                         companyName={this.state.companyName}
@@ -227,10 +226,19 @@ export default class StockResearch extends React.Component {
                     <NewsButton companyName={this.state.companyName} newsButton={this.newsSearch} />
                 </div>
                 <br></br>
-                <br></br>
-                <Graph companyName={this.state.companyName} image={this.state.image} historicalInfo={this.state.historicalInfo} symbol={this.state.symbol} dailyPercentChg={this.state.dailyPercentChg} />
-                <br></br>
-                <Historical historicalInfo={this.state.historicalInfo} companyName={this.state.companyName} />
+                <MDBContainer>
+                    <MDBRow>
+                        <MDBCol size="3" md="3">
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <Historical historicalInfo={this.state.historicalInfo} companyName={this.state.companyName} />
+                        </MDBCol>
+                        <MDBCol size="9" md="9">
+                            <Graph companyName={this.state.companyName} image={this.state.image} historicalInfo={this.state.historicalInfo} symbol={this.state.symbol} dailyPercentChg={this.state.dailyPercentChg} />
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
                 <br></br>
                 <br></br>
                 <Footer />
