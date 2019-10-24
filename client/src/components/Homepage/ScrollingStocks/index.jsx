@@ -5,20 +5,20 @@ import './index.css';
 const ScrollingStocks = () => {
   const [stocks, setStocks] = useState(false);
   const [stockText, setStockText] = useState([]);
-  const [scrollIdx, setScrollIdx] = useState(null);
-  const [scrollDir, setScrollDir] = useState(-1);
+  //const [scrollIdx, setScrollIdx] = useState(null);
+  //const [scrollDir, setScrollDir] = useState(-1);
 
-  const autoScroll = () => {
-    setScrollIdx(7)
-    setInterval(() => {
-      if (scrollIdx >= stockText.length - 7) {
-        setScrollIdx(7)
-      }
-      if (stockText > 0) {
-        setScrollIdx(scrollIdx + scrollDir)
-      }
-    }, 500);
-  }
+  // const autoScroll = () => {
+  //   setScrollIdx(7)
+  //   setInterval(() => {
+  //     if (scrollIdx >= stockText.length - 7) {
+  //       setScrollIdx(7)
+  //     }
+  //     if (stockText > 0) {
+  //       setScrollIdx(scrollIdx + scrollDir)
+  //     }
+  //   }, 500);
+  // }
 
   useEffect(() => {
     const getStocks = async () => {
@@ -70,12 +70,12 @@ const ScrollingStocks = () => {
 
     }
     getStocks()
-  }, [setStocks, stockText, setStockText, scrollIdx, scrollDir, setScrollDir])
+  }, [setStocks, stockText, setStockText])
 
 
   return (
 
-    <MDBTable autoWidth>
+    <MDBTable autoWidth id="scrollingStocks">
       <MDBTableHead columns={stocks.columns}/>
       <MDBTableBody rows={stocks.rows} />
     </MDBTable>

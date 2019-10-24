@@ -1,24 +1,36 @@
 import React from 'react';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import './index.css'
-import ScrollingStocks from './ScrollingStocks'
-import Hero from './Hero'
-import Graph from './Graph'
-import Howto from './Howto'
+import './index.css';
+import ScrollingStocks from './ScrollingStocks';
+import Hero from './Hero';
+import Graph from './Graph';
+import Howto from './Howto';
+import { Parallax } from 'react-scroll-parallax';
+// import ParalaxLightbulb from './ParalaxLightbulb'
 
 function Homepage() {
   return(
 
     <div>
-    <div className="homepage-top-accent"> </div>
-    <MDBContainer fluid>
+    <MDBContainer fluid className="p-0 mx-0">
+    <Parallax y={[-50, 50]}>
+      <Hero xs={12}/>
+    </Parallax>
+    {/* <ParalaxLightbulb /> */}
       <MDBRow>
-        <MDBCol size={8}>
-            <Hero/>
-            <Graph/>
-            <Howto/>
+        <MDBCol md={9}>
+              <MDBContainer>
+                <Graph/>
+              </MDBContainer>
+            <Parallax x={[-20, 10]}>
+              <Howto/>
+            </Parallax>
         </MDBCol>
-        <MDBCol size={4}><ScrollingStocks /></MDBCol>
+        <MDBCol md={3}>
+          <Parallax y={[0,-20]}>
+            <ScrollingStocks />
+          </Parallax>
+        </MDBCol>
       </MDBRow>
     </MDBContainer>
       
