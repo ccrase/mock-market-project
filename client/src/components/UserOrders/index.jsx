@@ -53,6 +53,7 @@ const UserOrder = (props) => {
     setTickers(tickerArray);
     setTPercentChange(totalPercentChange);
     setTotalGL(totalGainLoss);
+    props.sendTotalPercentChange(totalPercentChange)
   };
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const UserOrder = (props) => {
 
     return (
       <div className="shadow-box-example z-depth-2" style={{"backgroundColor": "white", "padding": "10px"}}>
+        <h4 style={{"textAlign": "center", "padding-top": "10px"}}>Your Orders</h4>
         <MDBTable small responsive hover>
         <MDBTableHead>
           <tr>

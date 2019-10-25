@@ -14,12 +14,14 @@ export default class Portfolio extends Component {
     this.state = {
       user: [],
       account_value: null,
+      account_percent_change: null,
       favorites: [],
       orders: [],
     };
 
     this.runCalls = this.runCalls.bind(this);
     this.addtofavorites = this.addtofavorites.bind(this);
+    this.sendTotalPercentChange = this.sendTotalPercentChange.bind(this);
   };
 
 
@@ -56,6 +58,12 @@ export default class Portfolio extends Component {
     })
   };
 
+  sendTotalPercentChange=(change)=>{
+    console.log("MADE IT TO PORTFOLIO TO SEND TOTAL PERCENT CHANGE");
+    console.log(change);
+    this.setState({account_percent_change: change});
+  };
+
   render(){
     return (
       <div>
@@ -68,9 +76,11 @@ export default class Portfolio extends Component {
           </MDBCol>
           <MDBCol size="8">
             <AccountSummary user={this.state.user}
-                            account_value={this.state.account_value}/>
+                            account_value={this.state.account_value}
+                            account_percent_change={this.state.account_percent_change}/>
             <Orders account_value={this.state.user.account_value}
-                    details={this.state.orders} />
+                    details={this.state.orders}
+                    sendTotalPercentChange={this.sendTotalPercentChange} />
         </MDBCol>  
         </MDBRow>
       </MDBContainer>
