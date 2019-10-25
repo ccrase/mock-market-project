@@ -58,29 +58,24 @@ export default class Portfolio extends Component {
 
   render(){
     return (
+      <div>
       <MDBContainer fluid>
         <MDBRow>
-          <MDBCol size="4">
+        <MDBCol size="4">
             <Search addtofavorites={this.addtofavorites}/>
-          </MDBCol>
-          <MDBCol siz="8">
-            <AccountSummary user={this.state.user}
-                            account_value={this.state.account_value}/>
-          </MDBCol>
-        </MDBRow>
-        <MDBRow>
-          <MDBCol siz="4">
             <Watchlist
               favorites={this.state.favorites}/>
           </MDBCol>
           <MDBCol size="8">
-            <Orders 
-              account_value={this.state.user.account_value}
-              details={this.state.orders} />
-          </MDBCol>
-        </MDBRow>
+            <AccountSummary user={this.state.user}
+                            account_value={this.state.account_value}/>
+            <Orders account_value={this.state.user.account_value}
+                    details={this.state.orders} />
         <code>{JSON.stringify(this.state.user, null, 2)}</code>
+        </MDBCol>  
+        </MDBRow>
       </MDBContainer>
+      </div>
     )
   }
 };

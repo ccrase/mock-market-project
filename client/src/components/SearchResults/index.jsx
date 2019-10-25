@@ -27,11 +27,11 @@ export default function SearchResults(props) {
         <MDBContainer>
             { searchOptions ? searchOptions.map((result, i) => (
 
-                <MDBListGroupItem href="#" key={result['1. symbol']} active className="overflow-auto">
-                    <b>{result['1. symbol']}</b>,  {result['2. name']}
-                    <MDBBtn size="sm" id={result['1. symbol']}>details</MDBBtn>
+                <MDBListGroupItem href="#" key={result['1. symbol']} active className="overflow-auto" style={{"padding": "0 2px 0 2px"}}>
+                    <p style={{"font-size" : "14px"}}><b>{result['1. symbol']}</b>,  {result['2. name']}
+                    <MDBBtn size="sm" id={result['1. symbol']} style={{"padding" : "2px 5px 2px 5px"}}>details</MDBBtn>
                     <MDBBtn floating size="lg" gradient="purple"></MDBBtn>
-                    <MDBIcon icon="heart" id={result['1. symbol']} onClick={() => handleClick(i)} className="red-text pr-3"></MDBIcon>
+                    <MDBIcon icon="heart" id={result['1. symbol']} onClick={() => handleClick(i)} className="red-text pr-3"></MDBIcon></p>
                 </MDBListGroupItem>
 
                 )) : <div></div>}

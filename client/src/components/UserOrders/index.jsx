@@ -6,11 +6,12 @@ import axios from 'axios';
 
 const UserOrder = (props) => {
   const [ tickers, setTickers ] = useState([]);
-  // console.log(props);
+  console.log(props);
 
   const handleData= async ()=>{
     const tickerArray = [];
     for(var i = 0; i < props.details.length; i++){
+      if(props.details[i].order_type === "buy"){
         //dynamically add information to symbol object
         let symbol = {'name': props.details[i].ticker_name};  
         //add props details to the symbol obj
@@ -27,19 +28,17 @@ const UserOrder = (props) => {
           //find the result with the most recent time
           var result = res.data["Time Series (5min)"][time];
           // console.log(result);
+          var day_change = (result["1. open"] * props.details[i].quantity);
+          var percent_change = (((result["1. open"] - props.details[i].per_stock_amount)/props.details[i].per_stock_amount) * 100)
           symbol['open_price'] = parseFloat(result["1. open"], 2);
-          symbol['high_price'] = parseFloat(result["2. high"], 2);
-          symbol['low_price'] = parseFloat(result["3. low"], 2);
-          symbol['close_price'] = parseFloat(result["4. close"], 2);
           symbol['volume'] = parseInt(result["5. volume"]);
           // setTickers(symbol);
           tickerArray.push(symbol);
   
         })
         .catch(err => console.log(err))
-        //push symbol object into tickerArray
+      }
     };
-    
     console.log(tickerArray)
     setTickers(tickerArray);
   };
@@ -51,15 +50,15 @@ const UserOrder = (props) => {
   },[props.details] );
 
     return (
+      <div className="shadow-box-example z-depth-2" style={{"backgroundColor": "white", "padding": "10px"}}>
         <MDBTable small responsive hover>
         <MDBTableHead>
           <tr>
             <th>Symbol</th>
-            <th>Type</th>
             <th>Quantity</th>
             <th>Price</th>
             <th>Market Value</th>
-            <th>Day Change</th>
+            <th>% Change</th>
             <th>Gain / Loss</th>
           </tr>
         </MDBTableHead>
@@ -67,27 +66,26 @@ const UserOrder = (props) => {
           { tickers.length > 0 ? tickers.map((order, i) => (
             <tr key={i}>
               <td>{order.name}</td>
-              <td>{order.order_type}</td>
               <td>{order.quantity}</td>
-              <td>${order.per_stock_amount}</td>
-              <td>{order.open_price * order.quantity}</td>
-              <td>{order.high_price} - begining s.p.</td>
-              <td></td>
+              <td>${(order.open_price).toFixed(2)}</td>
+              <td>${(order.open_price * order.quantity).toFixed(2)}</td>
+              <td>{(((order.open_price - order.per_stock_amount)/order.per_stock_amount) * 100).toFixed(2)}%</td>
+              <td>${((order.open_price * order.quantity)-(order.per_stock_amount * order.quantity)).toFixed(2)}</td>
             </tr>
           ))
 
-          : <div>You have not purchased any stock </div> }
+          : <div> Loading...</div> }
           <tr>
             <td><b>Equities Total</b></td>
             <td></td>
             <td></td>
-            <td><b>{props.account_value}</b></td>
-            <td><b>$current act val - begining act val</b></td>
-            <td><b>$current act val - cost basis</b></td>
+            <td><b>${props.account_value}</b></td>
+            <td><b>$xxxx</b></td>
+            <td><b>$xxx</b></td>
           </tr>
         </MDBTableBody>
       </MDBTable>
-   
+      </div>
     )
 };
 

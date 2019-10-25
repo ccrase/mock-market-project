@@ -18,9 +18,10 @@ export default class Search extends Component {
     };
 
     getResults = () => {
-        const APIkey = 'V095HJYQ4HICG0NL';
+        const APIkey = '4H5CGJD3YP7ZTU0V';
         axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${this.state.query}&apikey=${APIkey}`)
             .then(({ data }) => {
+                console.log(data);
                 this.setState({ results: data })
             })
     };
@@ -48,7 +49,7 @@ export default class Search extends Component {
 
     render() {
         return (
-        <div>
+        <div className="shadow-box-example z-depth-2" style={{"backgroundColor": "white", "height": "250px", "margin-bottom": "20px"}}>
             <MDBCol>
                 <MDBFormInline className="md-form">
                     <MDBIcon icon="search" />
@@ -57,7 +58,7 @@ export default class Search extends Component {
                         onChange={this.handleInputChange}/>
                 </MDBFormInline>
             </MDBCol>
-            <div className="search-results">
+            <div className="search-results" style={{"margin-top": "-20px", "height": "200px"}}>
                 <SearchResults results={this.state.results}
                                addtofavorites={this.addtofavorites}
                                clearResultsOnClick={this.clearResultsOnClick}/>
