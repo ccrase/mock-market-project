@@ -71,7 +71,6 @@ export default class Portfolio extends Component {
                             account_value={this.state.account_value}/>
             <Orders account_value={this.state.user.account_value}
                     details={this.state.orders} />
-        <code>{JSON.stringify(this.state.user, null, 2)}</code>
         </MDBCol>  
         </MDBRow>
       </MDBContainer>

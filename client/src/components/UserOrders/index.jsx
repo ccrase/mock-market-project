@@ -6,10 +6,14 @@ import axios from 'axios';
 
 const UserOrder = (props) => {
   const [ tickers, setTickers ] = useState([]);
+  const [ totalPercentChange, setTPercentChange] = useState(0);
+  const [ totalGainLoss, setTotalGL ] = useState(0);
   console.log(props);
 
   const handleData= async ()=>{
     const tickerArray = [];
+    var totalPercentChange = 0;
+    var totalGainLoss = 0;
     for(var i = 0; i < props.details.length; i++){
       if(props.details[i].order_type === "buy"){
         //dynamically add information to symbol object
@@ -28,19 +32,27 @@ const UserOrder = (props) => {
           //find the result with the most recent time
           var result = res.data["Time Series (5min)"][time];
           // console.log(result);
-          var day_change = (result["1. open"] * props.details[i].quantity);
-          var percent_change = (((result["1. open"] - props.details[i].per_stock_amount)/props.details[i].per_stock_amount) * 100)
+          symbol['market_value'] = parseFloat((result["1. open"] * props.details[i].quantity),2);
+          symbol['percent_change'] = parseFloat((((result["1. open"] - props.details[i].per_stock_amount)/props.details[i].per_stock_amount) * 100),2);
+          symbol['gain_loss'] = parseFloat(((result["1. open"] * props.details[i].quantity)-(props.details[i].per_stock_amount* props.details[i].quantity)),2);
           symbol['open_price'] = parseFloat(result["1. open"], 2);
           symbol['volume'] = parseInt(result["5. volume"]);
           // setTickers(symbol);
           tickerArray.push(symbol);
-  
+          totalPercentChange = totalPercentChange + (((result["1. open"] - props.details[i].per_stock_amount)/props.details[i].per_stock_amount) * 100);
+          totalGainLoss = totalGainLoss + ((result["1. open"] * props.details[i].quantity)-(props.details[i].per_stock_amount* props.details[i].quantity));
+          // totalPercentChange.push(parseFloat((((result["1. open"] - props.details[i].per_stock_amount)/props.details[i].per_stock_amount) * 100),2))
+          // totalGainLoss.push(parseFloat(((result["1. open"] * props.details[i].quantity)-(props.details[i].per_stock_amount* props.details[i].quantity)),2));
         })
         .catch(err => console.log(err))
       }
     };
-    console.log(tickerArray)
+    console.log(tickerArray);
+    console.log(totalPercentChange);
+    console.log(totalGainLoss);
     setTickers(tickerArray);
+    setTPercentChange(totalPercentChange);
+    setTotalGL(totalGainLoss);
   };
 
   useEffect(() => {
@@ -67,10 +79,10 @@ const UserOrder = (props) => {
             <tr key={i}>
               <td>{order.name}</td>
               <td>{order.quantity}</td>
-              <td>${(order.open_price).toFixed(2)}</td>
-              <td>${(order.open_price * order.quantity).toFixed(2)}</td>
-              <td>{(((order.open_price - order.per_stock_amount)/order.per_stock_amount) * 100).toFixed(2)}%</td>
-              <td>${((order.open_price * order.quantity)-(order.per_stock_amount * order.quantity)).toFixed(2)}</td>
+              <td>${order.open_price.toFixed(2)}</td>
+              <td>${order.market_value.toFixed(2)}</td>
+              <td>{order.percent_change.toFixed(2)}%</td>
+              <td>${order.gain_loss.toFixed(2)}</td>
             </tr>
           ))
 
@@ -80,8 +92,8 @@ const UserOrder = (props) => {
             <td></td>
             <td></td>
             <td><b>${props.account_value}</b></td>
-            <td><b>$xxxx</b></td>
-            <td><b>$xxx</b></td>
+            <td><b>{totalPercentChange.toFixed(2)}%</b></td>
+            <td><b>${totalGainLoss.toFixed(2)}</b></td>
           </tr>
         </MDBTableBody>
       </MDBTable>
