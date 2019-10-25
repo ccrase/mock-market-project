@@ -7,6 +7,7 @@ import Search from '../Search';
 import AccountSummary from '../AccountSummary';
 import Orders from '../UserOrders';
 import Watchlist from '../Watchlist';
+import Donut from '../Donut';
 
 export default class Portfolio extends Component {
   constructor(props){
@@ -15,6 +16,9 @@ export default class Portfolio extends Component {
       user: [],
       account_value: null,
       account_percent_change: null,
+      account_gain_loss: null,
+      total_market_value: null,
+      total_order_details: [],
       favorites: [],
       orders: [],
     };
@@ -58,10 +62,11 @@ export default class Portfolio extends Component {
     })
   };
 
-  sendTotalPercentChange=(change)=>{
-    console.log("MADE IT TO PORTFOLIO TO SEND TOTAL PERCENT CHANGE");
-    console.log(change);
-    this.setState({account_percent_change: change});
+  sendTotalPercentChange=(percentchange, gainloss,totalMarketValue, totalOrderDetails)=>{
+    this.setState({account_percent_change: percentchange});
+    this.setState({account_gain_loss: gainloss});
+    this.setState({total_market_value: totalMarketValue});
+    this.setState({ total_order_details : totalOrderDetails });
   };
 
   render(){
@@ -73,11 +78,14 @@ export default class Portfolio extends Component {
             <Search addtofavorites={this.addtofavorites}/>
             <Watchlist
               favorites={this.state.favorites}/>
+              <Donut orders={this.state.total_order_details}/>
           </MDBCol>
           <MDBCol size="8">
             <AccountSummary user={this.state.user}
                             account_value={this.state.account_value}
-                            account_percent_change={this.state.account_percent_change}/>
+                            account_percent_change={this.state.account_percent_change}
+                            account_gain_loss={this.state.account_gain_loss}
+                            total_market_value={this.state.total_market_value}/>
             <Orders account_value={this.state.user.account_value}
                     details={this.state.orders}
                     sendTotalPercentChange={this.sendTotalPercentChange} />

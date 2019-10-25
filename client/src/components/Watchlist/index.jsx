@@ -10,7 +10,7 @@ const Watchlist = (props) => {
     ));
 
    return (
-    <div className="shadow-box-example z-depth-2" style={{"backgroundColor" : "white"}}>
+    <div className="shadow-box-example z-depth-2" style={{"backgroundColor" : "white", "padding-bottom": "10px"}}>
        <MDBContainer>
            <h4 style={{"textAlign": "center", "padding-top": "10px"}}>Your Watchlist</h4>
            <div style={{"textAlign": "center"}}>

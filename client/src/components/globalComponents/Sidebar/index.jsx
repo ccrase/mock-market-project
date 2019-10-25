@@ -38,7 +38,6 @@ const Sidebar = (props) => {
       </MDBBtn>
 
       : null}
-    <code>{JSON.stringify(user, null, 2)}</code>
 
     <Drawer open={isOpen} onChange={() => { if (isOpen) setIsOpen(false); }} className="overflow-hidden shadow-box-example z-depth-5">
       <MDBJumbotron className="w-100 h-100 d-inline-block text-center">

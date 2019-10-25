@@ -49,16 +49,16 @@ export default class Search extends Component {
 
     render() {
         return (
-        <div className="shadow-box-example z-depth-2" style={{"backgroundColor": "white", "height": "100px", "margin-bottom": "20px"}}>
+        <div className="shadow-box-example z-depth-2" style={{"backgroundColor": "white", "height": "100px", "margin-bottom": "20px", "margin-top": "100px"}}>
             <MDBCol>
                 <MDBFormInline className="md-form">
                     <MDBIcon icon="search" />
-                    <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Company or Symbol" style={{"padding" : "10px", "textAlign": "center"}} aria-label="search-term" id="search-term"
+                    <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Company or Symbol" style={{"padding" : "30px 0 0 20px"}} aria-label="search-term" id="search-term"
                         ref={event => this.search = event}
                         onChange={this.handleInputChange}/>
                 </MDBFormInline>
             </MDBCol>
-            <div className="search-results" style={{"margin-top": "-20px", "height": "200px"}}>
+            <div className="search-results" style={{"margin-top": "-20px", "height": "220px"}}>
                 <SearchResults results={this.state.results}
                                addtofavorites={this.addtofavorites}
                                clearResultsOnClick={this.clearResultsOnClick}/>
