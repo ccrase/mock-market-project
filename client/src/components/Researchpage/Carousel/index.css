@@ -1,18 +1,13 @@
 .gainers {
     color: green;
     font-weight: bold;
-    font-size: 210%;
-    -webkit-text-stroke-width: 1.5px;
-    -webkit-text-stroke-color: black;
-
+    font-size: 230%;
 }
 
 .losers {
     color: rgb(187, 3, 3);
     font-weight: bold;
-    font-size: 210%;
-    -webkit-text-stroke-width: 1.5px;
-    -webkit-text-stroke-color: white;
+    font-size: 230%;
 }
 
 .gainerTable {
@@ -37,11 +32,8 @@
 .sectorTitle {
     color: black;
     font-weight: bold;
-    font-size: 210%;
-    -webkit-text-stroke-width: 1.5px;
-    -webkit-text-stroke-color: white;
+    font-size: 230%;
 }
 
-.sectorTable {
-    color: blue;
-}
+
+  
