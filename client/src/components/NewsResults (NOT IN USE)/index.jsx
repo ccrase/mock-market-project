@@ -22,7 +22,8 @@ export default function NewsResults(props) {
                                     <p>Ticker(s): {result['tickers'].map((ticker) => <span>|<span style={{fontWeight: 'bold'}}> {ticker} </span> | </span>)}</p>
                                 </MDBCardText>
                             <MDBContainer style={{textAlign:'center'}}>
-                            <MDBBtn size="sm" gradient="blue" href={result['news_url']}>Read Article <MDBIcon icon="glasses" className="ml-1" /></MDBBtn>
+                            <MDBBtn gradient="blue">Blue</MDBBtn>
+                            <MDBBtn size="sm" href={result['news_url']}>Read Article <MDBIcon icon="glasses" className="ml-1" /></MDBBtn>
                             </MDBContainer>
                     </MDBCardBody>
                 </MDBCard>
@@ -33,7 +34,7 @@ export default function NewsResults(props) {
     }
 
     // return (<MDBContainer fluid>
-
+M,KLO09876VCS
     // </MDBContainer>)
 
 };
