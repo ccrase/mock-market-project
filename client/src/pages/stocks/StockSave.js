@@ -42,7 +42,9 @@ class SaveStock extends Component {
       nasdaq: '',
       disableBuy:false,
       disableSell:false,
-      disableSubmit:false
+      disableSubmit:false,
+      bgColorBuy:"blue",
+      bgColorSell:"blue"
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleBuy = this.handleBuy.bind(this);
@@ -64,7 +66,8 @@ class SaveStock extends Component {
           this.setState({
           order_type: "buy",
           perstockprice: this.state.stocks.result["1. open"],
-          disableSell:true
+          disableSell:true,
+          bgColorBuy:"purple"
           })
           }else{
           alert("You already select to Sell");
@@ -92,7 +95,8 @@ class SaveStock extends Component {
     this.setState({
       order_type: "sell",
       perstockprice: this.state.stocks.result["1. open"],
-      disableBuy:true
+      disableBuy:true,
+      bgColorSell:"purple"
     });
   
     //this.handleFormSubmit();
@@ -220,8 +224,11 @@ class SaveStock extends Component {
       available_quantity: 0 ,
       disableBuy:false,
       disableSell:false,
-      disableSubmit:false  
+      disableSubmit:false,
+      bgColorBuy:"blue",
+      bgColorSell:"blue"  
     });
+    this.apiCallLogo(input);
   }
 
   //quantity change
@@ -276,25 +283,11 @@ class SaveStock extends Component {
     API.getStocks(this.state.ticker_name)
       .then(res => {
         this.setState({
-          stocks: res.data,
-          openPrice :res.data.result["1. open"],
-          closePrice :res.data.result["4. close"],
-          highPrice :res.data.result["2. high"],
-          lowPrice :res.data.result["3. low"],
-          volume:res.data.result["5. volume"]
+          stocks: res.data
         })
       })
       .catch(err => console.log("Please Press Search"));
 
-    axios
-    .get("https://financialmodelingprep.com/api/v3/company/profile/"+ this.state.ticker_name)
-    .then(({data}) =>{ 
-      console.log(data.profile.image);
-      if(data.profile.image){
-      this.setState({logo:data.profile.image})
-      }
-      })
-    .catch(err => console.log(err));
     }else{
       alert("Please select the ticker");
     }
@@ -343,7 +336,9 @@ class SaveStock extends Component {
       available_quantity: 0 ,
       disableBuy:false,
       disableSell:false,
-      disableSubmit:false  
+      disableSubmit:false,
+      bgColorBuy:"blue",
+      bgColorSell:"blue" 
     });
   }
 
@@ -375,7 +370,9 @@ class SaveStock extends Component {
       perstockprice:0,
       disableBuy:false,
       disableSell:false,
-      disableSubmit:false
+      disableSubmit:false,
+      bgColorBuy:"blue",
+      bgColorSell:"blue"
     });
     this.checkTicker();
   }
@@ -384,6 +381,35 @@ class SaveStock extends Component {
       show: false
     });
   }
+
+  //onsearch ticker
+  apiCallLogo=(input)=>{     
+  
+      axios
+      .get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=5min&apikey=V095HJYQ4HICG0NL&symbol="+ input)
+      .then(({data}) =>{ 
+        //console.log(data);
+        let time=Object.keys(data["Time Series (5min)"])[0]
+        let result= data["Time Series (5min)"][time]
+        console.log(result);
+        this.setState({
+          openPrice :result["1. open"],
+          closePrice :result["4. close"],
+          highPrice :result["2. high"],
+          lowPrice :result["3. low"],
+          volume:result["5. volume"]
+        });
+      })
+      .catch(err => console.log(err));
+
+      axios
+      .get("https://financialmodelingprep.com/api/v3/company/profile/"+input)
+      .then(({data}) =>{ 
+        //console.log(data.profile.image);
+        this.setState({logo:data.profile.image})
+        })
+      .catch(err => console.log(err));
+    }
 
    
   render() {
@@ -446,7 +472,7 @@ class SaveStock extends Component {
            <h2>Trade</h2>
           </Col>
           </Row>
-          <h5> Search Ticker </h5> 
+          <h5> Select Ticker </h5> 
       <Row >
       <Col size = "sm-6 md-5" >
       <Input  id="searchInput" readOnly
@@ -463,7 +489,7 @@ class SaveStock extends Component {
           className = "btn" 
          >
           
-      Search
+      Select
       </Button> 
       </Col> 
       </Row>
@@ -478,15 +504,19 @@ class SaveStock extends Component {
 
       <Button disabled={this.state.disableBuy}
       onClick = {this.handleBuy}
-      type = "gradient= blue"
-      className = "btn" >
+      type = {this.state.bgColorBuy}
+      className = "btn" 
+      style={{backgroundColor:this.state.bgColorBuy}}
+      >
       BUY 
       </Button> 
       {/* <MDBBtn color="primary">MDBButton</MDBBtn> */}
       <Button disabled={this.state.disableSell}
       onClick = {this.handleSell}
-      type = "gradient= blue"
-      className = "btn" >
+      type = {this.state.bgColorSell}
+      className = "btn" 
+      style={{backgroundColor:this.state.bgColorSell}}
+      >
       SELL 
       </Button>
       </Col>
