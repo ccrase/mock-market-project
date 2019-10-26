@@ -22,7 +22,7 @@ module.exports = async (id, cb) => {
             let order = populatedUser['Order'][i];
             let symbol = order.ticker_name;
             let quote = portfolioPrices[symbol].quote
-            portfolioPrices[symbol].price += (order.quantity * quote['05. price']);
+            portfolioPrices[symbol].price += (order.quantity * quote['05. price']).toFixed(2);
         }
         cb(portfolioPrices);
     }
