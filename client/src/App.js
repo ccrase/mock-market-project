@@ -33,7 +33,7 @@ function App() {
             component={(props) => <StockSave user={user} id={props.match.params.id} />}
             />
             : null}
-          <Route exact path="/research" component={Researchpage} />
+          <Route exact path="/research/:id?" component={Researchpage} />
           <Route path='/' component={Homepage} />
         </Switch>
       </Router>

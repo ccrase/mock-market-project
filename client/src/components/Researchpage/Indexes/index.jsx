@@ -24,8 +24,8 @@ const gridExamplesPage = (props) => {
             <div style={{width: '165%', marginLeft: '-32%'}}>
               <MDBPopoverHeader><h4 style={{fontWeight: 'bold'}}>Dow Jones Industrial Average (DJIA)</h4></MDBPopoverHeader>
               <MDBPopoverBody>
-              <iframe style={{ marginLeft: '-3.5%'}}frameborder="100" width="460" height="270" src="https://videos-a.jwpsrv.com/content/conversions/hmUZMORz/videos/5XJtv4ZT-3480263.mp4?hdnts=exp=1571992382~acl=*/5XJtv4ZT-3480263.mp4~hmac=069710e3a6bdbe43a9b4ad5d492141f4aaafa7cd2c063cc5cf1347fd7956cebd" allowfullscreen allow="autoplay"></iframe>  
-              <a style={{marginLeft: '40%', fontWeight: 'bold'}} href="https://www.investopedia.com/terms/d/djia.asp" target="_blank">Learn More</a>
+              <iframe style={{ marginLeft: '-3.5%'}}frameborder="100" width="460" height="270" src="https://www.youtube.com/embed/_PXFVNWINQc" allowfullscreen allow="autoplay"></iframe>  
+              <a style={{marginLeft: '40%', fontWeight: 'bold'}}href="https://www.investopedia.com/terms/s/sp500.asp" target="_blank">Learn More</a>
             </MDBPopoverBody>
             </div>
           </MDBPopover>
@@ -41,7 +41,7 @@ const gridExamplesPage = (props) => {
             <div style={{width: '165%', marginLeft: '-32%'}}>
               <MDBPopoverHeader><h4 style={{fontWeight: 'bold'}}>Standard & Poor's 500 Index</h4></MDBPopoverHeader>
               <MDBPopoverBody style={{width: '365%', marginLeft: '-42%'}}>
-              <iframe style={{ marginLeft: '-3.5%'}} frameborder="100" width="460" height="270" src="https://videos-a.jwpsrv.com/content/conversions/hmUZMORz/videos/GKpcpdEP-3480263.mp4?hdnts=exp=1571991030~acl=*/GKpcpdEP-3480263.mp4~hmac=a6d662ef1b331575cd2351578e1b88ebe1e7ba9d7bccd734111c9cf1eea12b4f" allowfullscreen allow="autoplay"></iframe>  
+              <iframe style={{ marginLeft: '-3.5%'}} frameborder="100" width="460" height="270" src="https://www.youtube.com/embed/4aEy9duEkiY" allowfullscreen allow="autoplay"></iframe>  
               <a style={{marginLeft: '40%', fontWeight: 'bold'}}href="https://www.investopedia.com/terms/s/sp500.asp" target="_blank">Learn More</a>
             </MDBPopoverBody>
             </div>
@@ -58,7 +58,7 @@ const gridExamplesPage = (props) => {
             <div style={{width: '165%', marginLeft: '-32%'}}>
               <MDBPopoverHeader><h4 style={{fontWeight: 'bold'}}>NASDAQ</h4></MDBPopoverHeader>
               <MDBPopoverBody style={{width: '365%', marginLeft: '-42%'}}>
-              <iframe style={{ marginLeft: '-3.5%'}} frameborder="100" width="460" height="270" src="https://videos-a.jwpsrv.com/content/conversions/hmUZMORz/videos/NeGQoCBT-3480263.mp4?hdnts=exp=1571992735~acl=*/NeGQoCBT-3480263.mp4~hmac=6d994af65b30731e4c493b411ec693c0b307947c781c1279e2761568678c6983" allowfullscreen allow="autoplay"></iframe>  
+              <iframe style={{ marginLeft: '-3.5%'}} frameborder="100" width="460" height="270" src="https://www.youtube.com/embed/lpgUrFAhEC8" allowfullscreen allow="autoplay"></iframe>  
               <a style={{marginLeft: '40%', fontWeight: 'bold'}} href="https://www.investopedia.com/terms/n/nasdaq.asp" target="_blank">Learn More</a>
             </MDBPopoverBody>
             </div>
