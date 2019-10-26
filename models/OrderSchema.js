@@ -16,6 +16,5 @@ var OrderSchema = new Schema({
 
 
 var Order = mongoose.model("Order", OrderSchema);
-console.log(Order);
 
 module.exports = Order;

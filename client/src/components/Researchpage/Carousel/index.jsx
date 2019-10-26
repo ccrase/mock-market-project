@@ -6,6 +6,7 @@ import { MDBRow, MDBCol } from "mdbreact";
 import "./index.css";
 
 const CarouselPage = (props) => {
+    const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
     const data = {
         columns: [
             {
@@ -53,6 +54,7 @@ const CarouselPage = (props) => {
                         className="z-depth-1"
                         className="carouselCont"
                     >
+                        
                         <MDBCarouselInner>
                             <MDBCarouselItem itemId="1">
                                 <MDBView>
@@ -69,7 +71,7 @@ const CarouselPage = (props) => {
                                 <MDBCarouselCaption>
                                     <div className="tableContainer">
                                         <h3 className="h3-responsive gainers">Today's Market Gainers</h3>
-                                        <MDBTable scrollY className="gainerTable">
+                                        <MDBTable scrollY>
                                             <MDBTableHead columns={data.columns} />
                                             <MDBTableBody rows={data.gainerRows} />
                                         </MDBTable>

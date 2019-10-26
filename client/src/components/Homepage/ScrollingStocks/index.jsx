@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MDBTable, MDBTableBody, MDBTableHead  } from 'mdbreact';
+import { MDBContainer, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import './index.css';
 
 const ScrollingStocks = () => {
@@ -32,17 +32,17 @@ const ScrollingStocks = () => {
       let total = []
       let gains = obj['resgainers']['mostGainerStock']
       let losers = obj['reslosers']['mostLoserStock']
-      for (let i in gains){
-        for(let j in gains[i]){
-          if(j==='companyName'){delete gains[i][j]; continue}
-          gains[i][j] = <div className="gains">{gains[i][j]}</div>
+      for (let i in gains) {
+        for (let j in gains[i]) {
+          if (j === 'companyName') { delete gains[i][j]; continue }
+          gains[i][j] = <div data-aos="flip-down"><div className="homepage-gains">{gains[i][j]}</div></div>
         }
         total.push(gains[i])
       }
-      for (let i in losers){
-        for(let j in losers[i]){
-          if(j==='companyName'){delete losers[i][j]; continue}
-          losers[i][j] = <div className="losers">{losers[i][j]}</div>
+      for (let i in losers) {
+        for (let j in losers[i]) {
+          if (j === 'companyName') { delete losers[i][j]; continue }
+          losers[i][j] = <div data-aos="flip-down"><div className="homepage-losers">{losers[i][j]}</div></div>
         }
         total.push(losers[i])
       }
@@ -74,12 +74,12 @@ const ScrollingStocks = () => {
 
 
   return (
-
-    <MDBTable autoWidth id="scrollingStocks">
-      <MDBTableHead columns={stocks.columns}/>
-      <MDBTableBody rows={stocks.rows} />
-    </MDBTable>
-
+    <MDBContainer >
+      <MDBTable autoWidth>
+        <MDBTableHead columns={stocks.columns}/>
+        <MDBTableBody rows={stocks.rows} />
+      </MDBTable>
+    </MDBContainer>
   )
 }
 

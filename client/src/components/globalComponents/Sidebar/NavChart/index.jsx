@@ -1,65 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import Chart from "chart.js";
-import { MDBJumbotron } from "mdbreact";
+import { MDBCard } from "mdbreact";
 import './index.css'
+
+const colors = ['red', 'blue', 'yellow', 'green', 'purple'];
 
 const NavChart = (props) => {
 
-  const [stockData, setStockData] = useState([])
   const navChartRef = React.createRef();
   useEffect(() => {
+    if (props.data) {
+      const prices = [];
+      const labels = [];
+      let counter = 0;
+      for (let key in props.data) {
+        if (key !== 'symbols') {
 
-    // let getData = async () => {
-    //   let res = await fetch('/api/graph')
-    //   let data = await res.json()
-    //   setStockData(await data)
-    //   console.log(await data)
-    // }
-    // getData()
-
-    const myNavChartRef = navChartRef.current.getContext("2d");
-
-    new Chart(myNavChartRef, {
-      type: 'polarArea',
-      data: {
-        //Bring in data
-        labels: stockData.timeKeys,
-        datasets: [
-          {
-            label: "S&P 500",
-            data: stockData.sp500,
-            pointStyle: "line",
-            borderColor: 'rgba(255, 187, 51, 0.6)',
-            backgroundColor: "rgba(0,0,0,0)"
-          },
-          {
-            label: "DOW",
-            data: stockData.dow,
-            pointStyle: "line",
-            borderColor: "rgba(0, 200, 81, 0.6)",
-            backgroundColor: "rgba(0,0,0,0)"
-          },
-          {
-            label: "NASDAQ",
-            data: stockData.nasdaq,
-            pointStyle: "line",
-            borderColor: "rgba(51, 181, 229, 0.6)",
-            backgroundColor: "rgba(0,0,0,0)"
-          }
-        ]
+          prices.push(props.data[key].price);
+          labels.push(key);
+          counter += 1;
+          if (counter === colors.length) { counter = 0; }
+        }
       }
-    });
-  }, [navChartRef, stockData])
+      const myNavChartRef = navChartRef.current.getContext("2d");
+
+      new Chart(myNavChartRef, {
+        type: 'pie',
+        data: {
+          datasets: [{data: prices,
+            backgroundColor: [
+						'#FF6384',
+						'#FFCD56',
+						'#4BC0C0',
+            '#36A2EB',
+            '#CDA0FF',
+          ]}],
+          labels: labels
+        },
+        options: {
+          aspectRatio: 1
+        }
+      });
+    }
+  }, [navChartRef])
 
 
   return (
-    <MDBJumbotron className="chart-holder p-0">
-      <canvas
-        id="navChart"
-        className="d-block align-self-center"
-        ref={navChartRef}>
+      <MDBCard id="navChartHolder"className="my-3 p-2">
+        <canvas
+      id="navChart"
+      ref={navChartRef}>
       </canvas>
-    </MDBJumbotron>
+      </MDBCard>
   )
 }
 
