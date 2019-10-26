@@ -7,11 +7,10 @@ const Watchlist = (props) => {
     const history = useHistory();
 
     const handleSubmit=(ticker)=>{
-        console.log("research button")
         console.log(history);
-        // history.push ({
-        //     pathname: '/research/'+ ticker
-        //   })
+        history.push ({
+            pathname: '/research/'+ ticker
+          })
     };
 
     const results =  props.favorites.map((fav, i) => (

@@ -1,10 +1,12 @@
 import React from 'react'
 import { MDBListGroup, MDBListGroupItem, MDBContainer, MDBBtn, MDBIcon, } from "mdbreact";
+import { useHistory } from 'react-router';
 import { useAuth0 } from '../../react-auth0-wrapper';
 import axios from 'axios';
 
 export default function SearchResults(props) {
     const { loading, user } = useAuth0();
+    const history = useHistory();
 
     const handleClick = (i) => {
         console.log("add to favorites on the back end");
@@ -20,6 +22,13 @@ export default function SearchResults(props) {
         props.clearResultsOnClick();
     };
 
+    // const handleSubmit=(ticker)=>{
+    //     console.log(history);
+    //     history.push ({
+    //         pathname: '/research/'+ ticker
+    //       })
+    // };
+
     const searchOptions = props.results.bestMatches;
     
     return (
@@ -27,7 +36,7 @@ export default function SearchResults(props) {
         <MDBContainer>
             { searchOptions ? searchOptions.map((result, i) => (
 
-                <MDBListGroupItem href="#" key={result['1. symbol']}  id={result['1. symbol']} active className="overflow-auto" style={{"padding": "0 2px 0 2px", "backgroundColor" : "rgb(0,123,255, 0.9)"}}>
+                <MDBListGroupItem key={result['1. symbol']}  id={result['1. symbol']} active className="overflow-auto" style={{"padding": "0 2px 0 2px", "backgroundColor" : "rgb(0,123,255, 0.9)"}}>
                     <p style={{"font-size" : "15px", "opacity": "1", "padding" : "10px 0 0 5px"}}><b>{result['1. symbol']}</b>,  {result['2. name']}
                     <MDBIcon icon="heart" id={result['1. symbol']} onClick={() => handleClick(i)} className="red-text pr-3" style={{"padding-left": "10px"}} size="lg"></MDBIcon></p>
                 </MDBListGroupItem>
@@ -36,5 +45,7 @@ export default function SearchResults(props) {
         </MDBContainer>
         </div>    
     )
-}
+};
+
+// onClick={()=>{handleSubmit(result['1. symbol'])}} 
 
