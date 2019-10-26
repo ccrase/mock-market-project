@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Chart from "chart.js";
 import {MDBJumbotron} from 'mdbreact'
+import { inherits } from 'util';
 
 export default function Graph() {
     const [stockData, setStockData] = useState(false)
@@ -10,7 +11,6 @@ export default function Graph() {
             let res = await fetch('/api/graph')
             let data = await res.json()
             setStockData(await data)
-            console.log('made graph call')
         }
         getData()
     }, [])
@@ -47,15 +47,22 @@ export default function Graph() {
                         backgroundColor: "rgba(0,0,0,0)"
                     }
                 ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Two week market changes by percent',
+                    fontSize: 24,
+                    fontFamily: "'source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New','monospace'",
+                    
+                }
             }
+
         });}
     }, [stockData])
 
-
-
-
     return (
-        <MDBJumbotron id="graph">
+        <MDBJumbotron id="graph" className="py-3">
             <canvas
                 id="myChart"
                 ref={chartRef}>

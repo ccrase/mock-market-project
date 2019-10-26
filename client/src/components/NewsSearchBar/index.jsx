@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact";
+import { MDBCol, MDBFormInline, MDBIcon, MDBContainer, MDBRow } from "mdbreact";
 import NewsSearchResults from '../NewsSearchResults';
 import NewsArticles from '../NewsArticles';
 import axios from 'axios';
 
 export default class NewsSearchBar extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             query: "",
@@ -38,35 +38,41 @@ export default class NewsSearchBar extends Component {
     };
 
     afterselection = () => {
-        this.setState({ results : [] });
-        
+        this.setState({ results: [] });
+
         console.log("AFTER SELECTION");
     };
 
-    insertarticles=(data)=>{
-        this.setState({ newsArticles : data });
+    insertarticles = (data) => {
+        this.setState({ newsArticles: data });
     };
 
     render() {
         return (
             <div>
-                <MDBCol>
-                    <MDBFormInline className="md-form">
+                <MDBContainer>
+                    <MDBRow>
+                    <MDBCol md="2"></MDBCol>
+                        <MDBCol md="10" className="shadow-box-example z-depth-2"  style={{"backgroundColor": "white", "margin-bottom":"20px", "margin-top":"20px"}}>
+                        <MDBFormInline className="md-form">
                         <MDBIcon icon="search" />
-                        <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Company or Symbol" aria-label="search-term" 
+                        <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Ticker" aria-label="search-term"
                             ref={event => this.search = event}
-                            onChange={this.handleInputChange}/>
-                    </MDBFormInline>
-                </MDBCol>
+                            onChange={this.handleInputChange} />
+                        </MDBFormInline>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
+
                 <div className="search-results">
-                    <NewsSearchResults results={this.state.results} 
-                                       afterselection={this.afterselection}
-                                       insertarticles={this.insertarticles}/>
+                    <NewsSearchResults results={this.state.results}
+                        afterselection={this.afterselection}
+                        insertarticles={this.insertarticles} />
                 </div>
                 <div className="news-article-results">
-                    <NewsArticles data={this.state.newsArticles}/>
+                    <NewsArticles data={this.state.newsArticles} />
                 </div>
             </div>
-            )
-        }
+        )
+    }
 }
