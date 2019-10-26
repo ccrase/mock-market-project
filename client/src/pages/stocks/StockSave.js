@@ -182,7 +182,7 @@ class SaveStock extends Component {
       this.setState({
         ticker_name: input     
       });
-      
+      this.apiCallLogo(input);
     }
 
     axios.get('https://financialmodelingprep.com/api/v3/majors-indexes')
