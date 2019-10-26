@@ -1,14 +1,12 @@
 const db = require("../models");
 
-console.log("inside usercontroller");
-// Defining methods for the booksController
 module.exports = {
  
   findOrCreate: function(req, res) {
       db.User.findOne({ sub: req.body.sub }).then((CurrentUser) => {
         if (CurrentUser) {
             //already have a usser
-            console.log('Welcome Back', CurrentUser);
+            console.log('Welcome Back', CurrentUser['nickname']);
             res.json(CurrentUser);
         } else {
             //if not create user in our DB

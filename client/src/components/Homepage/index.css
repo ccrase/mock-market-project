@@ -1,9 +1,8 @@
-.homepage-hero{
+/* .homepage-hero{
     background-image: url('../../utils/static_resources/whitey.png');
-    height: 100vh;
     z-index: -2;
-}
-.homepage-hero::before{
+} */
+/* .homepage-hero::before{
     z-index: 0;
     content: '';
     position: absolute;
@@ -12,12 +11,16 @@
     width: 100%;
     height: 100vh;
     background: linear-gradient(0deg,  white,rgba(255, 207, 103, 0.1));
-}
+} */
 
-#graph {
+/* #graph {
     margin-top: -75vh
 }
 
 #scrollingStocks {
     margin-top: -60vh
+} */
+
+.homepage-title{
+    font-weight: bolder;
 }

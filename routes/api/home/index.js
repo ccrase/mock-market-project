@@ -27,7 +27,7 @@ module.exports = homeRoutes = (app) => {
             counter += 1;
             if(counter === 3){
                 let response = {};
-                response.timeKeys = Object.keys(data['Time Series (60min)']).slice(1,14);
+                response.timeKeys = Object.keys(data["Time Series (Daily)"]).slice(1,15).reverse();
                 for(let prop in three){
                     response[prop] = [];
                     let prev;
@@ -35,24 +35,23 @@ module.exports = homeRoutes = (app) => {
                         response[prop].push(parseFloat(three[prop][i]['4. close'])/parseFloat(prev))
                         prev = three[prop][i]['4. close']
                     }
-                    response[prop] = response[prop].slice(1,14)
-                    console.log(`found pricing of "${prop}"`)
+                    response[prop] = response[prop].slice(1,15).reverse()
                 }
                 res.json(response);
                 todaysPrices.date = getDate();
                 todaysPrices.data = response;
             }
         }
-        alpha.hour('NDAQ',(data)=>{
-            three.nasdaq = Object.values(data['Time Series (60min)']).slice(0,14);
+        alpha.day('NDAQ',(data)=>{
+            three.nasdaq = Object.values(data["Time Series (Daily)"]).slice(0,15);
             count(data);
         })
-        alpha.hour('.INX',(data)=>{
-            three.sp500 = Object.values(data['Time Series (60min)']).slice(0,14);
+        alpha.day('.INX',(data)=>{
+            three.sp500 = Object.values(data["Time Series (Daily)"]).slice(0,15);
             count(data);
         })
-        alpha.hour('.DJI',(data)=>{
-            three.dow = Object.values(data['Time Series (60min)']).slice(0,14);
+        alpha.day('.DJI',(data)=>{
+            three.dow = Object.values(data["Time Series (Daily)"]).slice(0,15);
             count(data);
         })
     }

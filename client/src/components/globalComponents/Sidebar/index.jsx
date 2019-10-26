@@ -8,38 +8,39 @@ import './index.css'
 const Sidebar = (props) => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [isOpen, setIsOpen] = useState(false)
-  const [user, setUser] = useState({ nickname: 'Log In', percent: 0 })
-  const Link = props.link
+  const [user, setUser] = useState({nickname: 'Log In', percent: 0})
+  const [sidebarData, setSidebarData] = useState(false)
   const closeSidebar = () => {
     if (isOpen) setIsOpen(false);
   };
 
-  const fetchIt = async (user) => {
-    const req = await fetch('/api/sidebar/' + user['_id']);
-    let res = await req.json();
-    return res;
+  const fetchIt = async (user, cb) => {
+    fetch('/api/sidebar/'+user['_id'])
+    .then(async (data)=>{
+      cb(await data.json())
+    })
   }
 
   useEffect(() => {
     if (props.user && props.user !== undefined) {
       setUser(props.user);
-      // let data = fetchIt(props.user);
-      // console.log(data);
+      fetchIt(props.user,(data)=>{
+        setSidebarData(data)
+      });
     }
-
   }, [props.user])
 
-  let percent = 5;
   return (<div className="sidebar">
     {!isOpen ?
 
       <MDBBtn className="dynamic-MDBBtn blue-gradient" onClick={() => setIsOpen(true)}>
-        <i className="fas fa-bars 2x p-1"></i> {user['nickname']} {percent}%
-      </MDBBtn>
-
+           <i className="fas fa-bars 2x p-1"></i> {user['nickname']} &nbsp;
+           {isAuthenticated && user !== undefined ?
+           '$'+user['account_value']:null} 
+      </MDBBtn> 
+      
       : null}
-   
-
+      
     <Drawer open={isOpen} onChange={() => { if (isOpen) setIsOpen(false); }} className="overflow-hidden shadow-box-example z-depth-5">
       <MDBJumbotron className="w-100 h-100 d-inline-block text-center">
         {/* Page Nav */}
@@ -75,14 +76,14 @@ const Sidebar = (props) => {
           </MDBNavItem>
 
           {isAuthenticated && user !== undefined ?
-            <MDBNavItem className="col-6">
+            <MDBNavItem className="col-12">
               <MDBNavLink to="/portfolio" onClick={closeSidebar}>
                 <i className="nav-icon fas fa-user" />
                 <p>Portfolio</p>
               </MDBNavLink>
             </MDBNavItem>
             :
-            <MDBNavItem className="col-12">
+            <MDBNavItem className="col-6">
               <MDBNavLink to="/portfolio" onClick={() =>
                 loginWithRedirect({})}>
                 <i className="nav-icon fas fa-user" />
@@ -92,9 +93,15 @@ const Sidebar = (props) => {
 
         </MDBNav>
 
-        <NavChart />
-
-        {isAuthenticated ? <button onClick={logout}>Log out</button> : null}
+        {isAuthenticated && user !== undefined?
+        <div>
+          <NavChart data={sidebarData}/>
+        
+        <MDBNavLink active to="/" onClick={closeSidebar && logout}>
+        <p>Log out</p>
+        </MDBNavLink>
+        </div>
+        : null}
 
       </MDBJumbotron>
     </Drawer>
