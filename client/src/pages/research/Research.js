@@ -52,47 +52,155 @@ export default class StockResearch extends React.Component {
         };
 
         this.componentDidMount = () => {
-            //Major Indexes
-            axios.get('https://financialmodelingprep.com/api/v3/majors-indexes')
+                        //Major Indexes
+                        axios.get('https://financialmodelingprep.com/api/v3/majors-indexes')
+                        .then(res => {
+                            // console.log(res);
+                            const dowChange = ((res.data.majorIndexesList[0].changes - res.data.majorIndexesList[0].price) / res.data.majorIndexesList[0].price);
+                            const sandpChange = ((res.data.majorIndexesList[2].changes - res.data.majorIndexesList[2].price) / res.data.majorIndexesList[2].price);
+                            const nasdaqChange = ((res.data.majorIndexesList[1].changes - res.data.majorIndexesList[1].price) / res.data.majorIndexesList[1].price);
+                            const dowreduced = dowChange.toFixed(4);
+                            const sandpreduced = sandpChange.toFixed(4);
+                            const nasdaqreduced = nasdaqChange.toFixed(4);
+                            this.setState({
+                                dow: res.data.majorIndexesList[0].indexName + " " + res.data.majorIndexesList[0].price + " " + "|" + " " + res.data.majorIndexesList[0].changes + " " + "Pts" + " " + "|" + " " + dowreduced + "%",
+                                sandp: res.data.majorIndexesList[2].indexName + " " + res.data.majorIndexesList[2].price + " " + "|" + " " + res.data.majorIndexesList[2].changes + " " + "Pts" + " " + "|" + " " + sandpreduced + "%",
+                                nasdaq: res.data.majorIndexesList[1].indexName + " " + res.data.majorIndexesList[1].price + " " + "|" + " " + res.data.majorIndexesList[1].changes + " " + "Pts" + " " + "|" + " " + nasdaqreduced + "%"
+                            });
+                        });
+                    //Today's Gainers
+                    axios.get('https://financialmodelingprep.com/api/v3/stock/gainers')
+                        .then(res => {
+                            // console.log(res.data.mostGainerStock);
+                            this.setState({
+                                gainers: res.data.mostGainerStock
+                            });
+                        });
+                    //Today's Losers
+                    axios.get('https://financialmodelingprep.com/api/v3/stock/losers')
+                        .then(res => {
+                            // console.log(res.data.mostLoserStock);
+                            this.setState({
+                                losers: res.data.mostLoserStock
+                            });
+                        });
+                    //Sector Performance
+                    axios.get('https://financialmodelingprep.com/api/v3/stock/sectors-performance')
+                        .then(res => {
+                            // console.log(res.data.sectorPerformance);
+                            this.setState({
+                                sectors: res.data.sectorPerformance
+                            });
+                        });
+        
+
+            if (this.props.match.params.id) {
+            alert(this.props.match.params.id);
+            console.log("we made it", this.props.match.params.id)
+            let input = this.props.match.params.id.toUpperCase();
+            this.setState({
+                symbol: input
+            });
+        
+
+            this.search = (e) => {
+                // this.setState({ search: e })
+                console.log("inside research", e)
+                const search = e;
+                this.setState({ search: input })
+                console.log("ticker", search);
+
+                console.log("state set", search);
+            }
+
+            axios.get('https://financialmodelingprep.com/api/v3/company/profile/' + input)
                 .then(res => {
                     // console.log(res);
-                    const dowChange = ((res.data.majorIndexesList[0].changes - res.data.majorIndexesList[0].price) / res.data.majorIndexesList[0].price);
-                    const sandpChange = ((res.data.majorIndexesList[2].changes - res.data.majorIndexesList[2].price) / res.data.majorIndexesList[2].price);
-                    const nasdaqChange = ((res.data.majorIndexesList[1].changes - res.data.majorIndexesList[1].price) / res.data.majorIndexesList[1].price);
-                    const dowreduced = dowChange.toFixed(4);
-                    const sandpreduced = sandpChange.toFixed(4);
-                    const nasdaqreduced = nasdaqChange.toFixed(4);
                     this.setState({
-                        dow: res.data.majorIndexesList[0].indexName + " " + res.data.majorIndexesList[0].price + " " + "|" + " " + res.data.majorIndexesList[0].changes + " " + "Pts" + " " + "|" + " " + dowreduced + "%",
-                        sandp: res.data.majorIndexesList[2].indexName + " " + res.data.majorIndexesList[2].price + " " + "|" + " " + res.data.majorIndexesList[2].changes + " " + "Pts" + " " + "|" + " " + sandpreduced + "%",
-                        nasdaq: res.data.majorIndexesList[1].indexName + " " + res.data.majorIndexesList[1].price + " " + "|" + " " + res.data.majorIndexesList[1].changes + " " + "Pts" + " " + "|" + " " + nasdaqreduced + "%"
+                        companyName: res.data.profile.companyName,
+                        industry: res.data.profile.industry,
+                        website: res.data.profile.website,
+                        description: res.data.profile.description,
+                        ceo: res.data.profile.ceo,
+                        sector: res.data.profile.sector,
+                        image: res.data.profile.image
                     });
                 });
-            //Today's Gainers
-            axios.get('https://financialmodelingprep.com/api/v3/stock/gainers')
+            //Historical Pricing
+            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + input + '?serietype=line')
                 .then(res => {
-                    // console.log(res.data.mostGainerStock);
+                    console.log("historical Info", res.data.historical);
                     this.setState({
-                        gainers: res.data.mostGainerStock
+                        historicalInfo: res.data.historical
                     });
                 });
-            //Today's Losers
-            axios.get('https://financialmodelingprep.com/api/v3/stock/losers')
-                .then(res => {
-                    // console.log(res.data.mostLoserStock);
-                    this.setState({
-                        losers: res.data.mostLoserStock
-                    });
+                            //Percent Change
+            axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/' + input + '?timeseries=60')
+            .then(res => {
+                // console.log("percent change:", res.data.historical);
+                let dailyPercentArray = []
+                res.data.historical.map(function (value, index) {
+                    dailyPercentArray.push(value['changePercent'])
+                })
+                this.setState({
+                    dailyPercentChg: dailyPercentArray
+                }); console.log("percent change:", dailyPercentArray);
+            });
+        //Pricing Data
+        axios.get('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + input + '&apikey=4H5CGJD3YP7ZTU0V')
+            .then(res => {
+                const price = res.data['Global Quote']['05. price'];
+                const priceReduced = parseFloat(price).toFixed(2);
+                const change = res.data['Global Quote']['09. change'];
+                const changeReduced = parseFloat(change).toFixed(2);
+                const percentchange = res.data['Global Quote']['10. change percent'];
+                const percentReduced = parseFloat(percentchange).toFixed(2);
+                const open = res.data['Global Quote']['02. open'];
+                const openReduced = parseFloat(open).toFixed(2);
+                const high = res.data['Global Quote']['03. high'];
+                const highReduced = parseFloat(high).toFixed(2);
+                const low = res.data['Global Quote']['04. low'];
+                const lowReduced = parseFloat(low).toFixed(2);
+                const close = res.data['Global Quote']['08. previous close'];
+                const closeReduced = parseFloat(close).toFixed(2);
+                // console.log(res);
+                this.setState({
+                    price: priceReduced,
+                    change: changeReduced,
+                    percentchange: percentReduced,
+                    open: openReduced,
+                    high: highReduced,
+                    low: lowReduced,
+                    close: closeReduced,
+                    volume: res.data['Global Quote']['06. volume'],
                 });
-            //Sector Performance
-            axios.get('https://financialmodelingprep.com/api/v3/stock/sectors-performance')
-                .then(res => {
-                    // console.log(res.data.sectorPerformance);
-                    this.setState({
-                        sectors: res.data.sectorPerformance
-                    });
+            });
+        //Ratings
+        axios.get('https://financialmodelingprep.com/api/v3/company/rating/' + input)
+            .then(res => {
+                // console.log(res);
+                this.setState({
+                    symbol: res.data.symbol,
+                    rating: res.data.rating.score,
+                    recommendation: res.data.rating.recommendation
                 });
+            });
+        //Company Information
+        axios.get('https://financialmodelingprep.com/api/v3/company/profile/' + input)
+            .then(res => {
+                // console.log(res);
+                this.setState({
+                    companyName: res.data.profile.companyName,
+                    industry: res.data.profile.industry,
+                    website: res.data.profile.website,
+                    description: res.data.profile.description,
+                    ceo: res.data.profile.ceo,
+                    sector: res.data.profile.sector,
+                    image: res.data.profile.image
+                });
+            });
         }
+        
 
         this.search = (e) => {
             // this.setState({ search: e })
@@ -106,7 +214,7 @@ export default class StockResearch extends React.Component {
             this.handleSubmit = () => {
                 console.log("tradebutton")
                 this.props.history.push({
-                    pathname: '/StockSave/' + this.state.symbol
+                    pathname: '/StockSave/' + this.state.search
                 })
             }
 
@@ -191,6 +299,7 @@ export default class StockResearch extends React.Component {
                 });
         };
     }
+}
     render() {
         return (
             <div>
