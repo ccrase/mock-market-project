@@ -73,7 +73,7 @@ class SaveStock extends Component {
           alert("You already select to Sell");
           }
         }else{
-         alert("Please press search button ");
+         alert("Please press confirm button ");
         }
         // this.handleFormSubmit();
 
@@ -109,7 +109,7 @@ class SaveStock extends Component {
     }
   }else{
     
-      alert("Please press search button ");
+      alert("Please press confirm button ");
      
   }
   }else{
