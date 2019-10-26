@@ -17,7 +17,7 @@ const AccountSummary = (props) => {
                 </div> : <p>Loading...</p>}
             </MDBCol>
             <MDBCol className="shadow-box-example z-depth-2"  size="3" style={{"backgroundColor": "white", "margin": "20px 0 20px 20px", "padding": "20px 20px 0 20px", "textAlign": "center"}}>
-                <img className="rounded" src={props.user.picture} style={{"height" : "200px"}}></img>
+                <img className="rounded" src={props.user.picture} style={{"height" : "120px", "width" : "120px"}}></img>
                 <h4>{props.user.nickname}</h4>
             </MDBCol>
         </MDBRow>

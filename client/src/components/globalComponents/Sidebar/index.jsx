@@ -36,7 +36,7 @@ const Sidebar = (props) => {
       <MDBBtn className="dynamic-MDBBtn blue-gradient" onClick={() => setIsOpen(true)}>
            <i className="fas fa-bars 2x p-1"></i> {user['nickname']} &nbsp;
            {isAuthenticated && user !== undefined ?
-           '$'+user['account_value']:null} 
+           '$'+ parseFloat(user['account_value']).toFixed(2):null} 
       </MDBBtn> 
       
       : null}
