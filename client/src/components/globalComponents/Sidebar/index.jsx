@@ -93,12 +93,14 @@ const Sidebar = (props) => {
 
         </MDBNav>
 
-        <NavChart data={sidebarData}/>
-
-        {isAuthenticated ?
-            <MDBNavLink active to="/" onClick={closeSidebar && logout}>
-              <p>Log out</p>
-            </MDBNavLink>
+        {isAuthenticated && user !== undefined?
+        <div>
+          <NavChart data={sidebarData}/>
+        
+        <MDBNavLink active to="/" onClick={closeSidebar && logout}>
+        <p>Log out</p>
+        </MDBNavLink>
+        </div>
         : null}
 
       </MDBJumbotron>
