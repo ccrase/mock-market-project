@@ -73,7 +73,7 @@ class SaveStock extends Component {
           alert("You already select to Sell");
           }
         }else{
-         alert("Please press search button ");
+         alert("Please press confirm button ");
         }
         // this.handleFormSubmit();
 
@@ -109,7 +109,7 @@ class SaveStock extends Component {
     }
   }else{
     
-      alert("Please press search button ");
+      alert("Please press confirm button ");
      
   }
   }else{
@@ -182,7 +182,7 @@ class SaveStock extends Component {
       this.setState({
         ticker_name: input     
       });
-      
+      this.apiCallLogo(input);
     }
 
     axios.get('https://financialmodelingprep.com/api/v3/majors-indexes')
@@ -321,12 +321,12 @@ class SaveStock extends Component {
   //cancle 
   handleCancel = () =>{
     this.setState({
-      openPrice :0,
-      closePrice :0,
-      highPrice :0,
-      lowPrice :0,
-      volume:0,
-      logo: "" ,
+      // openPrice :0,
+      // closePrice :0,
+      // highPrice :0,
+      // lowPrice :0,
+      // volume:0,
+      // logo: "" ,
       quantity: 0,
       temp_quantity: 0,
       perstockprice:0,
@@ -386,7 +386,7 @@ class SaveStock extends Component {
   apiCallLogo=(input)=>{     
   
       axios
-      .get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=5min&apikey=V095HJYQ4HICG0NL&symbol="+ input)
+      .get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=5min&apikey=4H5CGJD3YP7ZTU0V&symbol="+ input)
       .then(({data}) =>{ 
         //console.log(data);
         let time=Object.keys(data["Time Series (5min)"])[0]
