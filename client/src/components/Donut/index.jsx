@@ -6,36 +6,50 @@ class Donut extends Component {
     super(props);
 
     this.state = {
-      name: [],
-      series: [],
       options: {
         chart: {
           id: "basic-bar"
         },
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+          categories: ["AAPL", "AMZN", "HD"]
         }
       },
       series: [
         {
-          name: "series-1",
-          data: [30, 40, 45, 50, 49, 60, 70, 91]
+          name: "Market Value",
+          data: [2953.20, 5279.79, 1874.88]
         }
       ],
-    };
+    }
     this.captureData = this.captureData.bind(this);
   }
 
+
   captureData(){
-
+    var data = [];
+    var categories = [];
+    console.log("capture data");
+    if(this.props.orders){
+      console.log(this.props.orders.details)
+      for(var i = 0; i < this.props.orders.length; i++){
+        categories.push(this.props.orders[i].name);
+        data.push(this.props.orders[i].market_value);
+      };
+      console.log(categories)
+      this.state.options.xaxis.categories = categories;
+      console.log(data)
+      this.state.series[0].data = data;
+    };
   };
 
-  componentWillUpdate(){
+  componentWillReceiveProps(){
+    this.captureData();
+  }
 
-  };
-
-  componentWillMount(){
-      
+  componentDidUpdate(){
+    this.captureData();
+    console.log(this.state.options.xaxis.categories);
+    console.log(this.state.series[0].data);
   }
 
   render() {
@@ -47,7 +61,7 @@ class Donut extends Component {
               options={this.state.options}
               series={this.state.series}
               type="bar"
-              width="500"
+              width="450"
             />
           </div>
         </div>

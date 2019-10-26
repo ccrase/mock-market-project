@@ -67,6 +67,7 @@ export default class Portfolio extends Component {
     this.setState({account_gain_loss: gainloss});
     this.setState({total_market_value: totalMarketValue});
     this.setState({ total_order_details : totalOrderDetails });
+    console.log(this.state.total_order_details);
   };
 
   render(){
