@@ -20,7 +20,7 @@ export default class NewsSearchBar extends Component {
     };
 
     getResults = () => {
-        const APIkey = 'V095HJYQ4HICG0NL';
+        const APIkey = '4H5CGJD3YP7ZTU0V';
         axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${this.state.query}&apikey=${APIkey}`)
             .then(({ data }) => {
                 this.setState({ results: data })
