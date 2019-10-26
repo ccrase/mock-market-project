@@ -1,11 +1,22 @@
 import React, {useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { MDBContainer, MDBBtnGroup, MDBBtn, } from "mdbreact";
 import './index.css';
 
 const Watchlist = (props) => {
+    const history = useHistory();
+
+    const handleSubmit=(ticker)=>{
+        console.log("research button")
+        console.log(history);
+        // history.push ({
+        //     pathname: '/research/'+ ticker
+        //   })
+    };
+
     const results =  props.favorites.map((fav, i) => (
         <MDBBtnGroup key={i}>
-        <MDBBtn style={{float : "left"}} size="sm" id={fav.ticker_name} key={i} href="#" gradient="blue"><b>{fav.ticker_name}</b></MDBBtn>
+        <MDBBtn style={{float : "left"}} size="sm" id={fav.ticker_name} key={i} onClick={()=>{handleSubmit(fav.ticker_name)}} gradient="blue"><b>{fav.ticker_name}</b></MDBBtn>
         </MDBBtnGroup>
     ));
 

@@ -4,19 +4,10 @@ import Chart from "react-apexcharts";
 class Donut extends Component {
   constructor(props) {
     super(props);
-    console.log("INSIDE DONUT");
-    console.log(this.props.orders);
-    const names = [];
-    const series = [];
-
-    for(var i = 0; i < props.orders.length; i++){
-        names.push(props.orders.name);
-        series.push(props.orders.market_value);
-    };
-    console.log(names);
-    console.log(series);
 
     this.state = {
+      name: [],
+      series: [],
       options: {
         chart: {
           id: "basic-bar"
@@ -30,8 +21,21 @@ class Donut extends Component {
           name: "series-1",
           data: [30, 40, 45, 50, 49, 60, 70, 91]
         }
-      ]
+      ],
     };
+    this.captureData = this.captureData.bind(this);
+  }
+
+  captureData(){
+
+  };
+
+  componentWillUpdate(){
+
+  };
+
+  componentWillMount(){
+      
   }
 
   render() {

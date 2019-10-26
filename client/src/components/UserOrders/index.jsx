@@ -108,7 +108,7 @@ const UserOrder = (props) => {
       </MDBTable>
       </div>
 
-      <div className="shadow-box-example z-depth-2" style={{"backgroundColor": "white", "padding": "10px", "margin-top": "20px"}}>
+      <div className="shadow-box-example z-depth-2" style={{"backgroundColor": "white", "padding": "10px", "margin-top": "20px", "margin-bottom": "20px"}}>
         <h4 style={{"textAlign": "center", "padding-top": "10px"}}>Order History</h4>
         <MDBTable small responsive hover scrollY>
         <MDBTableHead>
