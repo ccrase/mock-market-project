@@ -6,7 +6,7 @@ var UserSchema = new Schema({
   name: {type: String,  trim: true},
   // last_name: {type: String, required: true, trim: true},
   email:{type: String, required: true, trim: true},
-  sub:{type:String, unique: true},
+  sub:{type:String },
   picture: String,
   account_value: {type: Number, default: 25000},
   Order:  [{ type: Schema.Types.ObjectId, ref: "Order"}],
