@@ -5,10 +5,10 @@ const Hero = (props) => {
     return (
     <MDBContainer fluid className="homepage-hero text-center">
         <MDBCardTitle className="h1-responsive pt-5 font-bold">
-            Safely Learn To Invest
+            Trader Trainer
         </MDBCardTitle>
         <p className="mx-5 mb-5">
-            This is the best learning platform you can find.
+        Safely Learn To Invest
         </p>
     </MDBContainer>
     )
