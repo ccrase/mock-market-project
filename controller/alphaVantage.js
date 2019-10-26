@@ -13,9 +13,8 @@ module.exports = alphaVantage = {
     },
 
     now: (ticker, cb) => {
-        axios.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=`+ apikey)
+        return axios.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=`+ apikey)
         .then(json=>{
-            console.log(json.data);
             cb(json.data);
         })
         .catch(err=>console.log(err))
@@ -42,7 +41,6 @@ module.exports = alphaVantage = {
     hour: (ticker, cb) => {
         axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=60min&apikey=`+ apikey)
         .then(json=>{
-            console.log(`Got ${ticker}`)
             cb(json.data)
         })
         .catch(err=>console.log(err))
@@ -51,7 +49,6 @@ module.exports = alphaVantage = {
     day: (ticker, cb) => {
         axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=`+ apikey)
         .then(json=>{
-            console.log(json.data);
             cb(json.data)
         })
         .catch(err=>console.log(err))

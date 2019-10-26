@@ -12,21 +12,29 @@ text-align: center;
 }
 
 .dow {
-    padding: 1%;
     color: white;
     font-weight: bold;
     background-image: linear-gradient(to left, rgb(72, 198, 248) , rgb(24, 56, 160));
+    width: 100%;
+    box-shadow: 0px 0px 40px 8px rgb(31,79,115);
+    font-size: 110%;
 }
 
 .sandp {
-    padding: 1%;
     color: white;
     font-weight: bold;
-    background-color: rgb(72, 198, 248);}
+    background-color: rgb(72, 198, 248);
+    background-image: linear-gradient(to right, rgb(72, 198, 248) , rgb(72, 198, 248));
+    width: 100%;
+    box-shadow: 0px 0px 40px 8px rgb(31,79,115);
+    font-size: 110%;
+}
 
 .nasdaq {
-    padding: 1%;
     color: white;
     font-weight: bold;
     background-image: linear-gradient(to right, rgb(72, 198, 248) , rgb(24, 56, 160));
+    width: 100%;
+    box-shadow: 0px 0px 40px 8px rgb(31,79,115);
+    font-size: 110%;
 }

@@ -3,4 +3,5 @@
     border-color: rgb(31,79,115);
     opacity: 0.9;
     filter: alpha(opacity=50);
+    box-shadow: 0px 10px 40px 1px rgb(31,79,115); 
 }
