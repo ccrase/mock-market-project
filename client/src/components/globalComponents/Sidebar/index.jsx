@@ -40,12 +40,7 @@ const Sidebar = (props) => {
       </MDBBtn> 
       
       : null}
-<<<<<<< HEAD
       
-=======
-   
-
->>>>>>> b96322e0a6bb1eea6e8b12b2e98dbbeb6d8eb4af
     <Drawer open={isOpen} onChange={() => { if (isOpen) setIsOpen(false); }} className="overflow-hidden shadow-box-example z-depth-5">
       <MDBJumbotron className="w-100 h-100 d-inline-block text-center">
         {/* Page Nav */}
