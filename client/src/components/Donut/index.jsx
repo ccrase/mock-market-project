@@ -8,7 +8,7 @@ class Donut extends Component {
     this.state = {
       options: {
         chart: {
-          id: "basic-bar"
+          id: "portfolio-market-value"
         },
         xaxis: {
           categories: ["AAPL", "AMZN", "HD"]
@@ -54,7 +54,7 @@ class Donut extends Component {
 
   render() {
     return (
-      <div className="app">
+      <div className="app" className="shadow-box-example z-depth-2" style={{"backgroundColor": "white", "marginTop": "20px"}}>
         <div className="row">
           <div className="mixed-chart">
             <Chart
