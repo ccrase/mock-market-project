@@ -95,8 +95,6 @@ export default class StockResearch extends React.Component {
         
 
             if (this.props.match.params.id) {
-            alert(this.props.match.params.id);
-            console.log("we made it", this.props.match.params.id)
             let input = this.props.match.params.id.toUpperCase();
             this.setState({
                 symbol: input
