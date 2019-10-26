@@ -472,7 +472,7 @@ class SaveStock extends Component {
            <h2>Trade</h2>
           </Col>
           </Row>
-          <h5> Select Ticker </h5> 
+          <h5> Confirm Ticker </h5> 
       <Row >
       <Col size = "sm-6 md-5" >
       <Input  id="searchInput" readOnly
@@ -489,7 +489,7 @@ class SaveStock extends Component {
           className = "btn" 
          >
           
-      Select
+      Confirm
       </Button> 
       </Col> 
       </Row>
