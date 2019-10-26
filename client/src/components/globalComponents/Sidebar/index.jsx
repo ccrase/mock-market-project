@@ -30,7 +30,6 @@ const Sidebar = (props) => {
     }
   }, [props.user])
 
-  let percent = 5;
   return (<div className="sidebar">
     {!isOpen ?
 
@@ -77,14 +76,14 @@ const Sidebar = (props) => {
           </MDBNavItem>
 
           {isAuthenticated && user !== undefined ?
-            <MDBNavItem className="col-6">
+            <MDBNavItem className="col-12">
               <MDBNavLink to="/portfolio" onClick={closeSidebar}>
                 <i className="nav-icon fas fa-user" />
                 <p>Portfolio</p>
               </MDBNavLink>
             </MDBNavItem>
             :
-            <MDBNavItem className="col-12">
+            <MDBNavItem className="col-6">
               <MDBNavLink to="/portfolio" onClick={() =>
                 loginWithRedirect({})}>
                 <i className="nav-icon fas fa-user" />
@@ -96,7 +95,11 @@ const Sidebar = (props) => {
 
         <NavChart data={sidebarData}/>
 
-        {isAuthenticated ? <button onClick={logout}>Log out</button> : null}
+        {isAuthenticated ?
+            <MDBNavLink active to="/" onClick={closeSidebar && logout}>
+              <p>Log out</p>
+            </MDBNavLink>
+        : null}
 
       </MDBJumbotron>
     </Drawer>
