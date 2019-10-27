@@ -13,7 +13,7 @@ const gridExamplesPage = (props) => {
   return (
     <MDBContainer fluid style={{backgroundColor: "white"}}>
       <MDBRow style={{marginLeft: '-2%'}}>
-        <MDBCol size="4" md="4">
+        <MDBCol size="4" md="4" xs="12">
           <MDBPopover
             placement="top"
             popover
@@ -30,7 +30,7 @@ const gridExamplesPage = (props) => {
             </div>
           </MDBPopover>
         </MDBCol>
-        <MDBCol size="4" md="4">
+        <MDBCol size="4" md="4" xs="12">
           <MDBPopover
             placement="top"
             popover
@@ -47,7 +47,7 @@ const gridExamplesPage = (props) => {
             </div>
           </MDBPopover>
         </MDBCol>
-        <MDBCol size="4" md="4">
+        <MDBCol size="4" md="4"  xs="12">
           <MDBPopover
             placement="top"
             popover
