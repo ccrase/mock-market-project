@@ -26,7 +26,7 @@ render() {
             <h5>Order Type : {res[1]}</h5>
             <h5>Quantity :{res[5]}</h5>
             <h5>Per Stock Amount :{res[2]}</h5>
-            <h5>Total Amount :{totalAmount}</h5>
+            <h5>Total Amount :{parseFloat(totalAmount).toFixed(2)}</h5>
             {/* Total Amount Invest : res[3]
             Total Amount Earn:res[4] */}
           </MDBModalBody>
