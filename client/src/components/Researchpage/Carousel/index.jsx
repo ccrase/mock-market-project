@@ -71,7 +71,7 @@ const CarouselPage = (props) => {
                                 <MDBCarouselCaption>
                                     <div className="tableContainer">
                                         <h3 className="h3-responsive gainers">Today's Market Gainers</h3>
-                                        <MDBTable scrollY>
+                                        <MDBTable scrollY className="sectorTable">
                                             <MDBTableHead columns={data.columns} />
                                             <MDBTableBody rows={data.gainerRows} />
                                         </MDBTable>
@@ -109,7 +109,7 @@ const CarouselPage = (props) => {
                                 <MDBCarouselCaption>
                                     <div className="tableContainer" layout="row">
                                         <h3 className="h3-responsive sectorTitle">Sector Performance</h3>
-                                        <MDBTable scrollY>
+                                        <MDBTable scrollY className="sectorTable">
                                             <MDBTableHead columns={data.sectorColumns} />
                                             <MDBTableBody rows={data.sectorRows} />
                                         </MDBTable>

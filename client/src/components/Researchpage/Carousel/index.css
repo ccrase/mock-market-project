@@ -11,7 +11,7 @@
 }
 
 .gainerTable {
-    color: black;
+    color: white;
     font-weight: bold;
 }
 
@@ -22,18 +22,25 @@
 
 .tableContainer {
     margin-top: -32%;
-    
+    border-radius: 60px;
+    background-image:linear-gradient(to right, rgb(24, 56, 160, 0.5), rgb(72, 198, 248, 0.8), rgb(24, 56, 160, 0.5)); 
+    padding: 1.5%;
+    color: white;
 }
 
 .carouselCont {
     height: 400px;
+    color: white;
 }
 
 .sectorTitle {
-    color: black;
+    color: white;
     font-weight: bold;
     font-size: 230%;
 }
 
+.sectorTable {
+    color: white;
+}
 
   
